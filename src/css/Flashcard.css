@@ -1,0 +1,10 @@
+.flashcard{
+    min-width: 250px;
+    width: 600px;
+    height: 800px;
+    background-color: darkslategray;
+    background-color: black;
+    border:1px solid white;
+    border-radius: 20px;
+    box-shadow: 650px 0px 5px -50px, -650px 0px 5px -50px;
+}
