@@ -11,7 +11,7 @@ export default function FlashcardHandler() {
                 <Flashcard inactive={true} />
             </div>
 
-            <div className="control-bar">
+            <div className="control-bar my-3">
                 <button className="control-buttons">Create</button>
                 <button className="control-buttons">Load</button>
                 <button className="control-buttons">Record</button>
