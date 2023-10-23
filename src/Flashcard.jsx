@@ -1,9 +1,14 @@
 import "./css/Flashcard.css"
 
-export default function Flashcard(){
-    return(
-        <div className="flashcard">
-            
-        </div>
+function conditionalReturn(props) {
+    return (<div className={`flashcard ${props.extraClasses}`}>
+
+    </div>)
+}
+
+export default function Flashcard(props) {
+    return (
+        conditionalReturn(props) 
+
     )
 }

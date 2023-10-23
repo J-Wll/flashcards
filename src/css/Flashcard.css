@@ -2,9 +2,18 @@
     min-width: 250px;
     width: 600px;
     height: 800px;
-    background-color: darkslategray;
-    background-color: black;
-    border:1px solid white;
+    background-color: rgb(22, 22, 22);
     border-radius: 20px;
-    box-shadow: 650px 0px 5px -50px, -650px 0px 5px -50px;
+    border:1px solid white;
+    /* box-shadow: 650px 0px 5px -50px, -650px 0px 5px -50px; */
+}
+
+.inactive{
+    min-width: none;
+    width: 450px;
+    height: 600px;
+    background-color: black;
+    border: none;
+    filter:blur(3px);
+    cursor: pointer;
 }
