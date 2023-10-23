@@ -1,7 +1,6 @@
-
-
-.flashcard-handler{
+.flashcard-handler {
     width: 100vw;
+    /* max-width: 1920px; */
     min-width: 250px;
     display: flex;
     flex-direction: row;
@@ -9,18 +8,25 @@
     justify-content: space-evenly;
 }
 
-.control-sidebar{
-    background-color: aliceblue;
-    position: absolute;
+.control-bar {
+    /* background-color: aliceblue; */
+    border: 1px solid white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-    height: 100vh;
+    justify-content: space-evenly;
+    /* bottom: 0; */
     padding: 5px;
-    width: 75px;
-    border-radius: 0px 10px 10px 0px;
+    width: 800px;
+    border-radius: 10px;
+    margin: 10px;
     box-sizing: border-box;
+}
+
+.control-buttons {
+    font-size: 18px;
+    height: 40px;
+    min-width: 80px;
+    /* margin-left: 5px; */
+    /* margin-right: 5px; */
 }

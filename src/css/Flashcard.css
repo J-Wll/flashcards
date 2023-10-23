@@ -1,19 +1,20 @@
 .flashcard{
-    min-width: 250px;
-    width: 600px;
-    height: 800px;
+    /* min-width: 250px; */
+    min-width: 600px;
+    height: 725px;
     background-color: rgb(22, 22, 22);
     border-radius: 20px;
     border:1px solid white;
+    margin: 0px 4px 0px 4px;
     /* box-shadow: 650px 0px 5px -50px, -650px 0px 5px -50px; */
 }
 
 .inactive{
-    min-width: none;
+    min-width: 10px;
     width: 450px;
     height: 600px;
     background-color: black;
     border: none;
-    filter:blur(3px);
+    filter:blur(2px);
     cursor: pointer;
 }
