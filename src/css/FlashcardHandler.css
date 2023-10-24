@@ -24,8 +24,9 @@
 }
 
 .control-buttons {
-    font-size: 18px;
+    font-size: 20px;
     height: 40px;
+    border-radius: 5px;
     min-width: 80px;
     /* margin-left: 5px; */
     /* margin-right: 5px; */

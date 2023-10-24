@@ -1,11 +1,11 @@
 import "./css/Flashcard.css"
 
 function conditionalReturn(props) {
-    console.log(props)
+    // console.log(props)
     if (props.inactive) {
-        return (<div className={`flashcard inactive`}></div>)
+        return (<button onClick={props.onClick} className={`flashcard inactive`}></button>)
     }
-    else { return (<div className={`flashcard active ${props.extraClasses}`}>
+    else { return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
         <p className="text-white">This is a sample question?</p>
     </div>) }
 }
