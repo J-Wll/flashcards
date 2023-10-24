@@ -1,9 +1,7 @@
 /* Good until about 750px width */
 .flashcard-handler {
     width: 100vw;
-    /* height: 95vh; */
     height: 70%;
-    /* max-width: 1920px; */
     min-width: 250px;
     display: flex;
     flex-direction: row;
@@ -12,19 +10,15 @@
 }
 
 .control-bar {
-    /* background-color: aliceblue; */
     border: 1px solid white;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    /* bottom: 0; */
     padding: 5px;
     min-width: 600px;
-    /* width: 800px; */
     width: 30%;
     border-radius: 10px;
-    /* margin: 10px; */
     box-sizing: border-box;
 }
 
@@ -34,7 +28,5 @@
     border-radius: 5px;
     min-width: fit-content;
     width: 10%;
-    /* margin-left: 5px; */
-    /* margin-right: 5px; */
     font-size: calc(16px + 0.4dvw + 0.4dvh);
 }
