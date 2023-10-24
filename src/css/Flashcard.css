@@ -36,6 +36,14 @@
     padding: 20px;
 }
 
-.active p{
+.active p, li{
     font-size: calc(16px + 0.4dvw + 0.4dvh);
+}
+
+.divider{
+    height: 1px;
+    width: 100%;
+    background-color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

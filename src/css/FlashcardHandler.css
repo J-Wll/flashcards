@@ -1,3 +1,4 @@
+/* Good until about 750px width */
 .flashcard-handler {
     width: 100vw;
     /* height: 95vh; */
@@ -31,9 +32,9 @@
     font-size: 20px;
     min-height: 40px;
     border-radius: 5px;
-    min-width: 80px;
+    min-width: fit-content;
     width: 10%;
     /* margin-left: 5px; */
     /* margin-right: 5px; */
-    font-size: calc(20px + 0.1dvw + 0.1dvh);
+    font-size: calc(20px + 0.15dvw + 0.15dvh);
 }
