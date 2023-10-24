@@ -47,3 +47,23 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.button-group{
+    width: 50%;
+    box-sizing: border-box;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.button-group button {
+    font-size: 20px;
+    min-height: 40px;
+    border-radius: 5px;
+    min-width: fit-content;
+    width: 10%;
+    font-size: calc(20px + 0.15dvw + 0.15dvh);
+}

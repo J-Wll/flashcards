@@ -16,6 +16,10 @@ function conditionalReturn(props) {
                 <li>Multiple choice 3</li>
                 <li>Multiple choice 4</li>
             </ol>
+            <div className="button-group">
+                <button className="prev-button">Previous</button>
+                <button className="next-button">Next</button>
+            </div>
         </div>)
     }
 }

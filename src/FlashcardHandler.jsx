@@ -26,6 +26,7 @@ export default function FlashcardHandler() {
                 <Flashcard onClick={nextCard} inactive={true} />
             </div>
 
+            {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             <div className="control-bar my-3">
                 <button className="control-buttons">Create</button>
                 <button className="control-buttons">Load</button>
