@@ -1,3 +1,4 @@
+import './css/Footer.css'
 import './css/Utility.css'
 
 export default function Footer() {

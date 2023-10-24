@@ -14,8 +14,10 @@ body{
     justify-content: center;
 }
 
-h1.text-white.mt-1.mb-3 {
+h1 {
     font-size: calc(40px + 0.4dvw + 0.4dvh);
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 p{
