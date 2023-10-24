@@ -19,7 +19,9 @@
     justify-content: space-evenly;
     /* bottom: 0; */
     padding: 5px;
-    width: 800px;
+    min-width: 600px;
+    /* width: 800px; */
+    width: 50%;
     border-radius: 10px;
     /* margin: 10px; */
     box-sizing: border-box;
