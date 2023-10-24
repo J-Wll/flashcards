@@ -27,6 +27,7 @@ export default function FlashcardHandler() {
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
+            {/* probably replace them with icons */}
             <div className="control-bar my-3">
                 <button className="control-buttons">Create</button>
                 <button className="control-buttons">Load</button>

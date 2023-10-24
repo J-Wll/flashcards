@@ -11,9 +11,9 @@
 }
 
 h1.text-white.mt-1.mb-3 {
-    font-size: calc(30px + 0.4dvw + 0.4dvh);
+    font-size: calc(40px + 0.4dvw + 0.4dvh);
 }
 
 p{
-    font-size: calc(16px + 0.15dvw + 0.15dvh);
+    font-size: calc(10px + 0.4dvw + 0.4dvh);
 }
