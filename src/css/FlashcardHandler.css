@@ -1,6 +1,6 @@
-/* Good until about 750px width */
+/* Good until about 800px width */
 .flashcard-handler {
-    width: 100vw;
+    width: 95vw;
     height: 70%;
     min-width: 250px;
     display: flex;
@@ -17,6 +17,8 @@
     justify-content: space-evenly;
     padding: 5px;
     min-width: 600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     width: 30%;
     border-radius: 10px;
     box-sizing: border-box;
@@ -24,9 +26,8 @@
 
 .control-buttons {
     font-size: 20px;
-    min-height: 40px;
     border-radius: 5px;
     min-width: fit-content;
     width: 10%;
-    font-size: calc(16px + 0.4dvw + 0.4dvh);
+    font-size: calc(14px + 0.4dvw + 0.4dvh);
 }

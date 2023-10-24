@@ -1,4 +1,5 @@
 import "./css/Flashcard.css"
+import "./css/Utility.css"
 
 function conditionalReturn(props) {
     // console.log(props)
@@ -18,10 +19,10 @@ function conditionalReturn(props) {
             </ol>
             <div className="button-group">
                 <div>
-                <button className="prev-button">Previous</button>
-                <button className="next-button">Next</button>
+                <button className="prev-button">{"<"}</button>
+                <button className="next-button">{">"}</button>
                 </div>
-                <button className="mt-3">Submit answer</button>
+                <button className="">Submit answer</button>
             </div>
         </div>)
     }

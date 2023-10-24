@@ -1,4 +1,5 @@
 import "./css/FlashcardHandler.css"
+import './css/Utility.css'
 import Flashcard from './Flashcard.jsx'
 
 function prevCard() {
@@ -28,7 +29,7 @@ export default function FlashcardHandler() {
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             {/* probably replace them with icons */}
-            <div className="control-bar my-3">
+            <div className="control-bar">
                 <button className="control-buttons">Create</button>
                 <button className="control-buttons">Load</button>
                 <button className="control-buttons">Stats</button>

@@ -32,6 +32,7 @@
 
 .active p, li{
     font-size: calc(16px + 0.4dvw + 0.4dvh);
+    margin: 0;
 }
 
 .divider{
@@ -55,10 +56,9 @@
 
 .button-group button {
     font-size: 20px;
-    min-height: 40px;
     border-radius: 5px;
     min-width: fit-content;
     width: 10%;
     margin: 5px;
-    font-size: calc(16px + 0.4dvw + 0.4dvh);
+    font-size: calc(14px + 0.4dvw + 0.4dvh);
 }
