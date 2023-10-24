@@ -1,5 +1,7 @@
 .flashcard-handler {
     width: 100vw;
+    /* height: 95vh; */
+    height: 70%;
     /* max-width: 1920px; */
     min-width: 250px;
     display: flex;
