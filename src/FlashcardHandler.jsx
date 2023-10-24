@@ -29,7 +29,7 @@ export default function FlashcardHandler() {
             <div className="control-bar my-3">
                 <button className="control-buttons">Create</button>
                 <button className="control-buttons">Load</button>
-                <button className="control-buttons">Record</button>
+                <button className="control-buttons">Stats</button>
                 <button className="control-buttons">Settings</button>
                 <button className="control-buttons">About</button>
             </div>

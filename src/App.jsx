@@ -3,9 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import FlashcardHandler from './FlashcardHandler'
 import Footer from './Footer'
+import * as bootstrap from 'bootstrap'
 import './css/App.css'
 import './scss/styles.scss'
-import * as bootstrap from 'bootstrap'
 
 function App() {
 

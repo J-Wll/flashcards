@@ -29,9 +29,11 @@
 
 .control-buttons {
     font-size: 20px;
-    height: 40px;
+    min-height: 40px;
     border-radius: 5px;
     min-width: 80px;
+    width: 10%;
     /* margin-left: 5px; */
     /* margin-right: 5px; */
+    font-size: calc(20px + 0.1dvw + 0.1dvh);
 }
