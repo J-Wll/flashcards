@@ -18,8 +18,8 @@
     min-width: 10px;
     width: 25%;
     height: 70%;
-    background-color: black;
-    border: none;
+    /* background-color: black; */
+    border:1px solid black;
     filter:blur(2px);
     cursor: pointer;
     margin:0px 5px 0px 5px;
@@ -35,6 +35,11 @@
 .active p, li{
     font-size: calc(16px + 0.4dvw + 0.4dvh);
     margin: 0;
+}
+
+.active ol{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .divider{
