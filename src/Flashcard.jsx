@@ -9,8 +9,8 @@ function conditionalReturn(props) {
     else {
         return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
             <p className="text-white">This is a sample question?</p>
-            <div className="divider"></div>
-            <p className="text-white">Answer here</p>
+            <div className="divider-line"></div>
+            {/* <p className="text-white">Answer here</p> */}
             <ol className="text-white">
                 <li>Multiple choice 1</li>
                 <li>Multiple choice 2</li>

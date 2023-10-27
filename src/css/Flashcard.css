@@ -42,12 +42,19 @@
     margin-bottom: 10px;
 }
 
+.divider-line{
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    margin-top: calc(5px + 1vh);
+    margin-bottom: calc(5px + 1vh);
+}
+
 .divider{
     height: 1px;
     width: 100%;
-    background-color: white;
-    margin-top: calc(5px + 3vh);
-    margin-bottom: calc(5px + 3vh);
+    margin-top: calc(5px + 1vh);
+    margin-bottom: calc(5px + 1vh);
 }
 
 .button-group{

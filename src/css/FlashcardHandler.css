@@ -1,7 +1,7 @@
 /* Good until about 800px width */
 .flashcard-handler {
     width: 95vw;
-    height: 70%;
+    /* height: 60%; */
     min-width: 250px;
     display: flex;
     flex-direction: row;
