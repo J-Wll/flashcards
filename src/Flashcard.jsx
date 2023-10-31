@@ -8,7 +8,8 @@ function conditionalReturn(props) {
     }
     else {
         return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
-            <p className="text-white">This is a sample question?</p>
+            {/* <p className="text-white">This is a sample question?</p> */}
+            <p className="text-white">{props.question.front}</p>
             <div className="divider-line"></div>
             {/* <p className="text-white">Answer here</p> */}
             <ol className="text-white">
@@ -22,7 +23,8 @@ function conditionalReturn(props) {
                 <button className="prev-button" onClick={props.prev}>{"<"}</button>
                 <button className="next-button" onClick={props.next}>{">"}</button>
                 </div>
-                <button className="">Submit answer</button>
+                <button className="">Flip card</button> 
+                {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
             </div>
         </div>)
     }

@@ -1,1 +1,10 @@
-{}
+[
+    {
+        "front": "What is X?",
+        "back": "X is Y"
+    },
+    {
+        "front": "Z is?",
+        "back": "Z is B"
+    }
+]
