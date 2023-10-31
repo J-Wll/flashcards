@@ -39,8 +39,8 @@ export default function Flashcard(props) {
                         <button className="prev-button" onClick={props.prev}>{"<"}</button>
                         <button className="next-button" onClick={props.next}>{">"}</button>
                     </div>
-                    <p className="text-white">{cardSide}</p>
                     <button onClick={flipCard} className="">Flip card</button>
+                    <p className="text-white">{cardSide}</p>
                     {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
                 </div>
             </div>)

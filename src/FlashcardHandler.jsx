@@ -11,12 +11,14 @@ export default function FlashcardHandler() {
     let amountOfQuestions = Questions.length;
 
     function prevCard() {
+        // Previous can keep a buffer of like the last 10? With randomisation of next it'll be the only way 
         if (questionNum > 0) {
             updateQuestionNum((questionNum) => questionNum - 1)
             animChange() // animation for changing cards
         }
     }
     function nextCard() {
+        // Get a random card that you haven't seen in the past X cards?
         if (questionNum < amountOfQuestions - 1) {
             updateQuestionNum((questionNum) => questionNum + 1)
             animChange();
