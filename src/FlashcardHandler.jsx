@@ -13,14 +13,14 @@ export default function FlashcardHandler() {
     function prevCard() {
         if (questionNum > 0) {
             updateQuestionNum((questionNum) => questionNum - 1)
+            animChange() // animation for changing cards
         }
-        animChange() // animation for changing cards
     }
     function nextCard() {
         if (questionNum < amountOfQuestions - 1) {
             updateQuestionNum((questionNum) => questionNum + 1)
+            animChange();
         }
-        animChange();
     }
 
     function animChange() {

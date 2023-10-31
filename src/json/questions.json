@@ -1,10 +1,26 @@
 [
     {
-        "front": "What is X?",
+        "front": "What is JSON?",
         "back": "X is Y"
     },
     {
-        "front": "Z is?",
+        "front": "What is JSON used for?",
         "back": "Z is B"
+    },
+    {
+        "front":"What is a runtime enviroment?",
+        "back":""
+    },
+    {
+        "front": "What is a framework? (Software development context)",
+        "back": ""
+    },
+    {
+        "front": "What are octal numbers",
+        "back": ""
+    },
+    {
+        "front": "What are hexadecimal numbers?",
+        "back": ""
     }
 ]
