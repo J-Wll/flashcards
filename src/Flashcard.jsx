@@ -19,8 +19,8 @@ function conditionalReturn(props) {
             </ol>
             <div className="button-group">
                 <div>
-                <button className="prev-button">{"<"}</button>
-                <button className="next-button">{">"}</button>
+                <button className="prev-button" onClick={props.prev}>{"<"}</button>
+                <button className="next-button" onClick={props.next}>{">"}</button>
                 </div>
                 <button className="">Submit answer</button>
             </div>

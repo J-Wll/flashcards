@@ -1,6 +1,8 @@
+import { useState } from "react"
 import "./css/FlashcardHandler.css"
 import './css/Utility.css'
 import Flashcard from './Flashcard.jsx'
+import Questions from './json/questions.json'
 
 function prevCard() {
     const activeCard = document.getElementById("active-flashcard");
@@ -18,12 +20,14 @@ function animChange() {
 }
 
 export default function FlashcardHandler() {
+    let [questionNum, updateQuestionNum] = useState(0)
     return (
         <>
 
+            {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
                 <Flashcard onClick={prevCard} inactive={true} />
-                <Flashcard question={""} />
+                <Flashcard prev={prevCard} next={nextCard} question={""} />
                 <Flashcard onClick={nextCard} inactive={true} />
             </div>
 
