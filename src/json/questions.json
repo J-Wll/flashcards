@@ -1,26 +1,41 @@
 [
     {
         "front": "What is JSON?",
-        "back": "X is Y"
+        "back": "A",
+        "multipleChoice": "true",
+        "multipleChoiceAnswers": [
+            {"mc1:": "Data storage"},
+            {"mc2": "Website styling"},
+            {"mc3": "Video playback"}
+        ]
     },
     {
         "front": "What is JSON used for?",
-        "back": "Z is B"
+        "back": "Z is B",
+        "multipleChoice": "false"
     },
     {
-        "front":"What is a runtime enviroment?",
-        "back":""
+        "front": "What is a runtime enviroment?",
+        "back": "C"
     },
     {
         "front": "What is a framework? (Software development context)",
-        "back": ""
+        "back": "D"
     },
     {
         "front": "What are octal numbers",
-        "back": ""
+        "back": "E"
     },
     {
         "front": "What are hexadecimal numbers?",
-        "back": ""
+        "back": "F"
+    },
+    {
+        "front": "What are pointers",
+        "back": "G"
+    },
+    {
+        "front": "What are references",
+        "back": "H"
     }
 ]
