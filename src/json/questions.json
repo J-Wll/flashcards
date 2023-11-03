@@ -1,12 +1,12 @@
 [
     {
-        "front": "What is JSON?",
+        "front": "What is JSON used for?",
         "back": "JSON is a data format based on JavaScript object syntax https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON",
         "multipleChoice": "true",
         "multipleChoiceAnswers": [
-            {"mc1:": "Data storage"},
-            {"mc2": "Website styling"},
-            {"mc3": "Video playback"}
+            {"mcq": "Data storage"},
+            {"mcq": "Website styling"},
+            {"mcq": "Video playback"}
         ]
     },
     {

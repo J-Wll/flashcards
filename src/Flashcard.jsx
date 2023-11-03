@@ -16,13 +16,23 @@ export default function Flashcard(props) {
     }
 
     function ifMultipleChoice() {
+        if (cardSide != "Front") { return }
+        let choices = [];
+
+        for (let i in props.question.multipleChoiceAnswers) {
+            choices.push(
+                <li key={i}>{props.question.multipleChoiceAnswers[i]["mcq"]}</li>
+            )
+        }
+
         return props.question.multipleChoice === "true" ?
-            <ol className="text-white">
-                <li>Multiple choice 1</li>
-                <li>Multiple choice 2</li>
-                <li>Multiple choice 3</li>
-                <li>Multiple choice 4</li>
-            </ol> : <></>
+            <>
+                <div className="divider-line"></div>
+                <ol className="text-white">
+                    {choices}
+                </ol>
+            </>
+            : <></>
     }
 
 
@@ -35,7 +45,6 @@ export default function Flashcard(props) {
             return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
                 {/* <p className="text-white">{props.question.front}</p> */}
                 <p className="text-white">{checkSide()}</p>
-                <div className="divider-line"></div>
                 {/* Multiple choices conditionally render based on property within questions json */}
 
                 {ifMultipleChoice()}
