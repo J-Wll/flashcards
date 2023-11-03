@@ -15,6 +15,17 @@ export default function Flashcard(props) {
         return cardSide === "Front" ? props.question.front : props.question.back;
     }
 
+    function ifMultipleChoice() {
+        return props.question.multipleChoice === "true" ?
+            <ol className="text-white">
+                <li>Multiple choice 1</li>
+                <li>Multiple choice 2</li>
+                <li>Multiple choice 3</li>
+                <li>Multiple choice 4</li>
+            </ol> : <></>
+    }
+
+
     function conditionalReturn(props) {
         // console.log(props)
         if (props.inactive) {
@@ -25,14 +36,11 @@ export default function Flashcard(props) {
                 {/* <p className="text-white">{props.question.front}</p> */}
                 <p className="text-white">{checkSide()}</p>
                 <div className="divider-line"></div>
-                {/* <p className="text-white">Answer here</p> */}
                 {/* Multiple choices conditionally render based on property within questions json */}
-                <ol className="text-white">
-                    <li>Multiple choice 1</li>
-                    <li>Multiple choice 2</li>
-                    <li>Multiple choice 3</li>
-                    <li>Multiple choice 4</li>
-                </ol>
+
+                {ifMultipleChoice()}
+
+
                 <div className="button-group">
                     <div>
                         <button className="prev-button" onClick={props.prev}>{"<"}</button>
