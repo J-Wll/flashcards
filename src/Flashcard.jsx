@@ -16,6 +16,10 @@ export default function Flashcard(props) {
         }
     }
 
+    function checkSide(){
+        return cardSide === "Front" ? props.question.front : props.question.back;
+    }
+
     function conditionalReturn(props) {
         // console.log(props)
         if (props.inactive) {
@@ -23,8 +27,8 @@ export default function Flashcard(props) {
         }
         else {
             return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
-                {/* <p className="text-white">This is a sample question?</p> */}
-                <p className="text-white">{props.question.front}</p>
+                {/* <p className="text-white">{props.question.front}</p> */}
+                <p className="text-white">{checkSide()}</p>
                 <div className="divider-line"></div>
                 {/* <p className="text-white">Answer here</p> */}
                 {/* Multiple choices conditionally render based on property within questions json */}
