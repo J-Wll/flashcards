@@ -8,15 +8,10 @@ export default function Flashcard(props) {
     let [cardSide, updateCardSide] = useState("Front")
 
     function flipCard() {
-        if (cardSide === "Front") {
-            updateCardSide("Back");
-        }
-        else {
-            updateCardSide("Front");
-        }
+        cardSide === "Front" ? updateCardSide("Back") : updateCardSide("Front");
     }
 
-    function checkSide(){
+    function checkSide() {
         return cardSide === "Front" ? props.question.front : props.question.back;
     }
 
