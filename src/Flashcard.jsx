@@ -5,7 +5,8 @@ import "./css/Utility.css"
 
 
 export default function Flashcard(props) {
-    let [cardSide, updateCardSide] = useState("Front")
+    let [cardSide, updateCardSide] = useState("Front");
+    let answerFlip = "";
 
     function flipCard() {
         cardSide === "Front" ? updateCardSide("Back") : updateCardSide("Front");
@@ -19,20 +20,24 @@ export default function Flashcard(props) {
         if (cardSide != "Front") { return }
         let choices = [];
 
-        for (let i in props.question.multipleChoiceAnswers) {
-            choices.push(
-                <li key={i}>{props.question.multipleChoiceAnswers[i]["mcq"]}</li>
-            )
+        if (props.question.multipleChoice === "true") {
+            answerFlip = " to check answer"
+
+            for (let i in props.question.multipleChoiceAnswers) {
+                choices.push(
+                    <li key={i}>{props.question.multipleChoiceAnswers[i]["mca"]}</li>
+                )
+            }
+
+            return (
+                <>
+                    <span className="divider-line"></span>
+                    <ol className="text-white">
+                        {choices}
+                    </ol>
+                </>)
         }
 
-        return props.question.multipleChoice === "true" ?
-            <>
-                <span className="divider-line"></span>
-                <ol className="text-white">
-                    {choices}
-                </ol>
-            </>
-            : <></>
     }
 
 
@@ -49,13 +54,14 @@ export default function Flashcard(props) {
 
                 {ifMultipleChoice()}
 
-
+                <span className="divider-line"></span>
                 <div className="button-group">
                     <div>
                         <button className="prev-button" onClick={props.prev}>{"<"}</button>
                         <button className="next-button" onClick={props.next}>{">"}</button>
                     </div>
-                    <button onClick={flipCard} className="">Flip card</button>
+                    {/* make this disabled if multiple choice and choice not made */}
+                    <button onClick={flipCard} className="">{`Flip card${answerFlip}`}</button>
                     <p className="text-white">{cardSide}</p>
                     {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
                 </div>

@@ -4,10 +4,11 @@
         "back": "JSON is a data format based on JavaScript object syntax https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON",
         "multipleChoice": "true",
         "multipleChoiceAnswers": [
-            {"mcq": "Data storage"},
-            {"mcq": "Website styling"},
-            {"mcq": "Video playback"}
-        ]
+            {"mca": "Data storage"},
+            {"mca": "Website styling"},
+            {"mca": "Video playback"}
+        ],
+        "correctAnswer": "3"
     },
     {
         "front": "What is a runtime enviroment?",
@@ -23,7 +24,7 @@
         "back": "D"
     },
     {
-        "front": "What are octal numbers",
+        "front": "What are octal numbers?",
         "back": "E"
     },
     {
@@ -31,11 +32,11 @@
         "back": "F"
     },
     {
-        "front": "What are pointers",
+        "front": "What are pointers?",
         "back": "G"
     },
     {
-        "front": "What are references",
+        "front": "What are the differences between pointers and references?",
         "back": "H"
     }
 ]
