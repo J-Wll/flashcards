@@ -4,6 +4,12 @@ import './css/Utility.css'
 import Flashcard from './Flashcard.jsx'
 import Questions from './json/questions.json'
 
+Questions.push({
+    front: "What is node.js?",
+    back: "Z is B",
+    multipleChoice: "false"
+})
+console.log(Questions);
 
 export default function FlashcardHandler() {
 

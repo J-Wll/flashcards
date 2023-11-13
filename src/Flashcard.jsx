@@ -27,7 +27,7 @@ export default function Flashcard(props) {
 
         return props.question.multipleChoice === "true" ?
             <>
-                <div className="divider-line"></div>
+                <span className="divider-line"></span>
                 <ol className="text-white">
                     {choices}
                 </ol>
