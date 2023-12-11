@@ -5,19 +5,21 @@ import "./css/Utility.css"
 
 
 export default function Flashcard(props) {
-    let [cardSide, updateCardSide] = useState("Front");
+    let [cardSide, updateCardSide] = useState("front");
+    let [flipClass, updateFlipClass] = useState("");
     let answerFlip = "";
 
     function flipCard() {
-        cardSide === "Front" ? updateCardSide("Back") : updateCardSide("Front");
+        flipClass === "" ? updateFlipClass("flipAnim"): updateFlipClass("");
+        cardSide === "front" ? updateCardSide("back") : updateCardSide("front");
     }
 
     function checkSide() {
-        return cardSide === "Front" ? props.question.front : props.question.back;
+        return cardSide === "front" ? props.question.front : props.question.back;
     }
 
     function ifMultipleChoice() {
-        if (cardSide != "Front") { return }
+        if (cardSide != "front") { return }
         let choices = [];
 
         if (props.question.multipleChoice === "true") {
@@ -47,7 +49,7 @@ export default function Flashcard(props) {
             return (<button onClick={props.onClick} className={`flashcard inactive`}></button>)
         }
         else {
-            return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses}`}>
+            return (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
                 {/* <p className="text-white">{props.question.front}</p> */}
                 <p className="text-white">{checkSide()}</p>
                 {/* Multiple choices conditionally render based on property within questions json */}
@@ -61,12 +63,12 @@ export default function Flashcard(props) {
                         <button className="next-button" onClick={props.next}>{">"}</button>
                     </div>
                     {/* make this disabled if multiple choice and choice not made */}
-                    <button onClick={flipCard} className="">{`Flip card${answerFlip}`}</button>
+                    <button onClick={flipCard} >{`Flip card${answerFlip}`}</button>
                     <p className="text-white">{cardSide}</p>
-                    {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
+                    {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}                         
                 </div>
             </div>)
-        }
+        }       
     }
 
     return (
