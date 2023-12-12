@@ -45,31 +45,26 @@ export default function Flashcard(props) {
 
     }
 
-
-    function conditionalReturn(props) {
-        // console.log(props)
-
-
-
-    }
-
     return (
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
             {/* <p className="text-white">{props.question.front}</p> */}
+            <div className="main-group">
+            {/* Main text of the flashcard, front or back */}
             <p className="text-white">{checkSide()}</p>
+
             {/* Multiple choices conditionally render based on property within questions json */}
-
             {ifMultipleChoice()}
+            </div>
 
-            <span className="divider-line"></span>
             <div className="button-group">
-                <div>
+                <span className="divider-line"></span>
+                <div className="">
                     <button className="prev-button" onClick={props.prev}>{"<"}</button>
                     <button className="next-button" onClick={props.next}>{">"}</button>
                 </div>
                 {/* make this disabled if multiple choice and choice not made */}
                 <button onClick={flipCard} >{`Flip card${answerFlip}`}</button>
-                <p className="text-white">{cardSide}</p>
+                {/* <p className="text-white flashcard-text">{cardSide}</p> */}
                 {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
             </div>
         </div>)

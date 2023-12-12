@@ -1,9 +1,9 @@
 .flashcard{
     min-width: 500px;
     width: 45%;
+    height: 95%;
     min-height: 300px;
     max-width: 1500px;
-    height: 95%;
     background-color: rgb(22, 22, 22);
     border-radius: 20px;
     border:1px solid white;
@@ -30,7 +30,17 @@
     flex-direction: column;
     align-items:center;
     font-size: 20px;
+    justify-content: space-between;
+    text-align: center;
+}
 
+.main-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 150px;
 }
 
 .active p, li{
@@ -58,10 +68,14 @@
     margin-bottom: calc(5px + 1vh);
 }
 
-.button-group{
+.flashcard-bottom{
     width: 50%;
+}
+
+.button-group{
+    width:100%;
     box-sizing: border-box;
-    margin-top: auto;
+    /* margin-top: auto; */
     display: flex;
     flex-direction: column;
     align-items: center;
