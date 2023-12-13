@@ -42,9 +42,9 @@ export default function FlashcardHandler() {
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard onClick={prevCard} inactive={true} />
+                {/* <Flashcard onClick={prevCard} inactive={true} /> */}
                 <Flashcard prev={prevCard} next={nextCard} question={Questions[questionNum]} />
-                <Flashcard onClick={nextCard} inactive={true} />
+                {/* <Flashcard onClick={nextCard} inactive={true} /> */}
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}

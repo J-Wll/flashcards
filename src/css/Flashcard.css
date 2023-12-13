@@ -93,11 +93,18 @@
 }
 
 .flipAnim {
-    transition: transform 0.8s;
+    transition: transform 0.75s;
     transform: rotateY(180deg);
     transform-style: preserve-3d;
 }
 
+.notFlipped{
+    transition: transform 0.75s;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+}
+
 .back{
+    transform: rotateY(180deg);
     
 }
