@@ -1,8 +1,14 @@
 body{
     background-color: rgb(18, 31, 31);
+    height: 95vh;
+}
+
+#root{
+    height: 100%;
 }
 
 .flex-container {
+    height: 100%;
     flex-direction: column;
     min-width: 250px;
     background-color: rgb(18, 31, 31);
