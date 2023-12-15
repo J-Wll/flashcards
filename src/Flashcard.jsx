@@ -37,7 +37,7 @@ export default function Flashcard(props) {
             return (
                 <>
                     <span className="divider-line"></span>
-                    <ol className="text-white">
+                    <ol className="text-white mutliple-choice">
                         {choices}
                     </ol>
                 </>)
@@ -48,7 +48,7 @@ export default function Flashcard(props) {
     return (
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
             {/* <p className="text-white">{props.question.front}</p> */}
-            <div className={`main-group ${cardSide}`}>
+            <div className={`main-group ${flipClass}`}>
                 {/* Main text of the flashcard, front or back */}
                 <p className="text-white">{checkSide()}</p>
 
@@ -56,7 +56,7 @@ export default function Flashcard(props) {
                 {ifMultipleChoice()}
             </div>
 
-            <div className={`button-group ${cardSide}`}>
+            <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
                 <div className="">
                     <button className="prev-button" onClick={props.prev}>{"<"}</button>

@@ -95,15 +95,22 @@
 .flipped {
     transition: transform 0.5s;
     transform: rotateY(180deg);
+    animation: fadeIn 0.5s;
     /* transform-style: preserve-3d; */
 }
 
 .notFlipped{
     transition: transform 0.5s;
     transform: rotateY(0deg);
+    animation: fadeIn 0.5s;
     /* transform-style: preserve-3d;  */
 }
 
-.back{
-    transform: rotateY(180deg);
-}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .mutliple-choice{
+    text-align: start;
+  }

@@ -45,7 +45,7 @@ export default function FlashcardHandler() {
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
                 {/* <Flashcard onClick={prevCard} inactive={true} /> */}
-                <Flashcard prev={prevCard} next={nextCard} question={Questions[questionNum]} />
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} question={Questions[questionNum]} />
                 {/* <Flashcard onClick={nextCard} inactive={true} /> */}
             </div>
 
