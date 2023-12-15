@@ -47,7 +47,6 @@ export default function Flashcard(props) {
 
     return (
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
-            {/* <p className="text-white">{props.question.front}</p> */}
             <div className={`main-group ${flipClass}`}>
                 {/* Main text of the flashcard, front or back */}
                 <p className="text-white">{checkSide()}</p>
@@ -62,12 +61,10 @@ export default function Flashcard(props) {
                     <button className="prev-button" onClick={props.prev}>{"<"}</button>
                     <button className="next-button" onClick={props.next}>{">"}</button>
                 </div>
-                
-                {/* make this disabled if multiple choice and choice not made */}
-                <button onClick={flipCard} >{`Flip card${answerFlip}`}</button>
 
-                {/* <p className="text-white flashcard-text">{cardSide}</p> */}
+                {/* make this button disabled if multiple choice and choice not made */}
                 {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
+                <button onClick={flipCard} >{`Flip card${answerFlip}`}</button>
             </div>
         </div>)
 

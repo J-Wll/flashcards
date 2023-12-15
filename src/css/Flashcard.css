@@ -1,17 +1,20 @@
 .flashcard{
     min-width: 300px;
-    width: 45%;
+    width: 50%;
     height: 95%;
     min-height: 300px;
     max-width: 1500px;
     background-color: rgb(22, 22, 22);
     border-radius: 20px;
     border:1px solid white;
-    margin: 0px 20px 0px 20px;
     box-sizing: border-box;
     padding: 20px;
     padding-top: 3vh;
     padding-bottom: 3vh;
+}
+
+.flashcard p {
+    overflow-wrap: anywhere;
 }
 
 .inactive{
@@ -94,16 +97,17 @@
 }
 
 .flipped {
-    transition: transform 0.5s;
+    transition-property: opacity, transform;
+    transition-duration: 0.5s;
     transform: rotateY(180deg);
-    animation: fadeIn 0.5s;
     /* transform-style: preserve-3d; */
 }
 
 .notFlipped{
-    transition: transform 0.5s;
+    
+    transition-property: opacity, transform;
+    transition-duration: 0.5s;
     transform: rotateY(0deg);
-    animation: fadeIn 0.5s;
     /* transform-style: preserve-3d;  */
 }
 
