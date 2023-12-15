@@ -22,10 +22,12 @@ body{
 
 h1 {
     font-size: calc(40px + 0.4dvw + 0.4dvh);
+    font-size: calc(40px + 1.2dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 p{
     font-size: calc(10px + 0.4dvw + 0.4dvh);
+    font-size: calc(16px + 0.6dvw);
 }

@@ -20,6 +20,7 @@
     justify-content: space-around;
     padding: 5px;
     min-width: 300px;
+    max-width: 1500px;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 50%;
@@ -28,10 +29,10 @@
 }
 
 .control-buttons {
-    font-size: 20px;
+    /* font-size: 20px; */
     border-radius: 5px;
     min-width: fit-content;
     margin: 5px;
-    width: 10%;
-    font-size: calc(14px + 0.4dvw + 0.4dvh);
+    /* font-size: calc(14px + 0.4dvw + 0.4dvh); */
+    font-size: calc(16px + 0.8dvw);
 }
