@@ -1,0 +1,35 @@
+.tooltip {
+    display: inline-block;
+}
+
+.tooltip-body {
+    visibility: hidden;
+    width: 260px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 50px;
+    margin-left: -175px;
+    /* margin-top: 2.5%; */
+    /* margin-left: -10%; */
+    background-color: rgb(18, 31, 31);
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    min-height: 2rem;
+    pointer-events: none;
+    box-sizing: border-box;
+    border: 1px solid white;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    font-size: 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tooltip:hover .tooltip-text,
+.tooltip:hover .tooltip-body {
+    visibility: visible;
+}
+

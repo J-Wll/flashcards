@@ -13,7 +13,7 @@ export default function Flashcard(props) {
     let answerFlip = "";
 
     function flipCard() {
-        flipClass === "notFlipped" ? updateFlipClass("flipAnim") : updateFlipClass("notFlipped");
+        flipClass === "notFlipped" ? updateFlipClass("flipped") : updateFlipClass("notFlipped");
         cardSide === "front" ? updateCardSide("back") : updateCardSide("front");
     }
 

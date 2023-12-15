@@ -1,8 +1,10 @@
 import { useState } from "react"
 import "./css/FlashcardHandler.css"
 import './css/Utility.css'
+import './css/ToolTip.css'
 import Flashcard from './Flashcard.jsx'
 import Questions from './json/questions.json'
+import ToolTip from "./ToolTip.jsx"
 
 Questions.push({
     front: "What is node.js?",
@@ -50,11 +52,11 @@ export default function FlashcardHandler() {
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             {/* probably replace them with icons */}
             <div className="control-bar">
-                <button className="control-buttons">Create</button>
-                <button className="control-buttons">Load</button>
-                <button className="control-buttons">Stats</button>
-                <button className="control-buttons">Settings</button>
-                <button className="control-buttons">About</button>
+                <ToolTip element={<button className="control-buttons">Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
+                <ToolTip element={<button className="control-buttons">Stats</button>} tooltipText={"Your study stats"} />
+                <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />
+                <ToolTip element={<button className="control-buttons">About</button>} tooltipText={"About this program"} />
             </div>
         </>
     )
