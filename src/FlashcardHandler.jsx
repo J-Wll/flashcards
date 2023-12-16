@@ -6,16 +6,14 @@ import Flashcard from './Flashcard.jsx'
 import Questions from './json/questions.json'
 import ToolTip from "./ToolTip.jsx"
 
-Questions.push({
-    front: "What is node.js?",
-    back: "Z is B",
-    multipleChoice: "false"
-})
+
 console.log(Questions);
 
 export default function FlashcardHandler() {
 
-    let [questionNum, updateQuestionNum] = useState(0)
+    let [questionNum, updateQuestionNum] = useState(0);
+    // reload component by changing state (look for a cleaner solution)
+    let [counter, refresh] = useState(0);
     let amountOfQuestions = Questions.length;
 
     function prevCard() {
@@ -24,6 +22,9 @@ export default function FlashcardHandler() {
             updateQuestionNum((questionNum) => questionNum - 1)
             animChange() // animation for changing cards
         }
+        else {
+            updateQuestionNum(amountOfQuestions-1);
+        }
     }
     function nextCard() {
         // Get a random card that you haven't seen in the past X cards?
@@ -31,6 +32,19 @@ export default function FlashcardHandler() {
             updateQuestionNum((questionNum) => questionNum + 1)
             animChange();
         }
+        else {
+            updateQuestionNum(0);
+        }
+    }
+
+    function createNewCards() {
+        Questions.push({
+            front: "What is node.js?",
+            back: "Z is B",
+            multipleChoice: "false"
+        })
+        console.log(amountOfQuestions);
+        refresh(counter+1);
     }
 
     function animChange() {
@@ -52,7 +66,7 @@ export default function FlashcardHandler() {
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             {/* probably replace them with icons */}
             <div className="control-bar">
-                <ToolTip element={<button className="control-buttons">Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={createNewCards}>Create</button>} tooltipText={"Create new flashcards"} />
                 <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
                 <ToolTip element={<button className="control-buttons">Stats</button>} tooltipText={"Your study stats"} />
                 <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />

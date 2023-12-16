@@ -1,6 +1,7 @@
 body{
     background-color: rgb(18, 31, 31);
     height: 95vh;
+    margin: 0px;
 }
 
 #root{
