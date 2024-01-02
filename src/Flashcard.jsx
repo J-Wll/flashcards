@@ -10,11 +10,13 @@ export default function Flashcard(props) {
     }
     let [cardSide, updateCardSide] = useState("front");
     let [flipClass, updateFlipClass] = useState("notFlipped");
+    let [fadeIn, updateFadeIn] = useState("");
     let answerFlip = "";
 
     function flipCard() {
         flipClass === "notFlipped" ? updateFlipClass("flipped") : updateFlipClass("notFlipped");
         cardSide === "front" ? updateCardSide("back") : updateCardSide("front");
+        fadeIn === "" || fadeIn === "fadeIn" ? updateFadeIn("fadeIn2") : updateFadeIn("fadeIn")
     }
 
     function checkSide() {
@@ -47,7 +49,7 @@ export default function Flashcard(props) {
 
     return (
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
-            <div className={`main-group ${flipClass}`}>
+            <div className={`main-group ${flipClass} ${fadeIn}`}>
                 {/* Main text of the flashcard, front or back */}
                 <p className="text-white">{checkSide()}</p>
 
