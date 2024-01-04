@@ -48,14 +48,18 @@ export default function FlashcardHandler() {
 
     function createButton(){
         updateOverlayMode("create")
-        createCards();
     }
 
-    function createCards() {
+    function createCards(iFront, iBack, iMultipleChoice = false) {
+        // Questions.push({
+        //     front: "What is node.js?",
+        //     back: "Z is B",
+        //     multipleChoice: "false"
+        // })
         Questions.push({
-            front: "What is node.js?",
-            back: "Z is B",
-            multipleChoice: "false"
+            front: iFront,
+            back: iBack,
+            multipleChoice: iMultipleChoice
         })
         console.log(amountOfQuestions);
         refresh(counter+1);

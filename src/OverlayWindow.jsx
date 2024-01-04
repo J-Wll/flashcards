@@ -1,9 +1,13 @@
 import "./css/OverlayWindow.css"
 import "./css/Utility.css"
+import { useRef } from "react";
 
 export default function OverlayWindow(props) {
 
     function setOverlayContent() {
+        const frontRef = useRef(null)
+        const backRef = useRef(null)
+
         if (props.overlayMode === "create") {
             return (
                 <>
@@ -11,10 +15,10 @@ export default function OverlayWindow(props) {
 
                     <div className="overlay-input-section">
                         <label className="text-white medium-text">Front</label>
-                        <input className="medium-text"></input>
+                        <input className="medium-text" id="create-front-input" ref={frontRef}></input>
                         <label className="text-white medium-text">Back</label>
-                        <input className="medium-text"></input>
-                        <button className="medium-text" onClick={props.createCards}>Create</button>
+                        <input className="medium-text" id="create-back-input" ref={backRef}></input>
+                        <button className="medium-text" onClick={() => props.createCards(frontRef.current.value, backRef.current.value)}>Create</button>
                     </div>
 
                 </>
