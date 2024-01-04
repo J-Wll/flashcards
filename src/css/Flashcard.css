@@ -99,15 +99,16 @@ button {
     /* font-size: calc(14px + 0.4dvw + 0.4dvh); */
 }
 
+.mutliple-choice {
+    text-align: start;
+}
+
+
 .flipped {
     transition-property: transform;
     transition-duration: 0.75s;
     transform: rotateY(180deg);
     /* transform-style: preserve-3d; */
-}
-
-.mutliple-choice {
-    text-align: start;
 }
 
 .notFlipped {
@@ -118,6 +119,7 @@ button {
     /* transform-style: preserve-3d;  */
 }
 
+/* 2 fade in classes and keyframes, otherwise the effect wont apply. Prefixes used for browser compatibility */
 .fadeIn {
     animation: fadeIn cubic-bezier(.78, 0, .79, 1.13) 0.75s;
     -webkit-animation: fadeIn cubic-bezier(.78, 0, .79, 1.13) 0.75s;

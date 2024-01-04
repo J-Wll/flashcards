@@ -1,18 +1,18 @@
 import { useState } from "react"
 import "./css/FlashcardHandler.css"
-import './css/Utility.css'
-import './css/ToolTip.css'
-import Flashcard from './Flashcard.jsx'
-import Questions from './json/questions.json'
+import "./css/Utility.css"
+import "./css/ToolTip.css"
+import Flashcard from "./Flashcard.jsx"
+import Questions from "./json/questions.json"
 import ToolTip from "./ToolTip.jsx"
+import OverlayWindow from "./OverlayWindow.jsx"
 
 
 console.log(Questions);
 
 export default function FlashcardHandler() {
-
     let [questionNum, updateQuestionNum] = useState(0);
-    // reload component by changing state (look for a cleaner solution)
+    // used to reload components by changing state
     let [counter, refresh] = useState(0);
     let amountOfQuestions = Questions.length;
 
@@ -26,6 +26,7 @@ export default function FlashcardHandler() {
             updateQuestionNum(amountOfQuestions-1);
         }
     }
+
     function nextCard() {
         // Get a random card that you haven't seen in the past X cards?
         if (questionNum < amountOfQuestions - 1) {
@@ -55,7 +56,7 @@ export default function FlashcardHandler() {
 
     return (
         <>
-
+            <OverlayWindow/>
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
                 {/* <Flashcard onClick={prevCard} inactive={true} /> */}
