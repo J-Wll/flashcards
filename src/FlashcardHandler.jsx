@@ -12,9 +12,17 @@ console.log(Questions);
 
 export default function FlashcardHandler() {
     let [questionNum, updateQuestionNum] = useState(0);
+    let amountOfQuestions = Questions.length;
+
     // used to reload components by changing state
     let [counter, refresh] = useState(0);
-    let amountOfQuestions = Questions.length;
+
+    // can be none, create, load, stats, settings, about
+    let [overlayMode, updateOverlayMode] = useState("none");
+
+    function resetOverlay(){
+        updateOverlayMode("none");
+    }
 
     function prevCard() {
         // Previous can keep a buffer of like the last 10? With randomisation of next it'll be the only way 
@@ -46,6 +54,7 @@ export default function FlashcardHandler() {
         })
         console.log(amountOfQuestions);
         refresh(counter+1);
+        updateOverlayMode("create")
     }
 
     function animChange() {
@@ -56,12 +65,12 @@ export default function FlashcardHandler() {
 
     return (
         <>
-            <OverlayWindow/>
+            {overlayMode != "none" ? <OverlayWindow overlayMode = {overlayMode} resetOverlay = {resetOverlay}/> : <></>}
+            
+
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                {/* <Flashcard onClick={prevCard} inactive={true} /> */}
                 <Flashcard extraClasses={``} prev={prevCard} next={nextCard} question={Questions[questionNum]} />
-                {/* <Flashcard onClick={nextCard} inactive={true} /> */}
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}

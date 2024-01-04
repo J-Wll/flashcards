@@ -1,7 +1,6 @@
 import "./css/OverlayWindow.css"
-import { useState } from "react"
 
-export default function OverlayWindow() {
+export default function OverlayWindow(props) {
 
     return (
         <>
@@ -9,7 +8,8 @@ export default function OverlayWindow() {
 
             </div>
             <div className="overlay-window">
-                <p>f</p>
+                <button className="overlay-close" onClick={props.resetOverlay}>X</button>
+                <p className="text-white">{props.overlayMode}</p>
             </div>
         </>
     )
