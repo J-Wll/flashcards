@@ -47,14 +47,6 @@
     height: 100%;
 }
 
-.active p,
-li,
-button {
-    font-size: calc(16px + 0.4dvw + 0.4dvh);
-    font-size: calc(16px + 0.9dvw);
-    margin: 0;
-}
-
 .active ol {
     margin-top: 10px;
     margin-bottom: 10px;

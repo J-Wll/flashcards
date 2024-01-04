@@ -39,7 +39,7 @@ export default function Flashcard(props) {
             return (
                 <>
                     <span className="divider-line"></span>
-                    <ol className="text-white mutliple-choice">
+                    <ol className="text-white medium-text mutliple-choice">
                         {choices}
                     </ol>
                 </>)
@@ -51,7 +51,7 @@ export default function Flashcard(props) {
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
             <div className={`main-group ${flipClass} ${fadeIn}`}>
                 {/* Main text of the flashcard, front or back */}
-                <p className="text-white">{checkSide()}</p>
+                <p className="text-white medium-text">{checkSide()}</p>
 
                 {/* Multiple choices conditionally render based on property within questions json */}
                 {ifMultipleChoice()}
@@ -60,13 +60,13 @@ export default function Flashcard(props) {
             <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
                 <div className="">
-                    <button className="prev-button" onClick={props.prev}>{"<"}</button>
-                    <button className="next-button" onClick={props.next}>{">"}</button>
+                    <button className="prev-button medium-text" onClick={props.prev}>{"<"}</button>
+                    <button className="next-button medium-text" onClick={props.next}>{">"}</button>
                 </div>
 
                 {/* make this button disabled if multiple choice and choice not made */}
                 {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
-                <button onClick={flipCard} >{`Flip card${answerFlip}`}</button>
+                <button onClick={flipCard} className={`medium-text`}> {`Flip card${answerFlip}`}</button>
             </div>
         </div>)
 
