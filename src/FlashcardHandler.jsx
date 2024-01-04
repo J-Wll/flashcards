@@ -46,7 +46,12 @@ export default function FlashcardHandler() {
         }
     }
 
-    function createNewCards() {
+    function createButton(){
+        updateOverlayMode("create")
+        createCards();
+    }
+
+    function createCards() {
         Questions.push({
             front: "What is node.js?",
             back: "Z is B",
@@ -54,7 +59,6 @@ export default function FlashcardHandler() {
         })
         console.log(amountOfQuestions);
         refresh(counter+1);
-        updateOverlayMode("create")
     }
 
     function animChange() {
@@ -65,7 +69,7 @@ export default function FlashcardHandler() {
 
     return (
         <>
-            {overlayMode != "none" ? <OverlayWindow overlayMode = {overlayMode} resetOverlay = {resetOverlay}/> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode = {overlayMode} resetOverlay = {resetOverlay} createCards = {createCards}/> : <></>}
             
 
             {/* functions for program control are passed into the component */}
@@ -76,7 +80,7 @@ export default function FlashcardHandler() {
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             {/* probably replace them with icons */}
             <div className="control-bar">
-                <ToolTip element={<button className="control-buttons" onClick={createNewCards}>Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={createButton}>Create</button>} tooltipText={"Create new flashcards"} />
                 <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
                 <ToolTip element={<button className="control-buttons">Stats</button>} tooltipText={"Your study stats"} />
                 <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />
