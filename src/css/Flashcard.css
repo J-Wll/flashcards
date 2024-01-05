@@ -103,6 +103,11 @@
     bottom: 0px;
 }
 
+.flashcard-main-text{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 /* animations */
 .flipped {
     transition-property: transform;

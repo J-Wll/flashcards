@@ -51,7 +51,7 @@ export default function Flashcard(props) {
         (<div id="active-flashcard" className={`flashcard active ${props.extraClasses} ${flipClass} ${cardSide}`}>
             <div className={`main-group ${flipClass} ${fadeIn}`}>
                 {/* Main text of the flashcard, front or back */}
-                <p className="text-white ft-3">{checkSide()}</p>
+                <p className="text-white ft-3 flashcard-main-text">{checkSide()}</p>
 
                 {/* Multiple choices conditionally render based on property within questions json */}
                 {ifMultipleChoice()}
