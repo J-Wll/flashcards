@@ -61,6 +61,10 @@ export default function FlashcardHandler() {
         refresh(counter+1);
     }
 
+    function saveCards(){
+        
+    }
+
     function animChange() {
         const activeCard = document.getElementById("active-flashcard");
         console.log(activeCard.getBoundingClientRect()) // do something with the location of the middle card to create a smooth animation
@@ -81,11 +85,11 @@ export default function FlashcardHandler() {
             {/* probably replace them with icons */}
             <div className="control-bar">
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("create")}>Create</button>} tooltipText={"Create new flashcards"} />
-                <ToolTip element={<button className="control-buttons">Save</button>} tooltipText={"Save your set of flashcards"} />
-                <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={saveCards}>Save</button>} tooltipText={"Save your set of flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("load")}>Load</button>} tooltipText={"Load a set of flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("stats")}>Stats</button>} tooltipText={"Your study stats"} />
-                <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />
-                <ToolTip element={<button className="control-buttons">About</button>} tooltipText={"About this program"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("settings")}>Settings</button>} tooltipText={"Adjust the program"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("about")}>About</button>} tooltipText={"About this program"} />
             </div>
         </>
     )
