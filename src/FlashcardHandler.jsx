@@ -46,10 +46,6 @@ export default function FlashcardHandler() {
         }
     }
 
-    function createButton(){
-        updateOverlayMode("create")
-    }
-
     function createCards(iFront, iBack, iMultipleChoice = false) {
         // Questions.push({
         //     front: "What is node.js?",
@@ -84,10 +80,10 @@ export default function FlashcardHandler() {
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             {/* probably replace them with icons */}
             <div className="control-bar">
-                <ToolTip element={<button className="control-buttons" onClick={createButton}>Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("create")}>Create</button>} tooltipText={"Create new flashcards"} />
                 <ToolTip element={<button className="control-buttons">Save</button>} tooltipText={"Save your set of flashcards"} />
                 <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
-                <ToolTip element={<button className="control-buttons">Stats</button>} tooltipText={"Your study stats"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("stats")}>Stats</button>} tooltipText={"Your study stats"} />
                 <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />
                 <ToolTip element={<button className="control-buttons">About</button>} tooltipText={"About this program"} />
             </div>

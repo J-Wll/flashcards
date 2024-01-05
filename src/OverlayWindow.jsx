@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 export default function OverlayWindow(props) {
 
-    function createCard() {
+    function createCardWindow() {
         const frontRef = useRef(null)
         const backRef = useRef(null)
         return (
@@ -21,16 +21,26 @@ export default function OverlayWindow(props) {
         )
     }
 
+    function statsWindow(){
+
+        return (
+            <>
+            <p>Stats</p>
+            </>
+        )
+    }
+
     function setOverlayContent() {
         switch (props.overlayMode) {
             case "create":
-                return createCard();
+                return createCardWindow();
                 break;
             case "save":
                 break;
             case "load":
                 break;
             case "stats":
+                return statsWindow();
                 break;
             case "settings":
                 break;
