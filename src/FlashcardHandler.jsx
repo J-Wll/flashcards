@@ -17,7 +17,7 @@ export default function FlashcardHandler() {
     // used to reload components by changing state
     let [counter, refresh] = useState(0);
 
-    // can be none, create, load, stats, settings, about
+    // can be none, create, save, load, stats, settings, about
     let [overlayMode, updateOverlayMode] = useState("none");
 
     function resetOverlay(){
