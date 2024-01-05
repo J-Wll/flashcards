@@ -1,6 +1,6 @@
 body{
     background-color: rgb(18, 31, 31);
-    height: 95vh;
+    /* height: 95vh; */
     margin: 0px;
 }
 
@@ -19,4 +19,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.app-title{
+    margin-top: 5dvh;
 }

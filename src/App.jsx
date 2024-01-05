@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import FlashcardHandler from './FlashcardHandler'
 import Footer from './Footer'
 // import * as bootstrap from 'bootstrap'
@@ -12,7 +9,7 @@ function App() {
 
   return (
     <div className="flex-container">
-      <h1 className='text-white ft-5'>Flashcards</h1>
+      <h1 className='text-white ft-5 app-title'>Flashcards</h1>
       <FlashcardHandler/> 
       <Footer/>
     </div>
