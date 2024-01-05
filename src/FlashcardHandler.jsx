@@ -78,7 +78,7 @@ export default function FlashcardHandler() {
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} question={Questions[questionNum]} />
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} question={Questions[questionNum]} questionNum = {questionNum} amountOfQuestions = {amountOfQuestions} />
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}

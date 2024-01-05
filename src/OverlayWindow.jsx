@@ -11,14 +11,14 @@ export default function OverlayWindow(props) {
         if (props.overlayMode === "create") {
             return (
                 <>
-                    <p className="text-white medium-text">Create a flashcard</p>
+                    <p className="text-white ft-3">Create a flashcard</p>
 
                     <div className="overlay-input-section">
-                        <label className="text-white medium-text">Front</label>
-                        <input className="medium-text" id="create-front-input" ref={frontRef}></input>
-                        <label className="text-white medium-text">Back</label>
-                        <input className="medium-text" id="create-back-input" ref={backRef}></input>
-                        <button className="medium-text" onClick={() => props.createCards(frontRef.current.value, backRef.current.value)}>Create</button>
+                        <label className="text-white ft-3">Front</label>
+                        <input className="ft-3" id="create-front-input" ref={frontRef}></input>
+                        <label className="text-white ft-3">Back</label>
+                        <input className="ft-3" id="create-back-input" ref={backRef}></input>
+                        <button className="ft-3" onClick={() => props.createCards(frontRef.current.value, backRef.current.value)}>Create</button>
                     </div>
 
                 </>
