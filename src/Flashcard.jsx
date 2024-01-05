@@ -56,7 +56,7 @@ export default function Flashcard(props) {
                 {/* Multiple choices conditionally render based on property within questions json */}
                 {ifMultipleChoice()}
 
-                <p className="text-white ft-1">{`< ${props.questionNum+1} / ${props.amountOfQuestions} >`}</p>
+                <p className="text-white ft-1 card-indicator">{`< ${props.questionNum+1} / ${props.amountOfQuestions} >`}</p>
             </div>
 
             <div className={`button-group ${flipClass}`}>
