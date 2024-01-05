@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="flex-container">
-      <h1 className='text-white mt-1 mb-3'>Flashcards</h1>
+      <h1 className='text-white large-text'>Flashcards</h1>
       <FlashcardHandler/> 
       <Footer/>
     </div>

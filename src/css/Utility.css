@@ -21,8 +21,18 @@
     margin-bottom: 10px;
 }
 
+.large-text{
+    font-size: calc(40px + 1.2dvw);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .medium-text{
     /* font-size: calc(16px + 0.4dvw + 0.4dvh); */
     /* font-size: calc(16px + 0.9dvw); */
+    font-size: calc(18px + 0.5dvw);
+}
+
+.small-text{
     font-size: calc(16px + 0.5dvw);
 }
