@@ -23,15 +23,15 @@ export default function OverlayWindow(props) {
     }
 
     // From the stats button
-    function statsWindow(){
+    function statsWindow() {
 
         return (
             <>
-            <p className="text-white ft-2">Stats</p>
-            {/* Cards viewed? */}
-            {/* Answers correct? */}
-            {/* Cards made? */}
-            {/* Time spent? */}
+                <p className="text-white ft-2">Stats</p>
+                {/* Cards viewed? */}
+                {/* Answers correct? */}
+                {/* Cards made? */}
+                {/* Time spent? */}
             </>
         )
     }
@@ -40,14 +40,12 @@ export default function OverlayWindow(props) {
         switch (props.overlayMode) {
             case "create":
                 return createCardWindow();
-                break;
             case "save":
                 break;
             case "load":
                 break;
             case "stats":
                 return statsWindow();
-                break;
             case "settings":
                 break;
             case "about":
