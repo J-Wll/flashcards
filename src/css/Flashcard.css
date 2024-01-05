@@ -1,13 +1,16 @@
 .flashcard {
     min-width: 300px;
     width: 50%;
+    max-width: 1500px;
     height: 95%;
     min-height: 475px;
-    max-width: 1500px;
+    box-sizing: border-box;
+
     background-color: rgb(22, 22, 22);
+
     border-radius: 20px;
     border: 1px solid white;
-    box-sizing: border-box;
+
     padding: 20px;
     padding-top: 2vh;
     padding-bottom: 2vh;
@@ -114,6 +117,18 @@
     transition-duration: 0.75s;
     transform: rotateY(0deg);
     /* transform-style: preserve-3d;  */
+}
+
+@media only screen and (max-width: 1200px){
+    .flashcard{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .flashcard{
+        width: 80%;
+    }
 }
 
 /* 2 fade in classes and keyframes, otherwise the effect wont apply. Prefixes used for browser compatibility */

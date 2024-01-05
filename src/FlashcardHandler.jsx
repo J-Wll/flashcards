@@ -85,6 +85,7 @@ export default function FlashcardHandler() {
             {/* probably replace them with icons */}
             <div className="control-bar">
                 <ToolTip element={<button className="control-buttons" onClick={createButton}>Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons">Save</button>} tooltipText={"Save your set of flashcards"} />
                 <ToolTip element={<button className="control-buttons">Load</button>} tooltipText={"Load a set of flashcards"} />
                 <ToolTip element={<button className="control-buttons">Stats</button>} tooltipText={"Your study stats"} />
                 <ToolTip element={<button className="control-buttons">Settings</button>} tooltipText={"Adjust the program"} />

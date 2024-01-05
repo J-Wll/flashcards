@@ -13,19 +13,22 @@
 
 .control-bar {
     border: 1px solid white;
+    border-radius: 10px;
+
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    padding: 5px;
+
     min-width: 300px;
     max-width: 1500px;
+    width: 50%;
+    box-sizing: border-box;
+
+    padding: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 50%;
-    border-radius: 10px;
-    box-sizing: border-box;
 }
 
 .control-buttons {
@@ -35,4 +38,16 @@
     margin: 5px;
     /* font-size: calc(14px + 0.4dvw + 0.4dvh); */
     font-size: calc(16px + 0.8dvw);
+}
+
+@media only screen and (max-width: 1200px){
+    .control-bar{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .control-bar{
+        width: 80%;
+    }
 }
