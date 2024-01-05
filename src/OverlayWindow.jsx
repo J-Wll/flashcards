@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 export default function OverlayWindow(props) {
 
+    // From the create cards button
     function createCardWindow() {
         const frontRef = useRef(null)
         const backRef = useRef(null)
@@ -21,11 +22,16 @@ export default function OverlayWindow(props) {
         )
     }
 
+    // From the stats button
     function statsWindow(){
 
         return (
             <>
-            <p>Stats</p>
+            <p className="text-white ft-2">Stats</p>
+            {/* Cards viewed? */}
+            {/* Answers correct? */}
+            {/* Cards made? */}
+            {/* Time spent? */}
             </>
         )
     }
