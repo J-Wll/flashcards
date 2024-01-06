@@ -75,7 +75,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} prev={prevCard} next={nextCard}/> : <></>}
 
 
             {/* functions for program control are passed into the component */}

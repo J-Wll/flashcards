@@ -10,25 +10,46 @@ export default function OverlayWindow(props) {
         const backRef = useRef(null)
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
-        function callCreateOrEdit(){
-            if (createOrEdit==="Edit"){
+        function callCreateOrEdit() {
+            if (createOrEdit === "Edit") {
                 props.editCard(frontRef.current.value, backRef.current.value)
             }
-            else{
+            else {
                 props.createCards(frontRef.current.value, backRef.current.value);
             }
         }
 
-        function editMode(){
+        function editMode() {
             updateCreateOrEdit("Edit");
             frontRef.current.value = props.question.front;
             backRef.current.value = props.question.back;
         }
 
-        function createMode(){
+        function createMode() {
             updateCreateOrEdit("Create");
             frontRef.current.value = "";
             backRef.current.value = "";
+        }
+
+        function nextCard(){
+            props.next();
+            editMode();
+        }
+
+        function prevCard(){
+            props.prev();
+            editMode();
+        }
+
+        function editNavigation() {
+            if (createOrEdit === "Edit") {
+                return (
+                    <div className="horizontal-container">
+                    <button className="ft-3" onClick={nextCard}>{"<"}</button>
+                    <button className="ft-3" onClick={prevCard}>{">"}</button>
+                    </div>
+                )
+            }
         }
 
         return (
@@ -52,6 +73,7 @@ export default function OverlayWindow(props) {
                     </div>
 
                     <button className="ft-3" onClick={callCreateOrEdit}>{createOrEdit}</button>
+                    {editNavigation()}
                 </div>
             </>
         )
