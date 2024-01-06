@@ -39,15 +39,3 @@
     /* font-size: calc(14px + 0.4dvw + 0.4dvh); */
     font-size: calc(16px + 0.8dvw);
 }
-
-@media only screen and (max-width: 1200px){
-    .control-bar{
-        width: 65%;
-    }
-}
-
-@media only screen and (max-width: 800px){
-    .control-bar{
-        width: 80%;
-    }
-}

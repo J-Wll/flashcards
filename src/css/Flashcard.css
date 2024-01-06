@@ -124,18 +124,6 @@
     /* transform-style: preserve-3d;  */
 }
 
-@media only screen and (max-width: 1200px){
-    .flashcard{
-        width: 65%;
-    }
-}
-
-@media only screen and (max-width: 800px){
-    .flashcard{
-        width: 80%;
-    }
-}
-
 /* 2 fade in classes and keyframes, otherwise the effect wont apply. Prefixes used for browser compatibility */
 .fadeIn {
     animation: fadeIn cubic-bezier(.78, 0, .79, 1.13) 0.75s;

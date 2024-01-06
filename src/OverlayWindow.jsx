@@ -59,7 +59,7 @@ export default function OverlayWindow(props) {
         <>
             <div className="background-blur" />
 
-            <div className="overlay-window">
+            <div className="overlay-window responsive-width">
                 <button className="overlay-close" onClick={props.resetOverlay}>X</button>
                 {setOverlayContent()}
             </div>

@@ -4,8 +4,8 @@
 
     width: 50%;
     min-width: 300px;
-    height: 60%;
-    min-height: 300px;
+    /* height: 60%; */
+    min-height: 500px;
 
     background-color: rgb(22, 22, 22);
     border: 1px solid white;
@@ -41,13 +41,15 @@
     display: inherit;
     flex-direction: inherit;
     text-align: center;
-    width: 50%;
+    width: 80%;
 }
 
-.overlay-input-section input{
+.overlay-input-section textarea{
     margin-bottom: 20px;
+    resize: vertical;
 }
 
 .overlay-input-section button{
     margin-top: 10px;
+    margin-bottom: 20px;
 }

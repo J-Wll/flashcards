@@ -82,7 +82,7 @@ export default function FlashcardHandler() {
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
-            <div className="control-bar">
+            <div className="control-bar responsive-width">
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("create")}>Create</button>} tooltipText={"Create new flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={saveCards}>Save</button>} tooltipText={"Save your set of flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("load")}>Load</button>} tooltipText={"Load a set of flashcards"} />
