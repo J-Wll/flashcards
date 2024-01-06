@@ -79,6 +79,19 @@ export default function OverlayWindow(props) {
         )
     }
 
+    // About button
+    function aboutWindow(){
+        return (
+            <>
+            <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
+            <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
+            <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
+            <button className="ft-2">Load default set of flashcards (Programming related)</button>
+            <button className="ft-2">Load empty set of flashcards</button>
+            </>
+        )
+    }
+
     // From the stats button
     function statsWindow() {
 
@@ -106,6 +119,7 @@ export default function OverlayWindow(props) {
             case "settings":
                 break;
             case "about":
+                return aboutWindow();
                 break;
             default:
                 break;
