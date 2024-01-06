@@ -9,48 +9,49 @@ export default function OverlayWindow(props) {
         const frontRef = useRef(null)
         const backRef = useRef(null)
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
-        let [c, r] = useState(0)
 
-
-        function getExistingFront() {
-            if (createOrEdit === "Edit") {
-                return props.question.front;
+        function callCreateOrEdit(){
+            if (createOrEdit==="Edit"){
+                props.editCard(frontRef.current.value, backRef.current.value)
             }
-            return ""
+            else{
+                props.createCards(frontRef.current.value, backRef.current.value);
+            }
         }
 
-        function getExistingBack() {
-            if (createOrEdit === "Edit") {
-                return props.question.back;
-            }
-            return ""
+        function editMode(){
+            updateCreateOrEdit("Edit");
+            frontRef.current.value = props.question.front;
+            backRef.current.value = props.question.back;
         }
 
-
-        let existingFront = getExistingFront();
-        let existingBack = getExistingBack();
+        function createMode(){
+            updateCreateOrEdit("Create");
+            frontRef.current.value = "";
+            backRef.current.value = "";
+        }
 
         return (
             <>
                 <div className="horizontal-container">
-                    <button className="ft-3" onClick={() => updateCreateOrEdit("Create")}>Create</button>
+                    <button className="ft-3" onClick={createMode}>Create</button>
                     <span className="text-white ft-3"> | </span>
-                    <button className="ft-3" onClick={() => updateCreateOrEdit("Edit")}>Edit</button>
+                    <button className="ft-3" onClick={editMode}>Edit</button>
                 </div>
                 {/* <p className="text-white ft-3">Create a flashcard</p> */}
                 <div className="overlay-input-section">
                     <label className="text-white ft-3">Front</label>
-                    <textarea className="ft-3" id="create-front-input" ref={frontRef} defaultValue={getExistingFront()}></textarea>
+                    <textarea className="ft-3" id="create-front-input" ref={frontRef}></textarea>
 
                     <label className="text-white ft-3">Back</label>
-                    <textarea className="ft-3" id="create-back-input" ref={backRef} defaultValue={getExistingBack()}></textarea>
+                    <textarea className="ft-3" id="create-back-input" ref={backRef}></textarea>
 
                     <div className="horizontal-container">
                         <label className="text-white ft-3" htmlFor="mc-checkbox">Multiple choice?</label>
                         <input type="checkbox" id="mc-checkbox" />
                     </div>
 
-                    <button className="ft-3" onClick={() => props.createCards(frontRef.current.value, backRef.current.value)}>{createOrEdit}</button>
+                    <button className="ft-3" onClick={callCreateOrEdit}>{createOrEdit}</button>
                 </div>
             </>
         )

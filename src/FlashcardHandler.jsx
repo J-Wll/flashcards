@@ -48,11 +48,6 @@ export default function FlashcardHandler() {
     }
 
     function createCards(iFront, iBack, iMultipleChoice = false) {
-        // Questions.push({
-        //     front: "What is node.js?",
-        //     back: "Z is B",
-        //     multipleChoice: "false"
-        // })
         stateQuestions.push({
             front: iFront,
             back: iBack,
@@ -60,6 +55,12 @@ export default function FlashcardHandler() {
         })
         console.log(amountOfQuestions);
         refresh(counter + 1);
+    }
+
+    function editCard(iFront, iBack, iMultipleChoice = false){
+        stateQuestions[questionNum].front = iFront;
+        stateQuestions[questionNum].back = iBack;
+        stateQuestions[questionNum].multipleChoice = iMultipleChoice;
     }
 
     function saveCards() {
@@ -74,7 +75,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} createCards={createCards} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}
