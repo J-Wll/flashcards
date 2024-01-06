@@ -41,6 +41,16 @@
     font-size: calc(16px + 0.4dvw);
 }
 
+.horizontal-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.horizontal-container *{
+    margin: 10px;
+}
+
 .responsive-width{
     width: 55% !important;
 }

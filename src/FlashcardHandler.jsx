@@ -73,7 +73,8 @@ export default function FlashcardHandler() {
 
     return (
         <>
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} resetOverlay={() =>updateOverlayMode("none")} createCards={createCards} /> : <></>}
+            {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} createCards={createCards} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}
@@ -83,7 +84,7 @@ export default function FlashcardHandler() {
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             <div className="control-bar responsive-width">
-                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("create")}>Create</button>} tooltipText={"Create new flashcards"} />
+                <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("create")}>Create/Edit</button>} tooltipText={"Create new flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={saveCards}>Save</button>} tooltipText={"Save your set of flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("load")}>Load</button>} tooltipText={"Load a set of flashcards"} />
                 <ToolTip element={<button className="control-buttons" onClick={() => updateOverlayMode("stats")}>Stats</button>} tooltipText={"Your study stats"} />
