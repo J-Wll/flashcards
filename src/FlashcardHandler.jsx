@@ -25,7 +25,7 @@ export default function FlashcardHandler() {
     }
 
     function prevCard() {
-        // Previous can keep a buffer of like the last 10? With randomisation of next it'll be the only way 
+        // Previous can keep a buffer of like the last 10?
         if (questionNum > 0) {
             updateQuestionNum((questionNum) => questionNum - 1)
             animChange() // animation for changing cards
@@ -62,7 +62,7 @@ export default function FlashcardHandler() {
     }
 
     function saveCards(){
-
+        
     }
 
     function animChange() {

@@ -13,9 +13,9 @@ export default function OverlayWindow(props) {
                 <p className="text-white ft-3">Create a flashcard</p>
                 <div className="overlay-input-section">
                     <label className="text-white ft-3">Front</label>
-                    <input className="ft-3" id="create-front-input" ref={frontRef}></input>
+                    <textarea className="ft-3" id="create-front-input" ref={frontRef}></textarea>
                     <label className="text-white ft-3">Back</label>
-                    <input className="ft-3" id="create-back-input" ref={backRef}></input>
+                    <textarea className="ft-3" id="create-back-input" ref={backRef}></textarea>
                     <button className="ft-3" onClick={() => props.createCards(frontRef.current.value, backRef.current.value)}>Create</button>
                 </div>
             </>
