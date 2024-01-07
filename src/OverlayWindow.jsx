@@ -21,8 +21,8 @@ export default function OverlayWindow(props) {
 
         function editMode() {
             updateCreateOrEdit("Edit");
-            frontRef.current.value = props.question.front;
-            backRef.current.value = props.question.back;
+            frontRef.current.value = props.flashcardContent.front;
+            backRef.current.value = props.flashcardContent.back;
         }
 
         function createMode() {

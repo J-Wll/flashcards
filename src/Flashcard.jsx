@@ -5,6 +5,7 @@ import "./css/Utility.css"
 
 
 export default function Flashcard(props) {
+    const flashcardContent = props.flashcardContent;
     if (props.inactive) {
         return (<button onClick={props.onClick} className={`flashcard inactive`}></button>)
     }
@@ -20,19 +21,19 @@ export default function Flashcard(props) {
     }
 
     function checkSide() {
-        return cardSide === "front" ? props.question.front : props.question.back;
+        return cardSide === "front" ? flashcardContent.front : flashcardContent.back;
     }
 
     function ifMultipleChoice() {
         if (cardSide != "front") { return }
         let choices = [];
 
-        if (props.question.multipleChoice === "true") {
+        if (flashcardContent.multipleChoice === "true") {
             answerFlip = " to check answer"
 
-            for (let i in props.question.multipleChoiceAnswers) {
+            for (let i in props.flashcardContent.multipleChoiceAnswers) {
                 choices.push(
-                    <li key={i}>{props.question.multipleChoiceAnswers[i]["mca"]}</li>
+                    <li key={i}>{flashcardContent.multipleChoiceAnswers[i]["mca"]}</li>
                 )
             }
 
@@ -53,10 +54,10 @@ export default function Flashcard(props) {
                 {/* Main text of the flashcard, front or back */}
                 <p className="text-white ft-3 flashcard-main-text">{checkSide()}</p>
 
-                {/* Multiple choices conditionally render based on property within questions json */}
+                {/* Multiple choices conditionally render based on property within the flashcard */}
                 {ifMultipleChoice()}
 
-                <p className="text-white ft-1 card-indicator">{`< ${props.questionNum+1} / ${props.amountOfQuestions} >`}</p>
+                <p className="text-white ft-1 card-indicator">{`< ${props.flashcardNum+1} / ${props.amountOfFlashcards} >`}</p>
             </div>
 
             <div className={`button-group ${flipClass}`}>
@@ -67,7 +68,7 @@ export default function Flashcard(props) {
                 </div>
 
                 {/* make this button disabled if multiple choice and choice not made */}
-                {/* Flip card reveals the answer on the other side, if it's a question with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
+                {/* Flip card reveals the answer on the other side, if it's a flashcard with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
                 <button onClick={flipCard} className={`ft-3`}> {`Flip card${answerFlip}`}</button>
             </div>
         </div>)

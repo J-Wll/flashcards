@@ -8,18 +8,18 @@ import Flashcard from "./Flashcard.jsx"
 import ToolTip from "./ToolTip.jsx"
 import OverlayWindow from "./OverlayWindow.jsx"
 
-import defaultQuestions from "./json/defaultQuestions.json"
+import defaultFlashcards from "./json/defaultFlashcards.json"
 
 export default function FlashcardHandler() {
-    let [questionNum, updateQuestionNum] = useState(0);
-    const [stateQuestions, setStateQuestions] = useState([defaultQuestions]);
+    let [flashcardNum, updateFlashcardNum] = useState(0);
+    const [stateFlashcards, setStateFlashcards] = useState([defaultFlashcards]);
 
     
-    if (stateQuestions.length === 1){
-        setStateQuestions(stateQuestions[0])
+    if (stateFlashcards.length === 1){
+        setStateFlashcards(stateFlashcards[0])
     }
 
-    let amountOfQuestions = stateQuestions.length;
+    let amountOfFlashcards = stateFlashcards.length;
 
     // used to reload components by changing state
     let [counter, refresh] = useState(0);
@@ -29,58 +29,58 @@ export default function FlashcardHandler() {
 
     function prevCard() {
         // Previous can keep a buffer of like the last 10?
-        if (questionNum > 0) {
-            updateQuestionNum((questionNum) => questionNum - 1)
+        if (flashcardNum > 0) {
+            updateFlashcardNum((flashcardNum) => flashcardNum - 1)
         }
         else {
-            updateQuestionNum(amountOfQuestions - 1);
+            updateFlashcardNum(amountOfFlashcards - 1);
         }
     }
 
     function nextCard() {
         // Get a random card that you haven't seen in the past X cards?
-        if (questionNum < amountOfQuestions - 1) {
-            updateQuestionNum((questionNum) => questionNum + 1)
+        if (flashcardNum < amountOfFlashcards - 1) {
+            updateFlashcardNum((flashcardNum) => flashcardNum + 1)
         }
         else {
-            updateQuestionNum(0);
+            updateFlashcardNum(0);
         }
     }
 
     function createCards(iFront, iBack, iMultipleChoice = false) {
-        stateQuestions.push({
+        stateFlashcards.push({
             front: iFront,
             back: iBack,
             multipleChoice: iMultipleChoice
         })
-        console.log(amountOfQuestions);
+        console.log(amountOfFlashcards);
         refresh(counter + 1);
     }
 
     function editCard(iFront, iBack, iMultipleChoice = false){
-        stateQuestions[questionNum].front = iFront;
-        stateQuestions[questionNum].back = iBack;
-        stateQuestions[questionNum].multipleChoice = iMultipleChoice;
+        stateFlashcards[flashcardNum].front = iFront;
+        stateFlashcards[flashcardNum].back = iBack;
+        stateFlashcards[flashcardNum].multipleChoice = iMultipleChoice;
     }
 
     function saveCards() {
-        localStorage.setItem("questions", JSON.stringify(stateQuestions));
+        localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
     }
 
-    // Autosave when stateQuestions changes
+    // Autosave when stateFlashcards changes
     useEffect(() => {
-        localStorage.setItem("questions", JSON.stringify(stateQuestions));
-    }, [stateQuestions]);
+        localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
+    }, [stateFlashcards]);
 
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} question={stateQuestions[questionNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} prev={prevCard} next={nextCard}/> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} prev={prevCard} next={nextCard}/> : <></>}
 
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} question={stateQuestions[questionNum]} questionNum={questionNum} amountOfQuestions={amountOfQuestions} />
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} />
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
