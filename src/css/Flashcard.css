@@ -89,6 +89,9 @@
     min-width: fit-content;
     width: 10%;
     margin: 5px;
+    padding-left: 9px;
+    padding-right: 9px;
+
 }
 
 .mutliple-choice {

@@ -62,9 +62,9 @@ export default function Flashcard(props) {
 
             <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
-                <div className="">
-                    <button className="prev-button ft-3" onClick={props.prev}>{"<"}</button>
-                    <button className="next-button ft-3" onClick={props.next}>{">"}</button>
+                <div className="horizontal-container">
+                    <button className="ft-3" onClick={props.prev}>{"<"}</button>
+                    <button className="ft-3" onClick={props.next}>{">"}</button>
                 </div>
 
                 {/* make this button disabled if multiple choice and choice not made */}
