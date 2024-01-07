@@ -31,11 +31,8 @@
     margin-bottom: 10px;
 }
 
-.control-buttons {
-    /* font-size: 20px; */
+.control-button {
     border-radius: 5px;
     min-width: fit-content;
     margin: 5px;
-    /* font-size: calc(14px + 0.4dvw + 0.4dvh); */
-    font-size: calc(16px + 0.8dvw);
 }

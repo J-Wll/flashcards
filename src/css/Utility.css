@@ -24,21 +24,21 @@
 
 /* font sizes */
 .ft-5{
-    font-size: calc(50px + 0.4dvw);
+    font-size: calc(3rem + 0.5dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .ft-3{
-    font-size: calc(20px + 0.4dvw);
+    font-size: calc(1.4rem + 0.5dvw);
 }
 
 .ft-2{
-    font-size: calc(18px + 0.4dvw);
+    font-size: calc(1.2rem + 0.5dvw);
 }
 
 .ft-1{
-    font-size: calc(16px + 0.4dvw);
+    font-size: calc(1rem + 0.5dvw);
 }
 
 .horizontal-container{
