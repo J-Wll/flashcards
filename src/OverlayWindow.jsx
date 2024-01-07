@@ -16,6 +16,10 @@ export default function OverlayWindow(props) {
         const [mcCounter, updateMcCounter] = useState(0);
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
+        // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
+        const optionsRef = useRef();
+        optionsRef.current = mcOptions;
+
         function callCreateOrEdit() {
             const args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
             createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
@@ -25,6 +29,10 @@ export default function OverlayWindow(props) {
             updateCreateOrEdit("Edit");
             frontRef.current.value = props.flashcardContent.front;
             backRef.current.value = props.flashcardContent.back;
+            updateMcChecked(props.flashcardContent.multipleChoice==="true");
+            if (mcChecked){
+                pass
+            }
         }
 
         function createMode() {
@@ -54,19 +62,30 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function addMcOption() {
-            updateMcOptions([...mcOptions, <OverlayWindowMcOption key={mcCounter} counter={mcCounter} />])
-            updateMcCounter(mcCounter + 1);
+        function addMcOption(e, keyCounter = mcCounter) {
+            console.log(keyCounter);
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} />])
+            updateMcCounter((mcCounter) => mcCounter + 1);
+        }
+
+        function deleteMcOption(location) {
+            const tempArr = optionsRef.current.filter(item => item["key"] != location)
+            updateMcOptions(tempArr);
         }
 
         function addMcControls() {
             if (mcChecked) {
+                if (mcCounter < 1) {
+                    addMcOption(null,0);
+                    addMcOption(null,1);
+                }
+
                 return (
                     <>
-                        <div className="horizontal-container">
-                            <label className="text-white ft-3 allign-left" id="correct-label">Correct</label>
-                            <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
-                        </div>
+
+                        <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
+                        <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
+
                         {mcOptions}
                     </>
                 )
