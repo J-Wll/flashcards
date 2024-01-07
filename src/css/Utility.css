@@ -63,7 +63,7 @@
 
 /* Responsive width */
 .responsive-width{
-    width: 55% !important;
+    width: 50% !important;
 }
 
 @media only screen and (max-width: 1400px){

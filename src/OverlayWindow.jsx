@@ -162,6 +162,7 @@ export default function OverlayWindow(props) {
     function aboutWindow() {
         return (
             <>
+                <p className="text-white ft-2">Made by <a className="text-white" href="https://github.com/J-Wll">Joe Westwell</a></p>
                 <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
                 <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
                 <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
