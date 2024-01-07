@@ -1,5 +1,8 @@
 import "./css/OverlayWindow.css"
 import "./css/Utility.css"
+
+import OverlayWindowMcOption from "./OverlayWindowMcOption.jsx"
+
 import { useRef, useState } from "react";
 
 export default function OverlayWindow(props) {
@@ -9,6 +12,7 @@ export default function OverlayWindow(props) {
         const frontRef = useRef(null)
         const backRef = useRef(null)
         const [mcChecked, updateMcChecked] = useState(false)
+        const [mcOptions, updateMcOptions] = useState([])
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
         function callCreateOrEdit() {
@@ -28,12 +32,12 @@ export default function OverlayWindow(props) {
             backRef.current.value = "";
         }
 
-        function nextCard(){
+        function nextCard() {
             props.next();
             editMode();
         }
 
-        function prevCard(){
+        function prevCard() {
             props.prev();
             editMode();
         }
@@ -42,9 +46,24 @@ export default function OverlayWindow(props) {
             if (createOrEdit === "Edit") {
                 return (
                     <div className="horizontal-container">
-                    <button className="ft-3" onClick={nextCard}>{"<"}</button>
-                    <button className="ft-3" onClick={prevCard}>{">"}</button>
+                        <button className="ft-3" onClick={nextCard}>{"<"}</button>
+                        <button className="ft-3" onClick={prevCard}>{">"}</button>
                     </div>
+                )
+            }
+        }
+
+        function addMcOption() {
+            updateMcOptions([...mcOptions, <OverlayWindowMcOption/>] )
+        }
+
+        function addMcControls() {
+            if (mcChecked) {
+                return (
+                    <>
+                        <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
+                        {mcOptions}
+                    </>
                 )
             }
         }
@@ -69,9 +88,12 @@ export default function OverlayWindow(props) {
                         <input type="checkbox" id="mc-checkbox" checked={mcChecked} onChange={e => (updateMcChecked(e.target.checked))} className="wh-1 overlay-checkbox" />
                     </div>
 
+                    {/* adds controls for adding multiple choice questions */}
+                    {addMcControls()}
 
+                    <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit}</button>
 
-                    <button className="ft-3 overlay-button" onClick={callCreateOrEdit}>{createOrEdit}</button>
+                    {/* adds navigation for when in edit mode */}
                     {editNavigation()}
                 </div>
             </>
@@ -79,14 +101,14 @@ export default function OverlayWindow(props) {
     }
 
     // About button
-    function aboutWindow(){
+    function aboutWindow() {
         return (
             <>
-            <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
-            <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
-            <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
-            <button className="ft-2">Load default set of flashcards (Programming related)</button>
-            <button className="ft-2">Load empty set of flashcards</button>
+                <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
+                <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
+                <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
+                <button className="ft-2">Load default set of flashcards (Programming related)</button>
+                <button className="ft-2">Load empty set of flashcards</button>
             </>
         )
     }

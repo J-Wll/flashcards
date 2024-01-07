@@ -57,6 +57,11 @@
     margin: 10px;
 }
 
+.self-center{
+    align-self: center;
+}
+
+/* Responsive width */
 .responsive-width{
     width: 55% !important;
 }

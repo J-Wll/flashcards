@@ -57,3 +57,14 @@
 .overlay-checkbox{
     align-self: center;
 }
+
+.mcOption-textarea{
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.mcOption-close{
+    margin: 0;
+    margin-bottom: 20px;
+}
