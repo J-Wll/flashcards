@@ -8,15 +8,12 @@ export default function OverlayWindow(props) {
     function createEditCardWindow() {
         const frontRef = useRef(null)
         const backRef = useRef(null)
+        const [mcChecked, updateMcChecked] = useState(false)
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
         function callCreateOrEdit() {
-            if (createOrEdit === "Edit") {
-                props.editCard(frontRef.current.value, backRef.current.value)
-            }
-            else {
-                props.createCards(frontRef.current.value, backRef.current.value);
-            }
+            const args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
+            createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
         }
 
         function editMode() {
@@ -59,7 +56,7 @@ export default function OverlayWindow(props) {
                     <span className="text-white ft-3"> | </span>
                     <button className="ft-3" onClick={editMode}>Edit</button>
                 </div>
-                {/* <p className="text-white ft-3">Create a flashcard</p> */}
+
                 <div className="overlay-input-section">
                     <label className="text-white ft-3">Front</label>
                     <textarea className="ft-3 overlay-textarea" id="create-front-input" ref={frontRef}></textarea>
@@ -69,8 +66,10 @@ export default function OverlayWindow(props) {
 
                     <div className="horizontal-container">
                         <label className="text-white ft-3" htmlFor="mc-checkbox">Multiple choice?</label>
-                        <input type="checkbox" id="mc-checkbox" className="wh-1 overlay-checkbox" />
+                        <input type="checkbox" id="mc-checkbox" checked={mcChecked} onChange={e => (updateMcChecked(e.target.checked))} className="wh-1 overlay-checkbox" />
                     </div>
+
+
 
                     <button className="ft-3 overlay-button" onClick={callCreateOrEdit}>{createOrEdit}</button>
                     {editNavigation()}
