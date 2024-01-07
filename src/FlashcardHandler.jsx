@@ -2,10 +2,8 @@ import { useState, useEffect } from "react"
 
 import "./css/FlashcardHandler.css"
 import "./css/Utility.css"
-import "./css/ToolTip.css"
 
 import Flashcard from "./Flashcard.jsx"
-import ToolTip from "./ToolTip.jsx"
 import OverlayWindow from "./OverlayWindow.jsx"
 
 import defaultFlashcards from "./json/defaultFlashcards.json"
@@ -85,12 +83,12 @@ export default function FlashcardHandler() {
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             <div className="control-bar responsive-width">
-                <ToolTip element={<button className="control-button ft-3" onClick={() => updateOverlayMode("create")}>Create/Edit</button>} tooltipText={"Edit existing and create new flashcards"} />
-                <ToolTip element={<button className="control-button ft-3" onClick={saveCards}>Save</button>} tooltipText={"Save your set of flashcards"} />
-                <ToolTip element={<button className="control-button ft-3" onClick={() => updateOverlayMode("load")}>Load</button>} tooltipText={"Load a set of flashcards"} />
-                <ToolTip element={<button className="control-button ft-3" onClick={() => updateOverlayMode("stats")}>Stats</button>} tooltipText={"Your study stats"} />
-                <ToolTip element={<button className="control-button ft-3" onClick={() => updateOverlayMode("settings")}>Settings</button>} tooltipText={"Adjust the program"} />
-                <ToolTip element={<button className="control-button ft-3" onClick={() => updateOverlayMode("about")}>About</button>} tooltipText={"About this program"} />
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("create")}>Create/Edit</button>
+                <button className="control-button ft-3" onClick={saveCards}>Save</button>
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("load")}>Load</button>
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("stats")}>Stats</button>
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("settings")}>Settings</button>
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("about")}>About</button>
             </div>
         </>
     )
