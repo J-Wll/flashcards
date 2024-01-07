@@ -12,12 +12,12 @@ export default function OverlayWindowMcOption(props) {
         }
     }
 
-    const firstChecked = props.counter === 0 ? true : false;
+    const firstChecked = props.counter == 0 ? true : false;
 
     return (
         <div className="horizontal-container ">
             <input className="mcoption-radio" type="radio" name="mc-option-radio" defaultChecked={firstChecked}></input>
-            <textarea className="ft-3 overlay-textarea mcoption-textarea" defaultValue={props.counter}></textarea>
+            <textarea className="ft-3 overlay-textarea mcoption-textarea" defaultValue={props.counter + " " + props.text}></textarea>
             {closeButton()}
         </div>
     )

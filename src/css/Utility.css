@@ -66,14 +66,14 @@
     width: 55% !important;
 }
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width: 1400px){
     .responsive-width{
-        width: 70% !important;
+        width: 75% !important;
     }
 }
 
 @media only screen and (max-width: 700px){
     .responsive-width{
-        width: 90% !important;
+        width: 95% !important;
     }
 }

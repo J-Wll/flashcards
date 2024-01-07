@@ -3,7 +3,7 @@ import "./css/Utility.css"
 
 import OverlayWindowMcOption from "./OverlayWindowMcOption.jsx"
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function OverlayWindow(props) {
 
@@ -16,6 +16,8 @@ export default function OverlayWindow(props) {
         const [mcCounter, updateMcCounter] = useState(0);
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
+        let existingAnswers = [];
+
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
@@ -26,16 +28,17 @@ export default function OverlayWindow(props) {
         }
 
         function editMode() {
+            updateMcChecked(false);
             updateCreateOrEdit("Edit");
             frontRef.current.value = props.flashcardContent.front;
             backRef.current.value = props.flashcardContent.back;
-            updateMcChecked(props.flashcardContent.multipleChoice==="true");
-            if (mcChecked){
-                pass
-            }
+            updateMcChecked(props.flashcardContent.multipleChoice === "true");
         }
 
         function createMode() {
+            updateMcOptions([]);
+            updateMcCounter(0);
+            updateMcChecked(false)
             updateCreateOrEdit("Create");
             frontRef.current.value = "";
             backRef.current.value = "";
@@ -62,9 +65,8 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function addMcOption(e, keyCounter = mcCounter) {
-            console.log(keyCounter);
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} />])
+        function addMcOption(e, keyCounter = mcCounter, text = "") {
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} text={text} deleteMcOption={deleteMcOption} />])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 
@@ -75,9 +77,13 @@ export default function OverlayWindow(props) {
 
         function addMcControls() {
             if (mcChecked) {
-                if (mcCounter < 1) {
-                    addMcOption(null,0);
-                    addMcOption(null,1);
+                if (props.flashcardContent.multipleChoiceAnswers != undefined) {
+                    existingAnswers = props.flashcardContent.multipleChoiceAnswers;
+                }
+
+                if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
+                    addMcOption(null, 0);
+                    addMcOption(null, 1);
                 }
 
                 return (
@@ -86,11 +92,39 @@ export default function OverlayWindow(props) {
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
 
-                        {mcOptions}
+                        {optionsRef.current}
                     </>
                 )
             }
         }
+
+        function checkedMc(e) {
+            updateMcChecked(e.target.checked)
+        }
+
+        function addExistingMultipleChoiceOptions() {
+            updateMcOptions([]);
+            updateMcCounter(0);
+            existingAnswers = props.flashcardContent.multipleChoiceAnswers;
+            console.log(existingAnswers);
+
+            // for each existing answer
+            for (let i in existingAnswers) {
+                addMcOption(null, i, existingAnswers[i]["mca"])
+            }
+        }
+
+        // Whenever the mode is edit and there are more existing multipleChoiceAnswers than are in the options, run addExistingMultipleChoiceOptions
+        // Triggers when mcChecked or createOrEdit is changed
+        useEffect(() => {
+            if (createOrEdit === "Edit" && mcChecked === true && props.flashcardContent.multipleChoiceAnswers != undefined) {
+                if (mcOptions.length < props.flashcardContent.multipleChoiceAnswers.length) {
+                    updateMcOptions([]);
+                    updateMcCounter(0);
+                    addExistingMultipleChoiceOptions();
+                }
+            }
+        }, [mcChecked, createOrEdit])
 
         return (
             <>
@@ -109,7 +143,7 @@ export default function OverlayWindow(props) {
 
                     <div className="horizontal-container">
                         <label className="text-white ft-3" htmlFor="mc-checkbox">Multiple choice?</label>
-                        <input type="checkbox" id="mc-checkbox" checked={mcChecked} onChange={e => (updateMcChecked(e.target.checked))} className="wh-1 overlay-checkbox" />
+                        <input type="checkbox" id="mc-checkbox" checked={mcChecked} onChange={checkedMc} className="wh-1 overlay-checkbox" />
                     </div>
 
                     {/* adds controls for adding multiple choice questions */}
