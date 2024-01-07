@@ -9,10 +9,11 @@ export default function OverlayWindow(props) {
 
     // From the create cards button
     function createEditCardWindow() {
-        const frontRef = useRef(null)
-        const backRef = useRef(null)
-        const [mcChecked, updateMcChecked] = useState(false)
-        const [mcOptions, updateMcOptions] = useState([])
+        const frontRef = useRef(null);
+        const backRef = useRef(null);
+        const [mcChecked, updateMcChecked] = useState(false);
+        const [mcOptions, updateMcOptions] = useState([]);
+        const [mcCounter, updateMcCounter] = useState(0);
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
 
         function callCreateOrEdit() {
@@ -54,14 +55,18 @@ export default function OverlayWindow(props) {
         }
 
         function addMcOption() {
-            updateMcOptions([...mcOptions, <OverlayWindowMcOption/>] )
+            updateMcOptions([...mcOptions, <OverlayWindowMcOption key={mcCounter} counter={mcCounter} />])
+            updateMcCounter(mcCounter + 1);
         }
 
         function addMcControls() {
             if (mcChecked) {
                 return (
                     <>
-                        <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
+                        <div className="horizontal-container">
+                            <label className="text-white ft-3 allign-left" id="correct-label">Correct</label>
+                            <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
+                        </div>
                         {mcOptions}
                     </>
                 )

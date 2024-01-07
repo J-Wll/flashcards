@@ -1,12 +1,24 @@
 import "./css/OverlayWindow.css"
 import "./css/Utility.css"
 
-export default function OverlayWindowMcOption() {
+export default function OverlayWindowMcOption(props) {
+
+    function closeButton() {
+        if (props.counter > 1) {
+            return (
+                <button className="ft-3 mcoption-close" >X</button>
+            )
+        }
+    }
+    console.log(props.counter);
+
+    const firstChecked = props.counter === 0 ? true : false;
 
     return (
         <div className="horizontal-container ">
-            <textarea className="ft-3 overlay-textarea mcOption-textarea"></textarea>
-            <button className="ft-3 mcOption-close" >X</button>
+            <input className="mcoption-radio" type="radio" name="mc-option-radio" defaultChecked={firstChecked}></input>
+            <textarea className="ft-3 overlay-textarea mcoption-textarea"></textarea>
+            {closeButton()}
         </div>
     )
 }
