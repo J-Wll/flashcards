@@ -41,6 +41,26 @@
     font-size: calc(1rem + 0.5dvw);
 }
 
+@media only screen and (max-width: 1000px){
+    .ft-5{
+        font-size: 3rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .ft-3{
+        font-size: 1.4rem;
+    }
+    
+    .ft-2{
+        font-size: 1.2rem;
+    }
+    
+    .ft-1{
+        font-size: 1rem;
+    }
+}
+
 /* width and height with the same scaling as the font */
 .wh-1{
     width: calc(1rem + 0.5dvw);
