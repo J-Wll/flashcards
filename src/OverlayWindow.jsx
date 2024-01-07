@@ -62,17 +62,17 @@ export default function OverlayWindow(props) {
                 {/* <p className="text-white ft-3">Create a flashcard</p> */}
                 <div className="overlay-input-section">
                     <label className="text-white ft-3">Front</label>
-                    <textarea className="ft-3" id="create-front-input" ref={frontRef}></textarea>
+                    <textarea className="ft-3 overlay-textarea" id="create-front-input" ref={frontRef}></textarea>
 
                     <label className="text-white ft-3">Back</label>
-                    <textarea className="ft-3" id="create-back-input" ref={backRef}></textarea>
+                    <textarea className="ft-3 overlay-textarea" id="create-back-input" ref={backRef}></textarea>
 
                     <div className="horizontal-container">
                         <label className="text-white ft-3" htmlFor="mc-checkbox">Multiple choice?</label>
-                        <input type="checkbox" id="mc-checkbox" />
+                        <input type="checkbox" id="mc-checkbox" className="wh-1 overlay-checkbox" />
                     </div>
 
-                    <button className="ft-3" onClick={callCreateOrEdit}>{createOrEdit}</button>
+                    <button className="ft-3 overlay-button" onClick={callCreateOrEdit}>{createOrEdit}</button>
                     {editNavigation()}
                 </div>
             </>

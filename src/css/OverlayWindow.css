@@ -44,12 +44,16 @@
     width: 80%;
 }
 
-.overlay-input-section textarea{
+.overlay-textarea{
     margin-bottom: 20px;
     resize: vertical;
 }
 
-.overlay-input-section button{
+.overlay-button{
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.overlay-checkbox{
+    align-self: center;
 }

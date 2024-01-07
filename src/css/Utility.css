@@ -41,6 +41,12 @@
     font-size: calc(1rem + 0.5dvw);
 }
 
+/* width and height with the same scaling as the font */
+.wh-1{
+    width: calc(1rem + 0.5dvw);
+    height: calc(1rem + 0.5dvw);
+}
+
 .horizontal-container{
     display: flex;
     flex-direction: row;
