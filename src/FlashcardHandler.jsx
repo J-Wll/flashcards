@@ -69,7 +69,6 @@ export default function FlashcardHandler() {
 
     // Autosave when stateFlashcards changes
     useEffect(() => {
-        console.log("ff")
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
     }, [stateFlashcards]);
 

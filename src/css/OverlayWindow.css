@@ -78,8 +78,3 @@
     align-self: center;
     justify-self: center;
 }
-
-#correct-label{
-    position: absolute;
-    left: 35px;
-}
