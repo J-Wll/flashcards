@@ -24,7 +24,7 @@
 
 /* font sizes */
 .ft-5{
-    font-size: calc(60px + 0.4dvw);
+    font-size: calc(50px + 0.4dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
