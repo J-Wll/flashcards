@@ -14,15 +14,11 @@ export default function FlashcardHandler() {
     let [flashcardNum, updateFlashcardNum] = useState(0);
     const [stateFlashcards, setStateFlashcards] = useState([defaultFlashcards]);
 
-    
-    if (stateFlashcards.length === 1){
+    if (stateFlashcards.length === 1) {
         setStateFlashcards(stateFlashcards[0])
     }
 
     let amountOfFlashcards = stateFlashcards.length;
-
-    // used to reload components by changing state
-    let [counter, refresh] = useState(0);
 
     // can be none, create, save, load, stats, settings, about
     let [overlayMode, updateOverlayMode] = useState("none");
@@ -48,19 +44,23 @@ export default function FlashcardHandler() {
     }
 
     function createCards(iFront, iBack, iMultipleChoice = false) {
-        stateFlashcards.push({
-            front: iFront,
-            back: iBack,
-            multipleChoice: iMultipleChoice
-        })
-        console.log(amountOfFlashcards);
-        refresh(counter + 1);
+        setStateFlashcards(
+            [...stateFlashcards, {
+                front: iFront,
+                back: iBack,
+                multipleChoice: iMultipleChoice
+            }]
+        )
     }
-
-    function editCard(iFront, iBack, iMultipleChoice = false){
-        stateFlashcards[flashcardNum].front = iFront;
-        stateFlashcards[flashcardNum].back = iBack;
-        stateFlashcards[flashcardNum].multipleChoice = iMultipleChoice;
+    
+    function editCard(iFront, iBack, iMultipleChoice = false) {
+        setStateFlashcards(prevState => {
+            const tempArr = [...prevState];
+            tempArr[flashcardNum].front = iFront;
+            tempArr[flashcardNum].back = iBack;
+            tempArr[flashcardNum].multipleChoice = iMultipleChoice;
+            return tempArr;
+        });
     }
 
     function saveCards() {
@@ -69,13 +69,14 @@ export default function FlashcardHandler() {
 
     // Autosave when stateFlashcards changes
     useEffect(() => {
+        console.log("ff")
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
     }, [stateFlashcards]);
 
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() =>updateOverlayMode("none")} editCard = {editCard} createCards={createCards} prev={prevCard} next={nextCard}/> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => updateOverlayMode("none")} editCard={editCard} createCards={createCards} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}
