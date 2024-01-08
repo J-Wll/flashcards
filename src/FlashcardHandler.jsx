@@ -13,16 +13,17 @@ export default function FlashcardHandler() {
     const [flashcardNum, updateFlashcardNum] = useState(0);
     const [stateFlashcards, updateStateFlashcards] = useState([defaultFlashcards]);
     const errorMsgRef = useRef(null);
+    // can be none, create, save, load, stats, settings, about
+    const [overlayMode, updateOverlayMode] = useState("none");
 
+    // Setting it to the array instead of the object
     if (stateFlashcards.length === 1) {
         updateStateFlashcards(stateFlashcards[0])
     }
 
     let amountOfFlashcards = stateFlashcards.length;
 
-    // can be none, create, save, load, stats, settings, about
-    let [overlayMode, updateOverlayMode] = useState("none");
-
+    // Navigation functions
     function prevCard() {
         // Previous can keep a buffer of like the last 10?
         if (flashcardNum > 0) {
@@ -43,6 +44,7 @@ export default function FlashcardHandler() {
         }
     }
 
+    // Create/edit functions
     function createCards(iFront, iBack, iMultipleChoice = false) {
         updateStateFlashcards(
             [...stateFlashcards, {
@@ -63,6 +65,7 @@ export default function FlashcardHandler() {
         });
     }
 
+    // Save function
     function saveCards() {
         const a = document.createElement("a");
         const file = new Blob([JSON.stringify(stateFlashcards)]);
@@ -71,6 +74,7 @@ export default function FlashcardHandler() {
         a.click();
     }
 
+    // Load functions
     function defaultCards() {
         updateFlashcardNum(0);
         updateStateFlashcards(defaultFlashcards);
@@ -123,12 +127,9 @@ export default function FlashcardHandler() {
                     errorMsgRef.current.style = ("color: white");
                     errorMsgRef.current.textContent = "Loaded file";
                 }
-
             };
-
             reader.readAsText(file);
         }
-
     };
 
     function loadFileControls() {
