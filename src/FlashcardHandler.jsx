@@ -7,13 +7,15 @@ import Flashcard from "./Flashcard.jsx"
 import OverlayWindow from "./OverlayWindow.jsx"
 
 import defaultFlashcards from "./json/defaultFlashcards.json"
+import emptyFlashcards from "./json/emptyFlashcards.json"
 
 export default function FlashcardHandler() {
-    let [flashcardNum, updateFlashcardNum] = useState(0);
-    const [stateFlashcards, setStateFlashcards] = useState([defaultFlashcards]);
+    console.log(emptyFlashcards);
+    const [flashcardNum, updateFlashcardNum] = useState(0);
+    const [stateFlashcards, updateStateFlashcards] = useState([defaultFlashcards]);
 
     if (stateFlashcards.length === 1) {
-        setStateFlashcards(stateFlashcards[0])
+        updateStateFlashcards(stateFlashcards[0])
     }
 
     let amountOfFlashcards = stateFlashcards.length;
@@ -42,7 +44,7 @@ export default function FlashcardHandler() {
     }
 
     function createCards(iFront, iBack, iMultipleChoice = false) {
-        setStateFlashcards(
+        updateStateFlashcards(
             [...stateFlashcards, {
                 front: iFront,
                 back: iBack,
@@ -52,7 +54,7 @@ export default function FlashcardHandler() {
     }
 
     function editCard(iFront, iBack, iMultipleChoice = false) {
-        setStateFlashcards(prevState => {
+        updateStateFlashcards(prevState => {
             const tempArr = [...prevState];
             tempArr[flashcardNum].front = iFront;
             tempArr[flashcardNum].back = iBack;
@@ -69,6 +71,16 @@ export default function FlashcardHandler() {
         a.click();
     }
 
+    function defaultCards() {
+        updateFlashcardNum(0);
+        updateStateFlashcards(defaultFlashcards);
+    }
+
+    function emptyCards() {
+        updateFlashcardNum(0);
+        updateStateFlashcards(emptyFlashcards);
+    }
+
     // Autosave when stateFlashcards changes
     useEffect(() => {
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
@@ -77,7 +89,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => updateOverlayMode("none")} editCard={editCard} createCards={createCards} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => updateOverlayMode("none")} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}

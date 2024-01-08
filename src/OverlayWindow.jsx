@@ -166,8 +166,8 @@ export default function OverlayWindow(props) {
                 <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
                 <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
                 <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
-                <button className="ft-2">Load default set of flashcards (Programming related)</button>
-                <button className="ft-2">Load empty set of flashcards</button>
+                <button className="ft-2" onClick={props.defaultCards}>Load default set of flashcards (Programming related)</button>
+                <button className="ft-2" onClick={props.emptyCards}>Load empty set of flashcards</button>
             </>
         )
     }
@@ -175,8 +175,8 @@ export default function OverlayWindow(props) {
     function loadWindow() {
         return (
             <>
-                <button className="ft-2 overlay-load-button">Load Empty</button>
-                <button className="ft-2 overlay-load-button">Load Default</button>
+                <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty</button>
+                <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Default</button>
                 <button className="ft-2 overlay-load-button">Load From File</button>
             </>
 
