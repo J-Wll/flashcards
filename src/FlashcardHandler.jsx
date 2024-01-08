@@ -12,6 +12,7 @@ import emptyFlashcards from "./json/emptyFlashcards.json"
 export default function FlashcardHandler() {
     const [flashcardNum, updateFlashcardNum] = useState(0);
     const [stateFlashcards, updateStateFlashcards] = useState([defaultFlashcards]);
+    const errorMsgRef = useRef(null);
 
     if (stateFlashcards.length === 1) {
         updateStateFlashcards(stateFlashcards[0])
@@ -80,7 +81,7 @@ export default function FlashcardHandler() {
         updateStateFlashcards(emptyFlashcards);
     }
 
-    function loadFromFile(event){
+    function loadFromFile(event) {
         // Prevents page refresh
         event.preventDefault();
 
@@ -90,26 +91,56 @@ export default function FlashcardHandler() {
         // If there's a file, use FileReader api to parse the data
         if (file) {
             const reader = new FileReader();
-      
+            let syntaxValid = true;
+            let contentValid = true;
+
             reader.onload = (e) => {
-              const data = JSON.parse(e.target.result);
-                
-              console.log('Loaded data:', data);
-              updateStateFlashcards(data);
+                let data = "";
+                try {
+                    data = JSON.parse(e.target.result);
+                    console.log('Loaded data:', data);
+                } catch (error) {
+                    console.log(error);
+                    errorMsgRef.current.style = ("color: rgb(255, 56, 56)");
+                    errorMsgRef.current.textContent = error;
+                    syntaxValid = false;
+                }
+
+                if (syntaxValid) {
+                    try {
+                        console.log(data[0].front);
+                    }
+                    catch (error) {
+                        console.log(error);
+                        contentValid = false;
+                        errorMsgRef.current.style = ("color: rgb(255, 56, 56)");
+                        errorMsgRef.current.textContent = "Invalid data in JSON file";
+                    }
+                }
+
+                if (syntaxValid && contentValid) {
+                    updateStateFlashcards(data);
+                    errorMsgRef.current.style = ("color: white");
+                    errorMsgRef.current.textContent = "Loaded file";
+                }
+
             };
-      
+
             reader.readAsText(file);
-          }
+        }
 
     };
 
     function loadFileControls() {
-        
+
         return (
-            <form name="load_file_form" onSubmit={loadFromFile}>
-                <input className="ft-2 text-white" id="fileInput" name="fileInput" type="file" accept=".json"></input>
-                <button className="ft-2 overlay-load-button" type="submit">Load From File</button>
-            </form>)
+            <>
+                <form name="load_file_form" onSubmit={loadFromFile}>
+                    <input className="ft-2 text-white" id="fileInput" name="fileInput" type="file" accept=".json"></input>
+                    <button className="ft-2 overlay-load-button" type="submit">Load From File</button>
+                </form>
+                <p className="ft-2" ref={errorMsgRef}></p>
+            </>)
     };
 
     // Autosave when stateFlashcards changes
