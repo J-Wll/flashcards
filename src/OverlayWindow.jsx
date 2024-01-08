@@ -12,17 +12,19 @@ export default function OverlayWindow(props) {
 
         return (
             <>
-                <p className="text-white ft-2">Made by <a className="text-white" href="https://github.com/J-Wll">Joe Westwell</a></p>
-                <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
-                <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
-                <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
-                <p className="text-white ft-2">To see this information again, view the about window</p>
+                <p className="text-white ft-2 my-1">Made by <a className="text-white" href="https://github.com/J-Wll">Joe Westwell</a></p>
+                <p className="text-white ft-2 my-1">The program automatically saves your changes to local storage</p>
+                <p className="text-white ft-2 my-1">To fully save your flashcards, click the save button to download</p>
+                <p className="text-white ft-2 my-1">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
+                <p className="text-white ft-2 my-1">To see this information again, click about</p>
 
-                {props.loadFileControls()}
 
                 <p className="text-white ft-2">Load a set to continue</p>
                 <button className="ft-2" onClick={() => { props.defaultCards(); props.resetOverlay() }}>Load default set of flashcards (Programming related)</button>
                 <button className="ft-2" onClick={() => { props.emptyCards(); props.resetOverlay() }}>Load empty set of flashcards</button>
+
+                {props.loadFileControls()}
+
             </>
         )
     }
@@ -215,6 +217,15 @@ export default function OverlayWindow(props) {
         )
     }
 
+    // No close button during splash screen, a set has to be loaded to close it
+    function displayCloseButton(){
+        if (props.overlayMode !=  "splash"){
+            return (
+                <button className="overlay-close ft-3" onClick={props.resetOverlay}>X</button>
+            )
+        }
+    }
+
     function setOverlayContent() {
         switch (props.overlayMode) {
             case "splash":
@@ -237,7 +248,8 @@ export default function OverlayWindow(props) {
             <div className="background-blur" />
 
             <div className="overlay-window responsive-width">
-                <button className="overlay-close ft-3" onClick={props.resetOverlay}>X</button>
+                
+                {displayCloseButton()}
                 {setOverlayContent()}
             </div>
         </>

@@ -206,13 +206,13 @@ export default function FlashcardHandler() {
         }
     };
 
+    // controls for the loading file windows
     function loadFileControls() {
-
         return (
             <>
-                <form name="load_file_form" onSubmit={loadFromFile}>
-                    <input className="ft-2 text-white" id="fileInput" name="fileInput" type="file" accept=".json"></input>
-                    <button className="ft-2 overlay-load-button" type="submit">Load From File</button>
+                <form name="load-file-form" className="load-file-form" onSubmit={loadFromFile}>
+                    <input className="ft-2 text-white load-file-form-element" id="fileInput" name="fileInput" type="file" accept=".json"></input>
+                    <button className="ft-2 overlay-load-button load-file-form-element" type="submit">Load From File</button>
                 </form>
                 <p className="ft-2" ref={errorMsgRef}></p>
             </>)

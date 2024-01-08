@@ -25,24 +25,24 @@
 /* font sizes */
 .ft-5{
     text-align: center;
-    font-size: calc(3rem + 0.5dvw);
+    font-size: calc(3rem + 0.35dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .ft-3{
     text-align: center;
-    font-size: calc(1.4rem + 0.5dvw);
+    font-size: calc(1.4rem + 0.35dvw);
 }
 
 .ft-2{
     text-align: center;
-    font-size: calc(1.2rem + 0.5dvw);
+    font-size: calc(1.2rem + 0.35dvw);
 }
 
 .ft-1{
     text-align: center;
-    font-size: calc(1rem + 0.5dvw);
+    font-size: calc(1rem + 0.35dvw);
 }
 
 @media only screen and (max-width: 1000px){
@@ -71,8 +71,8 @@
 
 /* width and height with the same scaling as the font */
 .wh-1{
-    width: calc(1rem + 0.5dvw);
-    height: calc(1rem + 0.5dvw);
+    width: calc(1rem + 0.35dvw);
+    height: calc(1rem + 0.35dvw);
 }
 
 .horizontal-container{

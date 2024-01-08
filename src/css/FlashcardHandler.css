@@ -36,3 +36,23 @@
     min-width: fit-content;
     margin: 5px;
 }
+
+.load-file-form{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.load-file-form button{
+    display: block;
+    align-self: center;
+    margin: 5px;
+}
+
+.load-file-form-element{
+    display: block;
+    align-self: center;
+    margin: 5px;
+}
