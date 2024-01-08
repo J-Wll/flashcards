@@ -12,8 +12,7 @@ export default function OverlayWindow(props) {
     // Initial splash screen
     function splashWindow() {
         console.log("splw");
-        localStorage.setItem("newUser", "notNew")
-
+        localStorage.setItem("newUser", "notNew");
 
         return (
             <>
@@ -21,8 +20,8 @@ export default function OverlayWindow(props) {
                 <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
                 <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
                 <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
-                <button className="ft-2" onClick={props.defaultCards}>Load default set of flashcards (Programming related)</button>
-                <button className="ft-2" onClick={props.emptyCards}>Load empty set of flashcards</button>
+                <button className="ft-2" onClick={() => {props.defaultCards(); props.resetOverlay()}}>Load default set of flashcards (Programming related)</button>
+                <button className="ft-2" onClick={() => {props.emptyCards(); props.resetOverlay()}}>Load empty set of flashcards</button>
             </>
         )
     }

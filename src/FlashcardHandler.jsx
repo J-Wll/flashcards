@@ -16,7 +16,6 @@ export default function FlashcardHandler() {
     // can be none, splash, create, save, load, stats, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
     let overlayMode = "";
-    const [newUser, updateNewUser] = useState(localStorage.getItem("newUser"));
 
     function initialFlashcards() {
         let validFlashcards = true;
@@ -38,8 +37,7 @@ export default function FlashcardHandler() {
     let amountOfFlashcards = stateFlashcards.length;
 
     // If no newUser in local storage
-    console.log("NEW USERS", newUser)
-    if (newUser === null) {
+    if (localStorage.getItem("newUser") === null) {
         console.log("IGFHASF");
         overlayMode = "splash"
     }
@@ -176,7 +174,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => {updateOverlayMode("none") ;overlayMode = stateOverlayMode; }} editCard={editCard} createCards={createCards} defaultCards={defaultCards} newUser={newUser} updateNewUser={updateNewUser} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => {updateOverlayMode("none") ;overlayMode = stateOverlayMode; console.log(overlayMode);}} editCard={editCard} createCards={createCards} defaultCards={defaultCards}  emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}
