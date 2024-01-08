@@ -172,6 +172,17 @@ export default function OverlayWindow(props) {
         )
     }
 
+    function loadWindow() {
+        return (
+            <>
+                <button className="ft-2 overlay-load-button">Load Empty</button>
+                <button className="ft-2 overlay-load-button">Load Default</button>
+                <button className="ft-2 overlay-load-button">Load From File</button>
+            </>
+
+        )
+    }
+
     // From the stats button
     function statsWindow() {
 
@@ -193,14 +204,13 @@ export default function OverlayWindow(props) {
             case "save":
                 break;
             case "load":
-                break;
+                return loadWindow();
             case "stats":
                 return statsWindow();
             case "settings":
                 break;
             case "about":
                 return aboutWindow();
-                break;
             default:
                 break;
         }
