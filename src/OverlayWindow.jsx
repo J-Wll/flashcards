@@ -20,7 +20,7 @@ export default function OverlayWindow(props) {
 
 
                 <p className="text-white ft-2">Load a set to continue</p>
-                <button className="ft-2" onClick={() => { props.defaultCards(); props.resetOverlay() }}>Load default set of flashcards (Programming related)</button>
+                <button className="ft-2" onClick={() => { props.defaultCards(); props.resetOverlay() }}>Load example set of flashcards</button>
                 <button className="ft-2" onClick={() => { props.emptyCards(); props.resetOverlay() }}>Load empty set of flashcards</button>
 
                 {props.loadFileControls()}
@@ -194,8 +194,8 @@ export default function OverlayWindow(props) {
     function loadWindow() {
         return (
             <>
-                <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty</button>
-                <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Default</button>
+                <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty Set</button>
+                <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Example Set</button>
 
                 {props.loadFileControls()}
             </>

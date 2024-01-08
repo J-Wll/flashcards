@@ -11,6 +11,11 @@ import OverlayWindow from "./OverlayWindow.jsx"
 
 const defaultFlashcards = [
     {
+        "front": "What is a runtime enviroment?",
+        "back": "The environment where a program is run",
+        "multipleChoice": "false"
+    },
+    {
         "front": "What is JSON used as?",
         "back": "JSON is a data format based on JavaScript object syntax",
         "multipleChoice": "true",
@@ -22,17 +27,8 @@ const defaultFlashcards = [
         "correctAnswer": "1"
     },
     {
-        "front": "What is a runtime enviroment?",
-        "back": "The environment where a program is run",
-        "multipleChoice": "false"
-    },
-    {
         "front": "What is an IDE?",
         "back": "Integrated Development Environment"
-    },
-    {
-        "front": "What is a framework? (Software development context)",
-        "back": "D"
     },
     {
         "front": "What are octal numbers?",
