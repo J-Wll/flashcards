@@ -6,9 +6,62 @@ import "./css/Utility.css"
 import Flashcard from "./Flashcard.jsx"
 import OverlayWindow from "./OverlayWindow.jsx"
 
-import defaultFlashcards from "./json/defaultFlashcards.json"
-import emptyFlashcards from "./json/emptyFlashcards.json"
+// import defaultFlashcards from "./json/defaultFlashcards.json"
+// import emptyFlashcards from "./json/emptyFlashcards.json"
 
+const defaultFlashcards = [
+    {
+        "front": "What is JSON used for?",
+        "back": "JSON is a data format based on JavaScript object syntax https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON",
+        "multipleChoice": "true",
+        "multipleChoiceAnswers": [
+            { "mca": "Data storage" },
+            { "mca": "Website styling" },
+            { "mca": "Video playback" }
+        ],
+        "correctAnswer": "3"
+    },
+    {
+        "front": "What is a runtime enviroment?",
+        "back": "Z is B",
+        "multipleChoice": "false"
+    },
+    {
+        "front": "What is an IDE?",
+        "back": "C"
+    },
+    {
+        "front": "What is a framework? (Software development context)",
+        "back": "D"
+    },
+    {
+        "front": "What are octal numbers?",
+        "back": "E"
+    },
+    {
+        "front": "What are hexadecimal numbers?",
+        "back": "F"
+    },
+    {
+        "front": "What are pointers?",
+        "back": "G"
+    },
+    {
+        "front": "What are the differences between pointers and references?",
+        "back": "H"
+    }
+]
+
+const emptyFlashcards = [
+    {
+        "front": "Front",
+        "back": "Back"
+    },
+    {
+        "front": "Front",
+        "back": "Back"
+    }
+]
 
 export default function FlashcardHandler() {
     const [flashcardNum, updateFlashcardNum] = useState(0);
@@ -26,7 +79,7 @@ export default function FlashcardHandler() {
             validFlashcards = false;
         }
 
-        if (validFlashcards){
+        if (validFlashcards) {
             return JSON.parse(localStorage.getItem("flashcards"));
         }
         return emptyFlashcards;
@@ -38,7 +91,6 @@ export default function FlashcardHandler() {
 
     // If no newUser in local storage
     if (localStorage.getItem("newUser") === null) {
-        console.log("IGFHASF");
         overlayMode = "splash"
     }
     else {
@@ -104,7 +156,7 @@ export default function FlashcardHandler() {
 
     function emptyCards() {
         updateFlashcardNum(0);
-        updateStateFlashcards(emptyFlashcards);
+        updateStateFlashcards([...emptyFlashcards]);
     }
 
     function loadFromFile(event) {
@@ -166,6 +218,13 @@ export default function FlashcardHandler() {
             </>)
     };
 
+    // General overlay functions
+    function resetOverlay() {
+        updateOverlayMode("none");
+        overlayMode = stateOverlayMode;
+        console.log(overlayMode);
+    }
+
     // Autosave when stateFlashcards changes
     useEffect(() => {
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
@@ -174,7 +233,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => {updateOverlayMode("none") ;overlayMode = stateOverlayMode; console.log(overlayMode);}} editCard={editCard} createCards={createCards} defaultCards={defaultCards}  emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}

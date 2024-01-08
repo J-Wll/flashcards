@@ -24,39 +24,47 @@
 
 /* font sizes */
 .ft-5{
+    text-align: center;
     font-size: calc(3rem + 0.5dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .ft-3{
+    text-align: center;
     font-size: calc(1.4rem + 0.5dvw);
 }
 
 .ft-2{
+    text-align: center;
     font-size: calc(1.2rem + 0.5dvw);
 }
 
 .ft-1{
+    text-align: center;
     font-size: calc(1rem + 0.5dvw);
 }
 
 @media only screen and (max-width: 1000px){
     .ft-5{
+        text-align: center;
         font-size: 3rem;
         margin-top: 5px;
         margin-bottom: 5px;
     }
     
     .ft-3{
+        text-align: center;
         font-size: 1.4rem;
     }
     
     .ft-2{
+        text-align: center;
         font-size: 1.2rem;
     }
     
     .ft-1{
+        text-align: center;
         font-size: 1rem;
     }
 }
