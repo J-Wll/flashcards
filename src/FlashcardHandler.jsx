@@ -62,7 +62,11 @@ export default function FlashcardHandler() {
     }
 
     function saveCards() {
-        localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
+        const a = document.createElement("a");
+        const file = new Blob([JSON.stringify(stateFlashcards)]);
+        a.href = URL.createObjectURL(file);
+        a.download = "flashcards.json";
+        a.click();
     }
 
     // Autosave when stateFlashcards changes
