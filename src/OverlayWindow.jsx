@@ -2,7 +2,6 @@ import "./css/OverlayWindow.css"
 import "./css/Utility.css"
 
 import OverlayWindowMcOption from "./OverlayWindowMcOption.jsx"
-
 import { useEffect, useRef, useState } from "react";
 
 export default function OverlayWindow(props) {
@@ -22,9 +21,7 @@ export default function OverlayWindow(props) {
                 <p className="text-white ft-2">Load a set to continue</p>
                 <button className="ft-2" onClick={() => { props.defaultCards(); props.resetOverlay() }}>Load example set of flashcards</button>
                 <button className="ft-2" onClick={() => { props.emptyCards(); props.resetOverlay() }}>Load empty set of flashcards</button>
-
                 {props.loadFileControls()}
-
             </>
         )
     }
@@ -34,9 +31,10 @@ export default function OverlayWindow(props) {
         const frontRef = useRef(null);
         const backRef = useRef(null);
         const [mcChecked, updateMcChecked] = useState(false);
-        const [mcOptions, updateMcOptions] = useState([]);
         const [mcCounter, updateMcCounter] = useState(0);
         let [createOrEdit, updateCreateOrEdit] = useState("Create")
+        const [mcOptions, updateMcOptions] = useState([]);
+        const [correctChecked, updateCorrectChecked] = useState(false);
 
         let existingAnswers = [];
 
@@ -45,13 +43,25 @@ export default function OverlayWindow(props) {
         optionsRef.current = mcOptions;
 
         function callCreateOrEdit() {
-            const args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
+            let args = []
+            if (mcChecked){
+                console.log(mcOptions);
+                const multipleChoiceAnswers = mcOptions.map((answer)=>({"mca" : answer.props.text}))
+                console.log(multipleChoiceAnswers)
+                // for (let i in mcOptions){
+                //     // if mcOptions[i].
+                // }
+                args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers]
+            } else {
+                args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
+            }
             createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
         }
 
         function editMode() {
             updateMcChecked(false);
             updateCreateOrEdit("Edit");
+            console.log(props.flashcardContent.front);
             frontRef.current.value = props.flashcardContent.front;
             backRef.current.value = props.flashcardContent.back;
             updateMcChecked(props.flashcardContent.multipleChoice === "true");
@@ -80,15 +90,15 @@ export default function OverlayWindow(props) {
             if (createOrEdit === "Edit") {
                 return (
                     <div className="horizontal-container">
-                        <button className="ft-3" onClick={nextCard}>{"<"}</button>
-                        <button className="ft-3" onClick={prevCard}>{">"}</button>
+                        <button className="ft-3" onClick={prevCard}>{"<"}</button>
+                        <button className="ft-3" onClick={nextCard}>{">"}</button>
                     </div>
                 )
             }
         }
 
         function addMcOption(e, keyCounter = mcCounter, text = "") {
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} text={text} deleteMcOption={deleteMcOption} />])
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} text={text} deleteMcOption={deleteMcOption} correctChecked={correctChecked} updateCorrectChecked={updateCorrectChecked}/>])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 
@@ -110,10 +120,8 @@ export default function OverlayWindow(props) {
 
                 return (
                     <>
-
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
-
                         {optionsRef.current}
                     </>
                 )
@@ -218,8 +226,8 @@ export default function OverlayWindow(props) {
     }
 
     // No close button during splash screen, a set has to be loaded to close it
-    function displayCloseButton(){
-        if (props.overlayMode !=  "splash"){
+    function displayCloseButton() {
+        if (props.overlayMode != "splash") {
             return (
                 <button className="overlay-close ft-3" onClick={props.resetOverlay}>X</button>
             )
@@ -248,7 +256,7 @@ export default function OverlayWindow(props) {
             <div className="background-blur" />
 
             <div className="overlay-window responsive-width">
-                
+
                 {displayCloseButton()}
                 {setOverlayContent()}
             </div>

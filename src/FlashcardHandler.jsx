@@ -64,12 +64,13 @@ export default function FlashcardHandler() {
     const errorMsgRef = useRef(null);
     // can be none, splash, create, save, load, stats, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
+    const [counter, refresh] = useState(0);
     let overlayMode = "";
 
     function initialFlashcards() {
         let validFlashcards = true;
         try {
-            console.log(JSON.parse(localStorage.getItem("flashcards"))[0].front);
+            JSON.parse(localStorage.getItem("flashcards"))[0].front;
         }
         catch (error) {
             validFlashcards = false;
@@ -102,6 +103,7 @@ export default function FlashcardHandler() {
         else {
             updateFlashcardNum(amountOfFlashcards - 1);
         }
+        refresh(counter + 1);
     }
 
     function nextCard() {
@@ -112,6 +114,7 @@ export default function FlashcardHandler() {
         else {
             updateFlashcardNum(0);
         }
+        refresh(counter + 1);
     }
 
     // Create/edit functions

@@ -12,11 +12,21 @@ export default function OverlayWindowMcOption(props) {
         }
     }
 
-    const firstChecked = props.counter == 0 ? true : false;
+    function radioChecked(e){
+        // props.checked = e.target.value
+        console.log(e)
+        console.log(props.checked)
+    }
+
+    let firstChecked = false;
+    if (props.counter == 0){
+        firstChecked = true;
+        // props.updateCorrectChecked(true);
+    }
 
     return (
         <div className="horizontal-container ">
-            <input className="mcoption-radio" type="radio" name="mc-option-radio" defaultChecked={firstChecked}></input>
+            <input className="mcoption-radio" type="radio" name="mc-option-radio" onClick={radioChecked} defaultChecked={firstChecked}></input>
             <textarea className="ft-3 overlay-textarea mcoption-textarea" defaultValue={props.counter + " " + props.text}></textarea>
             {closeButton()}
         </div>
