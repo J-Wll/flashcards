@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import "./css/FlashcardHandler.css"
 import "./css/Utility.css"
@@ -10,7 +10,6 @@ import defaultFlashcards from "./json/defaultFlashcards.json"
 import emptyFlashcards from "./json/emptyFlashcards.json"
 
 export default function FlashcardHandler() {
-    console.log(emptyFlashcards);
     const [flashcardNum, updateFlashcardNum] = useState(0);
     const [stateFlashcards, updateStateFlashcards] = useState([defaultFlashcards]);
 
@@ -81,6 +80,38 @@ export default function FlashcardHandler() {
         updateStateFlashcards(emptyFlashcards);
     }
 
+    function loadFromFile(event){
+        // Prevents page refresh
+        event.preventDefault();
+
+        const fileInput = event.target.elements.fileInput;
+        const file = fileInput.files[0];
+
+        // If there's a file, use FileReader api to parse the data
+        if (file) {
+            const reader = new FileReader();
+      
+            reader.onload = (e) => {
+              const data = JSON.parse(e.target.result);
+                
+              console.log('Loaded data:', data);
+              updateStateFlashcards(data);
+            };
+      
+            reader.readAsText(file);
+          }
+
+    };
+
+    function loadFileControls() {
+        
+        return (
+            <form name="load_file_form" onSubmit={loadFromFile}>
+                <input className="ft-2 text-white" id="fileInput" name="fileInput" type="file" accept=".json"></input>
+                <button className="ft-2 overlay-load-button" type="submit">Load From File</button>
+            </form>)
+    };
+
     // Autosave when stateFlashcards changes
     useEffect(() => {
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
@@ -89,7 +120,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => updateOverlayMode("none")} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} flashcardContent={stateFlashcards[flashcardNum]} resetOverlay={() => updateOverlayMode("none")} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}

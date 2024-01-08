@@ -106,7 +106,6 @@ export default function OverlayWindow(props) {
             updateMcOptions([]);
             updateMcCounter(0);
             existingAnswers = props.flashcardContent.multipleChoiceAnswers;
-            console.log(existingAnswers);
 
             // for each existing answer
             for (let i in existingAnswers) {
@@ -177,7 +176,8 @@ export default function OverlayWindow(props) {
             <>
                 <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty</button>
                 <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Default</button>
-                <button className="ft-2 overlay-load-button">Load From File</button>
+
+                {props.loadFileControls()}
             </>
 
         )
