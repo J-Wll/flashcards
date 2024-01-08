@@ -97,8 +97,8 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function addMcOption(e, keyCounter = mcCounter, text = "") {
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} text={text} deleteMcOption={deleteMcOption} correctChecked={correctChecked} updateCorrectChecked={updateCorrectChecked}/>])
+        function addMcOption(e, keyCounter = mcCounter, initialText = "") {
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} correctChecked={correctChecked} updateCorrectChecked={updateCorrectChecked}/>])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 

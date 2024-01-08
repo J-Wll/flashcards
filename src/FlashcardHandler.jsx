@@ -64,7 +64,6 @@ export default function FlashcardHandler() {
     const errorMsgRef = useRef(null);
     // can be none, splash, create, save, load, stats, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
-    const [counter, refresh] = useState(0);
     let overlayMode = "";
 
     function initialFlashcards() {
