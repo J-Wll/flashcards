@@ -11,24 +11,24 @@ import OverlayWindow from "./OverlayWindow.jsx"
 
 const defaultFlashcards = [
     {
-        "front": "What is JSON used for?",
-        "back": "JSON is a data format based on JavaScript object syntax https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON",
+        "front": "What is JSON used as?",
+        "back": "JSON is a data format based on JavaScript object syntax",
         "multipleChoice": "true",
         "multipleChoiceAnswers": [
-            { "mca": "Data storage" },
-            { "mca": "Website styling" },
-            { "mca": "Video playback" }
+            { "mca": "A data format" },
+            { "mca": "A website styling language" },
+            { "mca": "A video playback API" }
         ],
-        "correctAnswer": "3"
+        "correctAnswer": "1"
     },
     {
         "front": "What is a runtime enviroment?",
-        "back": "Z is B",
+        "back": "The environment where a program is run",
         "multipleChoice": "false"
     },
     {
         "front": "What is an IDE?",
-        "back": "C"
+        "back": "Integrated Development Environment"
     },
     {
         "front": "What is a framework? (Software development context)",
@@ -36,19 +36,19 @@ const defaultFlashcards = [
     },
     {
         "front": "What are octal numbers?",
-        "back": "E"
+        "back": "Base 8, 28 is 34"
     },
     {
         "front": "What are hexadecimal numbers?",
-        "back": "F"
+        "back": "Base 16, 28 is 1C"
     },
     {
         "front": "What are pointers?",
-        "back": "G"
+        "back": "Structures that hold (point to) a memory address"
     },
     {
-        "front": "What are the differences between pointers and references?",
-        "back": "H"
+        "front": "In languages like C++, what is the difference between pointers and references?",
+        "back": "Pointers hold a memory address, a reference is a memory address"
     }
 ]
 
