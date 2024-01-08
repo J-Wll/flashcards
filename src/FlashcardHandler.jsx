@@ -102,7 +102,6 @@ export default function FlashcardHandler() {
         else {
             updateFlashcardNum(amountOfFlashcards - 1);
         }
-        refresh(counter + 1);
     }
 
     function nextCard() {
@@ -113,7 +112,6 @@ export default function FlashcardHandler() {
         else {
             updateFlashcardNum(0);
         }
-        refresh(counter + 1);
     }
 
     // Create/edit functions
@@ -135,6 +133,20 @@ export default function FlashcardHandler() {
             tempArr[flashcardNum].multipleChoice = iMultipleChoice;
             return tempArr;
         });
+    }
+
+    function deleteCard(num) {
+        if (amountOfFlashcards > 2) {
+            console.log("a")
+            const tempArr = [...stateFlashcards]
+            console.log(tempArr);
+            tempArr.splice(num, 1)
+            console.log(tempArr);
+            updateStateFlashcards(tempArr);
+            nextCard();
+        } else{
+            console.log("Can not go below 2 flashcards")
+        }
     }
 
     // Save function
@@ -231,7 +243,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} deleteCard={deleteCard} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}

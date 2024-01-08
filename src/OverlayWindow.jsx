@@ -102,6 +102,7 @@ export default function OverlayWindow(props) {
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 
+        // Delete an option based on index
         function deleteMcOption(location) {
             const tempArr = optionsRef.current.filter(item => item["key"] != location)
             updateMcOptions(tempArr);
@@ -143,6 +144,14 @@ export default function OverlayWindow(props) {
             }
         }
 
+        function deleteButtonIfEdit(){
+            if (createOrEdit === "Edit"){
+                return (
+                    <button className="ft-3 responsive-width self-center" onClick={() => props.deleteCard(props.flashcardNum)}>Delete</button>
+                )
+            }
+        }
+
         // Whenever the mode is edit and there are more existing multipleChoiceAnswers than are in the options, run addExistingMultipleChoiceOptions
         // Triggers when mcChecked or createOrEdit is changed
         useEffect(() => {
@@ -169,6 +178,8 @@ export default function OverlayWindow(props) {
 
                     <label className="text-white ft-3">Back</label>
                     <textarea className="ft-3 overlay-textarea" id="create-back-input" ref={backRef}></textarea>
+
+                    {deleteButtonIfEdit()}
 
                     <div className="horizontal-container">
                         <label className="text-white ft-3" htmlFor="mc-checkbox">Multiple choice?</label>
