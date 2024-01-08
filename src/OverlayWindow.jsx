@@ -6,6 +6,26 @@ import OverlayWindowMcOption from "./OverlayWindowMcOption.jsx"
 import { useEffect, useRef, useState } from "react";
 
 export default function OverlayWindow(props) {
+    console.log("OW");
+
+
+    // Initial splash screen
+    function splashWindow() {
+        console.log("splw");
+        localStorage.setItem("newUser", "notNew")
+
+
+        return (
+            <>
+                <p className="text-white ft-2">Made by <a className="text-white" href="https://github.com/J-Wll">Joe Westwell</a></p>
+                <p className="text-white ft-2">The program automatically saves your changes to local storage</p>
+                <p className="text-white ft-2">To fully save your flashcards, click the save button and download the JSON file</p>
+                <p className="text-white ft-2">This JSON file can then be used through the load button, allowing you to have multiple sets of cards</p>
+                <button className="ft-2" onClick={props.defaultCards}>Load default set of flashcards (Programming related)</button>
+                <button className="ft-2" onClick={props.emptyCards}>Load empty set of flashcards</button>
+            </>
+        )
+    }
 
     // From the create cards button
     function createEditCardWindow() {
@@ -200,6 +220,7 @@ export default function OverlayWindow(props) {
     function setOverlayContent() {
         switch (props.overlayMode) {
             case "splash":
+                return splashWindow();
                 break;
             case "create":
                 return createEditCardWindow();
