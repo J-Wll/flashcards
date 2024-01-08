@@ -199,6 +199,8 @@ export default function OverlayWindow(props) {
 
     function setOverlayContent() {
         switch (props.overlayMode) {
+            case "splash":
+                break;
             case "create":
                 return createEditCardWindow();
             case "save":
@@ -207,8 +209,6 @@ export default function OverlayWindow(props) {
                 return loadWindow();
             case "stats":
                 return statsWindow();
-            case "settings":
-                break;
             case "about":
                 return aboutWindow();
             default:
