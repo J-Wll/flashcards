@@ -100,7 +100,7 @@ export default function FlashcardHandler() {
             updateFlashcardNum((flashcardNum) => flashcardNum - 1)
         }
         else {
-            updateFlashcardNum(amountOfFlashcards - 1);
+            updateFlashcardNum((flashcardNum) => amountOfFlashcards - 1);
         }
     }
 
@@ -110,7 +110,7 @@ export default function FlashcardHandler() {
             updateFlashcardNum((flashcardNum) => flashcardNum + 1)
         }
         else {
-            updateFlashcardNum(0);
+            updateFlashcardNum((flashcardNum) => 0);
         }
     }
 
@@ -142,7 +142,7 @@ export default function FlashcardHandler() {
             console.log(tempArr);
             tempArr.splice(num, 1)
             console.log(tempArr);
-            updateStateFlashcards(tempArr);
+            updateStateFlashcards((stateFlashcards) => tempArr);
             nextCard();
         } else{
             console.log("Can not go below 2 flashcards")
@@ -166,6 +166,7 @@ export default function FlashcardHandler() {
 
     function emptyCards() {
         updateFlashcardNum(0);
+        // Spread operator to create a copy, otherwise it is not seen as different from the default and no re-render happens
         updateStateFlashcards([...emptyFlashcards]);
     }
 
@@ -243,7 +244,7 @@ export default function FlashcardHandler() {
     return (
         <>
             {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} deleteCard={deleteCard} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
+            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} deleteCard={deleteCard} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
 
 
             {/* functions for program control are passed into the component */}

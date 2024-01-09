@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./css/OverlayWindow.css"
 import "./css/Utility.css"
 
@@ -12,9 +13,11 @@ export default function OverlayWindowMcOption(props) {
     }
 
     function radioChecked(e){
-        props.updateCorrectChecked(!props.correctChecked)
-        console.log(e)
+        props.checkAction()
+        // updateMcCounter((mcCounter) => mcCounter + 1);
     }
+
+    useEffect(() => console.log(props.correctChecked), [props.correctChecked])
 
     let firstChecked = false;
     if (props.counter == 0){

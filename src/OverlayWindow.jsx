@@ -42,11 +42,12 @@ export default function OverlayWindow(props) {
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
 
+        // Create and edit modes
         function callCreateOrEdit() {
             let args = []
-            if (mcChecked){
+            if (mcChecked) {
                 console.log(mcOptions);
-                const multipleChoiceAnswers = mcOptions.map((answer)=>({"mca" : answer.props.text}))
+                const multipleChoiceAnswers = mcOptions.map((answer) => ({ "mca": answer.props.text }))
                 console.log(multipleChoiceAnswers)
                 // for (let i in mcOptions){
                 //     // if mcOptions[i].
@@ -59,9 +60,9 @@ export default function OverlayWindow(props) {
         }
 
         function editMode() {
-            updateMcChecked(false);
+            updateMcChecked((mcChecked) => false);
             updateCreateOrEdit("Edit");
-            console.log(props.flashcardContent.front);
+            console.log(props.flashcardNum, props.flashcardContent.front);
             frontRef.current.value = props.flashcardContent.front;
             backRef.current.value = props.flashcardContent.back;
             updateMcChecked(props.flashcardContent.multipleChoice === "true");
@@ -76,6 +77,7 @@ export default function OverlayWindow(props) {
             backRef.current.value = "";
         }
 
+        // Navigation
         function nextCard() {
             props.next();
             editMode();
@@ -97,10 +99,14 @@ export default function OverlayWindow(props) {
             }
         }
 
+        // Multiple choice related functions
         function addMcOption(e, keyCounter = mcCounter, initialText = "") {
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} correctChecked={correctChecked} updateCorrectChecked={updateCorrectChecked}/>])
+            // Updates the array to be the same array (spread) with an extra option on the end
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)}/>])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
+
+        console.log(mcOptions);
 
         // Delete an option based on index
         function deleteMcOption(location) {
@@ -134,7 +140,7 @@ export default function OverlayWindow(props) {
         }
 
         function addExistingMultipleChoiceOptions() {
-            updateMcOptions([]);
+            updateMcOptions((mcOptions) => []);
             updateMcCounter(0);
             existingAnswers = props.flashcardContent.multipleChoiceAnswers;
 
@@ -144,8 +150,9 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function deleteButtonIfEdit(){
-            if (createOrEdit === "Edit"){
+        // UI functions
+        function deleteButtonIfEdit() {
+            if (createOrEdit === "Edit") {
                 return (
                     <button className="ft-3 responsive-width self-center" onClick={() => props.deleteCard(props.flashcardNum)}>Delete</button>
                 )
