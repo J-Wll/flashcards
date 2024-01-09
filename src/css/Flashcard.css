@@ -98,12 +98,12 @@
     text-align: start;
 }
 
-.card-indicator{
+.card-indicator {
     position: relative;
     bottom: 0px;
 }
 
-.flashcard-main-text{
+.flashcard-main-text {
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -124,7 +124,7 @@
     /* transform-style: preserve-3d;  */
 }
 
-.mc-answer-option{
+.mc-answer-option {
     width: 20px;
     height: 20px;
 }

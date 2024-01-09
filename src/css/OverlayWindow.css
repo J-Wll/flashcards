@@ -1,4 +1,4 @@
-.overlay-window{
+.overlay-window {
     z-index: 2;
     position: absolute;
 
@@ -19,65 +19,65 @@
     overflow-y: auto;
 }
 
-.background-blur{
+.background-blur {
     z-index: 1;
     position: absolute;
     top: 0;
 
     width: 99%;
     height: 99%;
-    
+
     background-color: rgb(31, 31, 31);
     opacity: 75%;
     filter: blur(12px);
 }
 
-.overlay-close{
+.overlay-close {
     position: absolute;
     top: 0;
     right: 0;
     margin: 10px;
 }
 
-.overlay-input-section{
+.overlay-input-section {
     display: inherit;
     flex-direction: inherit;
     text-align: center;
     width: 80%;
 }
 
-.overlay-textarea{
+.overlay-textarea {
     margin-bottom: 20px;
     resize: vertical;
 }
 
-.overlay-button{
+.overlay-button {
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.overlay-checkbox{
+.overlay-checkbox {
     align-self: center;
 }
 
-.mcoption-textarea{
+.mcoption-textarea {
     width: 100%;
     margin: 0;
     margin-bottom: 20px;
 }
 
-.mcoption-close{
+.mcoption-close {
     margin: 0;
     margin-bottom: 20px;
 }
 
-.mcoption-radio{
+.mcoption-radio {
     height: 50px;
     width: 50px;
     align-self: center;
     justify-self: center;
 }
 
-.overlay-load-button{
+.overlay-load-button {
     margin: 20px;
 }

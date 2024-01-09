@@ -20,24 +20,21 @@ export default function Flashcard(props) {
     const [lastNum, updateLastNum] = useState(0);
 
     // So that it doesn't show correct/wrong between cards
-    if (props.flashcardNum != lastNum){
+    if (props.flashcardNum != lastNum) {
         updateLastNum(() => props.flashcardNum);
         updateGotCorrect(false);
     }
 
-    // let [mcKey, updateMcKey] = useState(1);
     let answerFlip = "";
 
     function flipCard() {
         if (cardSide == "front" && flashcardContent.multipleChoice === "true") {
-            console.log("MC")
             console.log(guessChecked, flashcardContent.correctAnswer)
-            if (guessChecked == flashcardContent.correctAnswer){
-                console.log("CORRECT")
-                updateGotCorrect(()=>"correct");
+            if (guessChecked == flashcardContent.correctAnswer) {
+                updateGotCorrect(() => "correct");
             }
-            else{
-                updateGotCorrect(()=>"wrong");
+            else {
+                updateGotCorrect(() => "wrong");
             }
         }
 
@@ -50,18 +47,19 @@ export default function Flashcard(props) {
         return cardSide === "front" ? flashcardContent.front : flashcardContent.back;
     }
 
-    function getStatus(){
-        if (cardSide == "back"){
-            if(gotCorrect==="correct"){
+    // Returns correct or incorrect based on state
+    function getStatus() {
+        if (cardSide == "back") {
+            if (gotCorrect === "correct") {
                 return (<p className="ft-4 text-green">Correct!</p>)
             }
-            else if (gotCorrect==="wrong"){
+            else if (gotCorrect === "wrong") {
                 return (<p className="ft-4 text-red">Wrong</p>)
             }
         }
     }
 
-
+    // Coniditional return if multiple choice
     function ifMultipleChoice() {
         if (cardSide != "front") { return }
         let choices = [];
@@ -72,12 +70,10 @@ export default function Flashcard(props) {
             let tempKey = 1;
             for (let i in props.flashcardContent.multipleChoiceAnswers) {
                 choices.push(
-                        <MultipleChoiceOption checkAction={(guess) => updateGuessChecked(() => guess)} counter={tempKey} key={tempKey} iText={flashcardContent.multipleChoiceAnswers[i]["mca"]} />
+                    <MultipleChoiceOption checkAction={(guess) => updateGuessChecked(() => guess)} counter={tempKey} key={tempKey} iText={flashcardContent.multipleChoiceAnswers[i]["mca"]} />
                 )
-                tempKey+=1;
+                tempKey += 1;
             }
-
-            console.log(guessChecked);
 
             return (
                 <>

@@ -37,7 +37,7 @@
     margin: 5px;
 }
 
-.load-file-form{
+.load-file-form {
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -45,13 +45,13 @@
     justify-content: center;
 }
 
-.load-file-form button{
+.load-file-form button {
     display: block;
     align-self: center;
     margin: 5px;
 }
 
-.load-file-form-element{
+.load-file-form-element {
     display: block;
     align-self: center;
     margin: 5px;

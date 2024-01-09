@@ -48,10 +48,6 @@ export default function OverlayWindow(props) {
         let localFlashcards = props.stateFlashcards
         let localFlashcardNum = props.flashcardNum
 
-        // if (localFlashcardNum === undefined) {
-        //     var localFlashcardNum = 4;
-        // }
-
         let currentFlashcard = localFlashcards[localFlashcardNum];
 
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
@@ -71,7 +67,6 @@ export default function OverlayWindow(props) {
                         correctAnswer = Number(i) + 1;
                     }
                 }
-                console.log("Answer is", correctAnswer)
 
                 const multipleChoiceAnswers = [];
                 let mcTextArr = Object.entries(mcText);
@@ -81,9 +76,6 @@ export default function OverlayWindow(props) {
                         multipleChoiceAnswers.push({ "mca": mcText[key] })
                     }
                 }
-                // const multipleChoiceAnswers = mcText.map((answer) => ({"mca" : answer}))
-                // const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
-                console.log(multipleChoiceAnswers);
 
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
@@ -150,31 +142,24 @@ export default function OverlayWindow(props) {
         // Multiple choice related functions
         // For controlled input of textarea in OverlayWindowMcOption
         function onMcTextChange(iValue, keyCounter) {
-            console.log(iValue, keyCounter);
-
             addToMcText(keyCounter, iValue);
-            console.log("key", keyCounter, "type", typeof (keyCounter), "value", iValue, "type", typeof (iValue))
-            console.log(mcText);
-
-
         }
 
         function addToMcText(iKey, iValue) {
-            console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
+            // console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
             // New object 
             updateMcText(prevMcText => {
                 return { ...prevMcText, [Number(iKey)]: iValue }
             });
-            // console.log(mcText);
             return iValue;
         }
 
         function addMcOption(e, keyCounter = mcCounter, initialText = "", newestOptions = mcOptions) {
             // Updates the array to be the same array (spread) with an extra option on the end
 
-            console.log("AAA", mcText[keyCounter], mcText, keyCounter, initialText)
+            // console.log("AAA", mcText[keyCounter], mcText, keyCounter, initialText)
             const returnedText = addToMcText(keyCounter, initialText)
-            console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
+            // console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
 
 
             newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={returnedText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
@@ -193,9 +178,7 @@ export default function OverlayWindow(props) {
 
             // for each existing answer
             for (let i in existingAnswers) {
-                // addToMcText(i, existingAnswers[i]["mca"])
                 newestOptions = addMcOption(null, i, existingAnswers[i]["mca"], newestOptions);
-                // console.log(newestOptions);
             }
 
             return newestOptions
@@ -208,7 +191,7 @@ export default function OverlayWindow(props) {
             const textArr = { ...mcText }
             delete textArr.location
             updateMcText((prev) => textArr);
-            console.log("Just deleted, new object:", mcText);
+            // console.log("Just deleted, new object:", mcText);
         }
 
         function addMcControls() {
@@ -228,7 +211,6 @@ export default function OverlayWindow(props) {
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
                         {getNewestOptions()}
-                        {/* {optionsRef.current} */}
                     </>
                 )
             }
@@ -238,10 +220,6 @@ export default function OverlayWindow(props) {
             updateMcChecked(e.target.checked)
         }
 
-
-        // useEffect(() => {
-        //     console.log(mcOptions);
-        // }, [mcOptions])
 
         // UI functions
         function deleteButtonIfEdit() {
@@ -253,7 +231,7 @@ export default function OverlayWindow(props) {
         }
 
         function localDeleteCard() {
-            console.log("delete card flashnum", localFlashcardNum);
+            // console.log("delete card flashnum", localFlashcardNum);
             const deleteReturn = props.deleteCard(localFlashcardNum, localFlashcards);
             localFlashcardNum -= 1;
             // Not false (Delete happened)
@@ -264,7 +242,6 @@ export default function OverlayWindow(props) {
         }
 
         function getNewestOptions() {
-            // console.log(newestOptions);
             return newestOptions;
         }
 
@@ -364,7 +341,6 @@ export default function OverlayWindow(props) {
     return (
         <>
             <div className="background-blur" />
-
             <div className="overlay-window responsive-width">
                 {displayCloseButton()}
                 {setOverlayContent()}
