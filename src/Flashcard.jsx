@@ -31,7 +31,8 @@ export default function Flashcard(props) {
     function flipCard() {
         if (cardSide == "front" && flashcardContent.multipleChoice === "true") {
             console.log("MC")
-            if (guessChecked === flashcardContent.correctAnswer){
+            console.log(guessChecked, flashcardContent.correctAnswer)
+            if (guessChecked == flashcardContent.correctAnswer){
                 console.log("CORRECT")
                 updateGotCorrect(()=>"correct");
             }
