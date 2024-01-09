@@ -95,6 +95,7 @@ export default function FlashcardHandler() {
 
     // Navigation functions
     function prevCard(e, iNum = flashcardNum) {
+        amountOfFlashcards = stateFlashcards.length;
         console.log("before", iNum)
         if (iNum > 0) {
             iNum -= 1;
@@ -108,6 +109,7 @@ export default function FlashcardHandler() {
     }
 
     function nextCard(e, iNum = flashcardNum) {
+        amountOfFlashcards = stateFlashcards.length;
         console.log("before", iNum)
         if (iNum < amountOfFlashcards - 1) {
             iNum += 1;
@@ -144,13 +146,20 @@ export default function FlashcardHandler() {
     function deleteCard(num, childFlashcards) {
         let amountOfFlashcards = childFlashcards.length;
 
-        if (amountOfFlashcards > 2) {
+        if (amountOfFlashcards > 2 && num <= amountOfFlashcards-1) {
             console.log("parent delete card flashnum", num);
             // const tempArr = [...stateFlashcards]
             childFlashcards.splice(num, 1);
             updateStateFlashcards((stateFlashcards) => childFlashcards);
             // nextCard();
-            updateFlashcardNum((flashcardNum) => num-1)
+            if (flashcardNum < stateFlashcards.length){
+                console.log("Decrease")
+                updateFlashcardNum((flashcardNum) => flashcardNum-1)
+            }
+            else {
+                console.log("Zero")
+                updateFlashcardNum(() => 0);
+            }
             localStorageCardSave();
             return childFlashcards
         } else {

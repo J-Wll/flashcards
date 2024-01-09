@@ -82,7 +82,13 @@ export default function OverlayWindow(props) {
         }
 
         function editMode(localFlashcardNum) {
-            currentFlashcard = localFlashcards[localFlashcardNum];
+            // So that if a bad number is passed in, it does not crash
+            if (localFlashcardNum < localFlashcards.length) {
+                currentFlashcard = localFlashcards[localFlashcardNum];
+            }
+            else {
+                currentFlashcard = localFlashcards[0];
+            }
             updateMcChecked((mcChecked) => false);
             updateCreateOrEdit("Edit");
             frontRef.current.value = currentFlashcard.front;
@@ -205,6 +211,7 @@ export default function OverlayWindow(props) {
         function localDeleteCard() {
             console.log("delete card flashnum", localFlashcardNum);
             const deleteReturn = props.deleteCard(localFlashcardNum, localFlashcards);
+            localFlashcardNum -= 1;
             // Not false (Delete happened)
             if (deleteReturn) {
                 localFlashcards = deleteReturn;
