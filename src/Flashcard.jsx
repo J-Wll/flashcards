@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react"
+
+import MultipleChoiceOption from "./MultipleChoiceOption.jsx";
+
 import "./css/Flashcard.css"
 import "./css/Utility.css"
 
@@ -9,12 +12,22 @@ export default function Flashcard(props) {
     if (props.inactive) {
         return (<button onClick={props.onClick} className={`flashcard inactive`}></button>)
     }
-    let [cardSide, updateCardSide] = useState("front");
-    let [flipClass, updateFlipClass] = useState("notFlipped");
-    let [fadeIn, updateFadeIn] = useState("");
+    const [cardSide, updateCardSide] = useState("front");
+    const [flipClass, updateFlipClass] = useState("notFlipped");
+    const [fadeIn, updateFadeIn] = useState("");
+    const [guessChecked, updateGuessChecked] = useState(false);
+
+    // let [mcKey, updateMcKey] = useState(1);
     let answerFlip = "";
 
     function flipCard() {
+        if (cardSide == "front" && flashcardContent.multipleChoice === "true") {
+            console.log("MC")
+            if (guessChecked === flashcardContent.correctAnswer){
+                console.log("CORRECT")
+            }
+        }
+
         flipClass === "notFlipped" ? updateFlipClass("flipped") : updateFlipClass("notFlipped");
         cardSide === "front" ? updateCardSide("back") : updateCardSide("front");
         fadeIn === "" || fadeIn === "fadeIn" ? updateFadeIn("fadeIn2") : updateFadeIn("fadeIn")
@@ -24,6 +37,7 @@ export default function Flashcard(props) {
         return cardSide === "front" ? flashcardContent.front : flashcardContent.back;
     }
 
+
     function ifMultipleChoice() {
         if (cardSide != "front") { return }
         let choices = [];
@@ -31,18 +45,22 @@ export default function Flashcard(props) {
         if (flashcardContent.multipleChoice === "true") {
             answerFlip = " to check answer"
 
+            let tempKey = 1;
             for (let i in props.flashcardContent.multipleChoiceAnswers) {
                 choices.push(
-                    <li key={i}>{flashcardContent.multipleChoiceAnswers[i]["mca"]}</li>
+                        <MultipleChoiceOption checkAction={(guess) => updateGuessChecked(() => guess)} counter={tempKey} key={tempKey} iText={flashcardContent.multipleChoiceAnswers[i]["mca"]} />
                 )
+                tempKey+=1;
             }
+
+            console.log(guessChecked);
 
             return (
                 <>
                     <span className="divider-line"></span>
-                    <ol className="text-white ft-3 mutliple-choice">
+                    <form className="text-white ft-3 mutliple-choice">
                         {choices}
-                    </ol>
+                    </form>
                 </>)
         }
 
@@ -57,7 +75,7 @@ export default function Flashcard(props) {
                 {/* Multiple choices conditionally render based on property within the flashcard */}
                 {ifMultipleChoice()}
 
-                <p className="text-white ft-1 card-indicator">{`< ${props.flashcardNum+1} / ${props.amountOfFlashcards} >`}</p>
+                <p className="text-white ft-1 card-indicator">{`< ${props.flashcardNum + 1} / ${props.amountOfFlashcards} >`}</p>
             </div>
 
             <div className={`button-group ${flipClass}`}>

@@ -22,6 +22,10 @@
     margin-bottom: 10px;
 }
 
+.mr-a{
+    margin-right: auto !important;
+}
+
 /* font sizes */
 .ft-5{
     text-align: center;

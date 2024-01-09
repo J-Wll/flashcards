@@ -124,6 +124,11 @@
     /* transform-style: preserve-3d;  */
 }
 
+.mc-answer-option{
+    width: 20px;
+    height: 20px;
+}
+
 /* 2 fade in classes and keyframes, otherwise the effect wont apply. Prefixes used for browser compatibility */
 .fadeIn {
     animation: fadeIn cubic-bezier(.78, 0, .79, 1.13) 0.75s;
