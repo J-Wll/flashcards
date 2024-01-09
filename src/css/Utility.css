@@ -1,125 +1,125 @@
 /* For use in any file, alternative to bootstrap since it was used very little */
 
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.text-white{
+.text-white {
     color: white;
 }
 
-.text-green{
+.text-green {
     color: limegreen;
 }
 
-.text-red{
+.text-red {
     color: red;
 }
 
 /* spacing */
-.mt-0{
+.mt-0 {
     margin-top: 0;
 }
 
-.mb-0{
+.mb-0 {
     margin-bottom: 0;
 }
 
-.my-1{
+.my-1 {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.mr-a{
+.mr-a {
     margin-right: auto !important;
 }
 
 /* font sizes */
-.ft-5{
+.ft-5 {
     text-align: center;
     font-size: calc(3rem + 0.35dvw);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.ft-4{
+.ft-4 {
     text-align: center;
     font-size: calc(1.6rem + 0.35dvw);
 }
 
 
-.ft-3{
+.ft-3 {
     text-align: center;
     font-size: calc(1.4rem + 0.35dvw);
 }
 
-.ft-2{
+.ft-2 {
     text-align: center;
     font-size: calc(1.2rem + 0.35dvw);
 }
 
-.ft-1{
+.ft-1 {
     text-align: center;
     font-size: calc(1rem + 0.35dvw);
 }
 
-@media only screen and (max-width: 1000px){
-    .ft-5{
+@media (max-width: 1000px) {
+    .ft-5 {
         font-size: 3rem;
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    .ft-4{
+    .ft-4 {
         font-size: 1.6rem;
-    }    
-    
-    .ft-3{
+    }
+
+    .ft-3 {
         font-size: 1.4rem;
     }
-    
-    .ft-2{
+
+    .ft-2 {
         font-size: 1.2rem;
     }
-    
-    .ft-1{
+
+    .ft-1 {
         font-size: 1rem;
     }
 }
 
 /* width and height with the same scaling as the font */
-.wh-1{
+.wh-1 {
     width: calc(1rem + 0.35dvw);
     height: calc(1rem + 0.35dvw);
 }
 
-.horizontal-container{
+.horizontal-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.horizontal-container *{
+.horizontal-container * {
     margin: 10px;
 }
 
-.self-center{
+.self-center {
     align-self: center;
 }
 
 /* Responsive width */
-.responsive-width{
+.responsive-width {
     width: 50% !important;
 }
 
-@media only screen and (max-width: 1400px){
-    .responsive-width{
+@media (max-width: 1400px) {
+    .responsive-width {
         width: 75% !important;
     }
 }
 
-@media only screen and (max-width: 700px){
-    .responsive-width{
+@media (max-width: 700px) {
+    .responsive-width {
         width: 90% !important;
     }
 }
