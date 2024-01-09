@@ -28,12 +28,18 @@ export default function OverlayWindow(props) {
 
     // From the create cards button
     function createEditCardWindow() {
+        // Create or edit mode
+        let [createOrEdit, updateCreateOrEdit] = useState("Create")
+        // References for front and back
         const frontRef = useRef(null);
         const backRef = useRef(null);
+        // If multiple choice is checked
         const [mcChecked, updateMcChecked] = useState(false);
+        // Number for key of multiple choices
         const [mcCounter, updateMcCounter] = useState(0);
-        let [createOrEdit, updateCreateOrEdit] = useState("Create")
+        // The multiple choice options added by the user
         const [mcOptions, updateMcOptions] = useState([]);
+        // The multiple choice option the user checks as correct
         const [correctChecked, updateCorrectChecked] = useState(false);
 
         let existingAnswers = [];
