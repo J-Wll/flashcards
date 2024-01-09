@@ -196,8 +196,12 @@ export default function OverlayWindow(props) {
 
         // Delete an option based on index
         function deleteMcOption(location) {
-            const tempArr = optionsRef.current.filter(item => item["key"] != location)
-            updateMcOptions(tempArr);
+            const optionArr = optionsRef.current.filter(item => item["key"] != location)
+            updateMcOptions(optionArr);
+            const textArr = {...mcText}
+            delete textArr.location
+            updateMcText((prev) => textArr);
+            console.log("Just deleted, new object:", mcText);
         }
 
         function addMcControls() {
