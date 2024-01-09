@@ -46,6 +46,8 @@ export default function OverlayWindow(props) {
 
         let existingAnswers = [];
 
+        let currentFlashcard = props.stateFlashcards[props.flashcardNum];
+
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
@@ -67,11 +69,9 @@ export default function OverlayWindow(props) {
 
                 console.log(correctAnswer)
 
-                const multipleChoiceAnswers = mcOptions.map((answer) => ({ "mca": answer.props.initialText }))
+                const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
                 console.log(multipleChoiceAnswers)
-                // for (let i in mcOptions){
-                //     // if mcOptions[i].
-                // }
+
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
@@ -79,13 +79,12 @@ export default function OverlayWindow(props) {
             createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
         }
 
-        function editMode() {
+        function editMode(currentFlashcard) {
             updateMcChecked((mcChecked) => false);
             updateCreateOrEdit("Edit");
-            console.log(props.flashcardNum, props.flashcardContent.front);
-            frontRef.current.value = props.flashcardContent.front;
-            backRef.current.value = props.flashcardContent.back;
-            updateMcChecked(props.flashcardContent.multipleChoice === "true");
+            frontRef.current.value = currentFlashcard.front;
+            backRef.current.value = currentFlashcard.back;
+            updateMcChecked(currentFlashcard.multipleChoice === "true");
         }
 
         function createMode() {
@@ -99,13 +98,17 @@ export default function OverlayWindow(props) {
 
         // Navigation
         function nextCard() {
-            props.next();
-            editMode();
+            const newNum = props.next();
+            currentFlashcard = props.stateFlashcards[newNum]
+            console.log(newNum, currentFlashcard.front);
+            editMode(currentFlashcard);
         }
 
         function prevCard() {
-            props.prev();
-            editMode();
+            const newNum = props.prev();
+            currentFlashcard = props.stateFlashcards[newNum]
+            console.log(newNum, currentFlashcard.front);
+            editMode(currentFlashcard);
         }
 
         function editNavigation() {
@@ -122,7 +125,7 @@ export default function OverlayWindow(props) {
         // Multiple choice related functions
         function addMcOption(e, keyCounter = mcCounter, initialText = "") {
             // Updates the array to be the same array (spread) with an extra option on the end
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText}  />])
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText} />])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 
@@ -134,8 +137,8 @@ export default function OverlayWindow(props) {
 
         function addMcControls() {
             if (mcChecked) {
-                if (props.flashcardContent.multipleChoiceAnswers != undefined) {
-                    existingAnswers = props.flashcardContent.multipleChoiceAnswers;
+                if (currentFlashcard.multipleChoiceAnswers != undefined) {
+                    existingAnswers = currentFlashcard.multipleChoiceAnswers;
                 }
 
                 if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
@@ -160,7 +163,7 @@ export default function OverlayWindow(props) {
         function addExistingMultipleChoiceOptions() {
             updateMcOptions((mcOptions) => []);
             updateMcCounter(0);
-            existingAnswers = props.flashcardContent.multipleChoiceAnswers;
+            existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
             // for each existing answer
             for (let i in existingAnswers) {
@@ -180,8 +183,8 @@ export default function OverlayWindow(props) {
         // Whenever the mode is edit and there are more existing multipleChoiceAnswers than are in the options, run addExistingMultipleChoiceOptions
         // Triggers when mcChecked or createOrEdit is changed
         useEffect(() => {
-            if (createOrEdit === "Edit" && mcChecked === true && props.flashcardContent.multipleChoiceAnswers != undefined) {
-                if (mcOptions.length < props.flashcardContent.multipleChoiceAnswers.length) {
+            if (createOrEdit === "Edit" && mcChecked === true && currentFlashcard.multipleChoiceAnswers != undefined) {
+                if (mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     updateMcOptions([]);
                     updateMcCounter(0);
                     addExistingMultipleChoiceOptions();
@@ -194,7 +197,7 @@ export default function OverlayWindow(props) {
                 <div className="horizontal-container">
                     <button className="ft-3" onClick={createMode}>Create</button>
                     <span className="text-white ft-3"> | </span>
-                    <button className="ft-3" onClick={editMode}>Edit</button>
+                    <button className="ft-3" onClick={() => editMode(currentFlashcard)}>Edit</button>
                 </div>
 
                 <div className="overlay-input-section">
@@ -240,7 +243,6 @@ export default function OverlayWindow(props) {
             <>
                 <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty Set</button>
                 <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Example Set</button>
-
                 {props.loadFileControls()}
             </>
 
@@ -292,7 +294,6 @@ export default function OverlayWindow(props) {
             <div className="background-blur" />
 
             <div className="overlay-window responsive-width">
-
                 {displayCloseButton()}
                 {setOverlayContent()}
             </div>
