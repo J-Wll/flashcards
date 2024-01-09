@@ -45,10 +45,14 @@ export default function OverlayWindow(props) {
         const [mcText, updateMcText] = useState([])
 
         let existingAnswers = [];
-
         let localFlashcards = props.stateFlashcards
-        let localFlashcardNum;
-        let currentFlashcard = localFlashcards[props.flashcardNum];
+        let localFlashcardNum = props.flashcardNum
+
+        // if (localFlashcardNum === undefined) {
+        //     var localFlashcardNum = 4;
+        // }
+
+        let currentFlashcard = localFlashcards[localFlashcardNum];
 
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
@@ -77,7 +81,8 @@ export default function OverlayWindow(props) {
             createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
         }
 
-        function editMode(currentFlashcard) {
+        function editMode(localFlashcardNum) {
+            currentFlashcard = localFlashcards[localFlashcardNum];
             updateMcChecked((mcChecked) => false);
             updateCreateOrEdit("Edit");
             frontRef.current.value = currentFlashcard.front;
@@ -95,25 +100,29 @@ export default function OverlayWindow(props) {
         }
 
         // Navigation
-        function nextCard() {
-            localFlashcardNum = props.next();
+        function localNextCard() {
+            console.log("before", localFlashcardNum)
+            localFlashcardNum = props.next(null, localFlashcardNum);
+            console.log("next card flashnum", localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // console.log(localFlashcardNum, currentFlashcard.front);
-            editMode(currentFlashcard);
+            editMode(localFlashcardNum);
+            console.log("after", localFlashcardNum)
+
         }
 
-        function prevCard() {
-            localFlashcardNum = props.prev();
+        function localPrevCard() {
+            localFlashcardNum = props.prev(null, localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
-            editMode(currentFlashcard);
+            editMode(localFlashcardNum);
         }
 
         function editNavigation() {
             if (createOrEdit === "Edit") {
                 return (
                     <div className="horizontal-container">
-                        <button className="ft-3" onClick={prevCard}>{"<"}</button>
-                        <button className="ft-3" onClick={nextCard}>{">"}</button>
+                        <button className="ft-3" onClick={localPrevCard}>{"<"}</button>
+                        <button className="ft-3" onClick={localNextCard}>{">"}</button>
                     </div>
                 )
             }
@@ -193,16 +202,17 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function localDeleteCard(){
+        function localDeleteCard() {
+            console.log("delete card flashnum", localFlashcardNum);
             const deleteReturn = props.deleteCard(localFlashcardNum, localFlashcards);
             // Not false (Delete happened)
-            if (deleteReturn){
+            if (deleteReturn) {
                 localFlashcards = deleteReturn;
-                nextCard();
+                localNextCard();
             }
         }
 
-        function getNewestOptions(){
+        function getNewestOptions() {
             console.log(newestOptions);
             return newestOptions;
         }
@@ -224,7 +234,7 @@ export default function OverlayWindow(props) {
                 <div className="horizontal-container">
                     <button className="ft-3" onClick={createMode}>Create</button>
                     <span className="text-white ft-3"> | </span>
-                    <button className="ft-3" onClick={() => editMode(currentFlashcard)}>Edit</button>
+                    <button className="ft-3" onClick={() => editMode(localFlashcardNum)}>Edit</button>
                 </div>
 
                 <div className="overlay-input-section">

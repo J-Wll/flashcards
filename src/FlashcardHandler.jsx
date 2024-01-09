@@ -94,30 +94,30 @@ export default function FlashcardHandler() {
     }
 
     // Navigation functions
-    function prevCard() {
-        let newNum = flashcardNum;
-        if (flashcardNum > 0) {
-            newNum -= 1;
-            updateFlashcardNum((flashcardNum) => newNum)
+    function prevCard(e, iNum = flashcardNum) {
+        console.log("before", iNum)
+        if (iNum > 0) {
+            iNum -= 1;
         }
         else {
-            newNum = amountOfFlashcards - 1;
-            updateFlashcardNum((flashcardNum) => newNum);
+            iNum = amountOfFlashcards - 1;
         }
-        return newNum;
+        console.log("after", iNum)
+        updateFlashcardNum((flashcardNum) => iNum)
+        return iNum;
     }
 
-    function nextCard() {
-        let newNum = flashcardNum;
-        if (flashcardNum < amountOfFlashcards - 1) {
-            newNum += 1;
-            updateFlashcardNum((flashcardNum) => newNum)
+    function nextCard(e, iNum = flashcardNum) {
+        console.log("before", iNum)
+        if (iNum < amountOfFlashcards - 1) {
+            iNum += 1;
         }
         else {
-            newNum = 0;
-            updateFlashcardNum((flashcardNum) => newNum);
+            iNum = 0;
         }
-        return newNum;
+        console.log("after", iNum)
+        updateFlashcardNum((flashcardNum) => iNum)
+        return iNum;
     }
 
     // Create/edit functions
@@ -142,11 +142,15 @@ export default function FlashcardHandler() {
     }
 
     function deleteCard(num, childFlashcards) {
+        let amountOfFlashcards = childFlashcards.length;
+
         if (amountOfFlashcards > 2) {
+            console.log("parent delete card flashnum", num);
             // const tempArr = [...stateFlashcards]
             childFlashcards.splice(num, 1);
             updateStateFlashcards((stateFlashcards) => childFlashcards);
-            nextCard();
+            // nextCard();
+            updateFlashcardNum((flashcardNum) => num-1)
             localStorageCardSave();
             return childFlashcards
         } else {
@@ -167,7 +171,7 @@ export default function FlashcardHandler() {
     // Load functions
     function defaultCards() {
         updateFlashcardNum(0);
-        updateStateFlashcards(defaultFlashcards);
+        updateStateFlashcards([...defaultFlashcards]);
     }
 
     function emptyCards() {
