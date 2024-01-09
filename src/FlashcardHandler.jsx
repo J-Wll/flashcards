@@ -62,7 +62,7 @@ const emptyFlashcards = [
 export default function FlashcardHandler() {
     const [flashcardNum, updateFlashcardNum] = useState(0);
     const errorMsgRef = useRef(null);
-    // can be none, splash, create, save, load, stats, about
+    // can be none, splash, create, save, load, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
     let overlayMode = "";
 
@@ -283,7 +283,6 @@ export default function FlashcardHandler() {
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("create")}>Create/Edit</button>
                 <button className="control-button ft-3" onClick={saveCards}>Save</button>
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("load")}>Load</button>
-                <button className="control-button ft-3" onClick={() => updateOverlayMode("stats")}>Stats</button>
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("about")}>About</button>
             </div>
         </>

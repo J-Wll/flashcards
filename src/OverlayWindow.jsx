@@ -337,20 +337,6 @@ export default function OverlayWindow(props) {
         )
     }
 
-    // From the stats button
-    function statsWindow() {
-
-        return (
-            <>
-                <p className="text-white ft-2">Stats</p>
-                {/* Cards viewed? */}
-                {/* Answers correct? */}
-                {/* Cards made? */}
-                {/* Time spent? */}
-            </>
-        )
-    }
-
     // No close button during splash screen, a set has to be loaded to close it
     function displayCloseButton() {
         if (props.overlayMode != "splash") {
@@ -368,8 +354,6 @@ export default function OverlayWindow(props) {
                 return createEditCardWindow();
             case "load":
                 return loadWindow();
-            case "stats":
-                return statsWindow();
             case "about":
                 return aboutWindow();
             default:
