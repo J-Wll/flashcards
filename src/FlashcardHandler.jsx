@@ -141,14 +141,16 @@ export default function FlashcardHandler() {
         });
     }
 
-    function deleteCard(num) {
+    function deleteCard(num, childFlashcards) {
         if (amountOfFlashcards > 2) {
-            const tempArr = [...stateFlashcards]
-            tempArr.splice(num, 1)
-            updateStateFlashcards((stateFlashcards) => tempArr);
+            // const tempArr = [...stateFlashcards]
+            childFlashcards.splice(num, 1)
+            updateStateFlashcards((stateFlashcards) => childFlashcards);
             nextCard();
+            return childFlashcards
         } else{
             console.log("Can not go below 2 flashcards")
+            return false
         }
     }
 

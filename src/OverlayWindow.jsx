@@ -46,7 +46,9 @@ export default function OverlayWindow(props) {
 
         let existingAnswers = [];
 
-        let currentFlashcard = props.stateFlashcards[props.flashcardNum];
+        let localFlashcards = props.stateFlashcards
+        let localFlashcardNum;
+        let currentFlashcard = localFlashcards[props.flashcardNum];
 
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
@@ -94,15 +96,15 @@ export default function OverlayWindow(props) {
 
         // Navigation
         function nextCard() {
-            const newNum = props.next();
-            currentFlashcard = props.stateFlashcards[newNum]
-            // console.log(newNum, currentFlashcard.front);
+            localFlashcardNum = props.next();
+            currentFlashcard = localFlashcards[localFlashcardNum]
+            // console.log(localFlashcardNum, currentFlashcard.front);
             editMode(currentFlashcard);
         }
 
         function prevCard() {
-            const newNum = props.prev();
-            currentFlashcard = props.stateFlashcards[newNum]
+            localFlashcardNum = props.prev();
+            currentFlashcard = localFlashcards[localFlashcardNum]
             editMode(currentFlashcard);
         }
 
@@ -178,16 +180,25 @@ export default function OverlayWindow(props) {
         }
 
 
-        useEffect(() => {
-            console.log(mcOptions);
-        }, [mcOptions])
+        // useEffect(() => {
+        //     console.log(mcOptions);
+        // }, [mcOptions])
 
         // UI functions
         function deleteButtonIfEdit() {
             if (createOrEdit === "Edit") {
                 return (
-                    <button className="ft-3 responsive-width self-center" onClick={() => props.deleteCard(props.flashcardNum)}>Delete</button>
+                    <button className="ft-3 responsive-width self-center" onClick={localDeleteCard}>Delete</button>
                 )
+            }
+        }
+
+        function localDeleteCard(){
+            const deleteReturn = props.deleteCard(localFlashcardNum, localFlashcards);
+            // Not false (Delete happened)
+            if (deleteReturn){
+                localFlashcards = deleteReturn;
+                nextCard();
             }
         }
 
