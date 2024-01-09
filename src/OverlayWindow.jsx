@@ -41,6 +41,8 @@ export default function OverlayWindow(props) {
         const [mcOptions, updateMcOptions] = useState([]);
         // The multiple choice option the user checks as correct
         const [correctChecked, updateCorrectChecked] = useState(false);
+        // Used to track the text of all multiple choice options
+        const [mcText, updateMcText] = useState([])
 
         let existingAnswers = [];
 
@@ -52,12 +54,14 @@ export default function OverlayWindow(props) {
         function callCreateOrEdit() {
             let args = []
             if (mcChecked) {
+                console.log(correctChecked);
                 console.log(mcOptions);
                 // Assigning correctAnswer to the index matching correctChecked, if there is no match assign it to 1 to prevent errors
                 let correctAnswer = 1;
-                for (let i in mcOptions){
-                    if (mcOptions[i].key === correctChecked){
-                        correctAnswer = i;
+                for (let i in mcOptions) {
+                    if (mcOptions[i].key == correctChecked) {
+                        // +1 because the logic for multiple choice is not zero indexed
+                        correctAnswer = Number(i) + 1;
                     }
                 }
 
@@ -118,7 +122,7 @@ export default function OverlayWindow(props) {
         // Multiple choice related functions
         function addMcOption(e, keyCounter = mcCounter, initialText = "") {
             // Updates the array to be the same array (spread) with an extra option on the end
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)}/>])
+            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText}  />])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
 
