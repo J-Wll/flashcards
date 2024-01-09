@@ -41,8 +41,8 @@ export default function OverlayWindow(props) {
         const [mcOptions, updateMcOptions] = useState([]);
         // The multiple choice option the user checks as correct
         const [correctChecked, updateCorrectChecked] = useState(false);
-        // Used to track the text of all multiple choice options
-        const [mcText, updateMcText] = useState([])
+        // Used to track the text of all multiple choice options, provides controlled input for options
+        const [mcText, updateMcText] = useState({})
 
         let existingAnswers = [];
         let localFlashcards = props.stateFlashcards
@@ -71,6 +71,8 @@ export default function OverlayWindow(props) {
                         correctAnswer = Number(i) + 1;
                     }
                 }
+                console.log("Answer is", correctAnswer)
+
 
                 const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
 
@@ -138,7 +140,9 @@ export default function OverlayWindow(props) {
         function addMcOption(e, keyCounter = mcCounter, initialText = "", newestOptions = mcOptions) {
             // Updates the array to be the same array (spread) with an extra option on the end
 
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText} />]
+            addToMcText(mcCounter, "")
+
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={() => onMcTextChange(keyCounter)} />]
 
             updateMcOptions((prevMcOptions) => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
@@ -146,16 +150,27 @@ export default function OverlayWindow(props) {
             return newestOptions;
         }
 
+        function onMcTextChange(keyCounter) {
+            console.log(keyCounter);
+            // updateMcText(mcText.keyCounter = textChange)
+        }
+
+        function addToMcText(iKey, iValue) {
+            let mcTextCopy = mcText;
+            updateMcText(mcTextCopy[iKey] = iValue);
+            console.log(mcText);
+        }
+
         function addExistingMultipleChoiceOptions() {
             newestOptions = [];
-            updateMcOptions((mcOptions) => newestOptions);
             updateMcCounter(0);
             existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
             // for each existing answer
             for (let i in existingAnswers) {
+                addToMcText(i, existingAnswers[i]["mca"])
                 newestOptions = addMcOption(null, i, existingAnswers[i]["mca"], newestOptions);
-                console.log(newestOptions);
+                // console.log(newestOptions);
             }
 
             return newestOptions
@@ -220,7 +235,7 @@ export default function OverlayWindow(props) {
         }
 
         function getNewestOptions() {
-            console.log(newestOptions);
+            // console.log(newestOptions);
             return newestOptions;
         }
 
