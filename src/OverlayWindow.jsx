@@ -47,12 +47,22 @@ export default function OverlayWindow(props) {
             let args = []
             if (mcChecked) {
                 console.log(mcOptions);
-                const multipleChoiceAnswers = mcOptions.map((answer) => ({ "mca": answer.props.text }))
+                // Assigning correctAnswer to the index matching correctChecked, if there is no match assign it to 1 to prevent errors
+                let correctAnswer = 1;
+                for (let i in mcOptions){
+                    if (mcOptions[i].key === correctChecked){
+                        correctAnswer = i;
+                    }
+                }
+
+                console.log(correctAnswer)
+
+                const multipleChoiceAnswers = mcOptions.map((answer) => ({ "mca": answer.props.initialText }))
                 console.log(multipleChoiceAnswers)
                 // for (let i in mcOptions){
                 //     // if mcOptions[i].
                 // }
-                args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers]
+                args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
             }
@@ -105,8 +115,6 @@ export default function OverlayWindow(props) {
             updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)}/>])
             updateMcCounter((mcCounter) => mcCounter + 1);
         }
-
-        console.log(mcOptions);
 
         // Delete an option based on index
         function deleteMcOption(location) {
