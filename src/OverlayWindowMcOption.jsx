@@ -17,7 +17,7 @@ export default function OverlayWindowMcOption(props) {
         // updateMcCounter((mcCounter) => mcCounter + 1);
     }
 
-    useEffect(() => console.log(props.correctChecked), [props.correctChecked])
+    // useEffect(() => console.log(props.correctChecked), [props.correctChecked])
 
     let firstChecked = false;
     if (props.counter == 0){

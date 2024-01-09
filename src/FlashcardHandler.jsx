@@ -143,11 +143,8 @@ export default function FlashcardHandler() {
 
     function deleteCard(num) {
         if (amountOfFlashcards > 2) {
-            console.log("a")
             const tempArr = [...stateFlashcards]
-            console.log(tempArr);
             tempArr.splice(num, 1)
-            console.log(tempArr);
             updateStateFlashcards((stateFlashcards) => tempArr);
             nextCard();
         } else{
@@ -203,7 +200,7 @@ export default function FlashcardHandler() {
 
                 if (syntaxValid) {
                     try {
-                        console.log(data[0].front);
+                        data[0].front;
                     }
                     catch (error) {
                         console.log(error);
@@ -239,7 +236,6 @@ export default function FlashcardHandler() {
     function resetOverlay() {
         updateOverlayMode("none");
         overlayMode = stateOverlayMode;
-        console.log(overlayMode);
     }
 
     // Autosave when stateFlashcards changes

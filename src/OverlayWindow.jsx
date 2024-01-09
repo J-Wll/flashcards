@@ -51,13 +51,12 @@ export default function OverlayWindow(props) {
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
+        let newestOptions = mcOptions;
 
         // Create and edit modes
         function callCreateOrEdit() {
             let args = []
             if (mcChecked) {
-                console.log(correctChecked);
-                console.log(mcOptions);
                 // Assigning correctAnswer to the index matching correctChecked, if there is no match assign it to 1 to prevent errors
                 let correctAnswer = 1;
                 for (let i in mcOptions) {
@@ -67,10 +66,7 @@ export default function OverlayWindow(props) {
                     }
                 }
 
-                console.log(correctAnswer)
-
                 const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
-                console.log(multipleChoiceAnswers)
 
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
@@ -100,14 +96,13 @@ export default function OverlayWindow(props) {
         function nextCard() {
             const newNum = props.next();
             currentFlashcard = props.stateFlashcards[newNum]
-            console.log(newNum, currentFlashcard.front);
+            // console.log(newNum, currentFlashcard.front);
             editMode(currentFlashcard);
         }
 
         function prevCard() {
             const newNum = props.prev();
             currentFlashcard = props.stateFlashcards[newNum]
-            console.log(newNum, currentFlashcard.front);
             editMode(currentFlashcard);
         }
 
@@ -123,10 +118,30 @@ export default function OverlayWindow(props) {
         }
 
         // Multiple choice related functions
-        function addMcOption(e, keyCounter = mcCounter, initialText = "") {
+        function addMcOption(e, keyCounter = mcCounter, initialText = "", newestOptions = mcOptions) {
             // Updates the array to be the same array (spread) with an extra option on the end
-            updateMcOptions((prevMcOptions) => [...prevMcOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText} />])
+
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} mcText={mcText} updateMcText={updateMcText} />]
+
+            updateMcOptions((prevMcOptions) => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
+
+            return newestOptions;
+        }
+
+        function addExistingMultipleChoiceOptions() {
+            newestOptions = [];
+            updateMcOptions((mcOptions) => newestOptions);
+            updateMcCounter(0);
+            existingAnswers = currentFlashcard.multipleChoiceAnswers;
+
+            // for each existing answer
+            for (let i in existingAnswers) {
+                newestOptions = addMcOption(null, i, existingAnswers[i]["mca"], newestOptions);
+                console.log(newestOptions);
+            }
+
+            return newestOptions
         }
 
         // Delete an option based on index
@@ -142,15 +157,17 @@ export default function OverlayWindow(props) {
                 }
 
                 if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
-                    addMcOption(null, 0);
-                    addMcOption(null, 1);
+                    // Negative numbers to fix an issue where the latest state was not displaying. I think because the keys were the same it did not update.
+                    newestOptions = addMcOption(null, -1, "", newestOptions);
+                    newestOptions = addMcOption(null, -2, "", newestOptions);
                 }
 
                 return (
                     <>
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
-                        {optionsRef.current}
+                        {getNewestOptions()}
+                        {/* {optionsRef.current} */}
                     </>
                 )
             }
@@ -160,16 +177,10 @@ export default function OverlayWindow(props) {
             updateMcChecked(e.target.checked)
         }
 
-        function addExistingMultipleChoiceOptions() {
-            updateMcOptions((mcOptions) => []);
-            updateMcCounter(0);
-            existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
-            // for each existing answer
-            for (let i in existingAnswers) {
-                addMcOption(null, i, existingAnswers[i]["mca"])
-            }
-        }
+        useEffect(() => {
+            console.log(mcOptions);
+        }, [mcOptions])
 
         // UI functions
         function deleteButtonIfEdit() {
@@ -180,6 +191,11 @@ export default function OverlayWindow(props) {
             }
         }
 
+        function getNewestOptions(){
+            console.log(newestOptions);
+            return newestOptions;
+        }
+
         // Whenever the mode is edit and there are more existing multipleChoiceAnswers than are in the options, run addExistingMultipleChoiceOptions
         // Triggers when mcChecked or createOrEdit is changed
         useEffect(() => {
@@ -187,7 +203,7 @@ export default function OverlayWindow(props) {
                 if (mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     updateMcOptions([]);
                     updateMcCounter(0);
-                    addExistingMultipleChoiceOptions();
+                    newestOptions = addExistingMultipleChoiceOptions();
                 }
             }
         }, [mcChecked, createOrEdit])
