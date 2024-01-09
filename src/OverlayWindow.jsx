@@ -137,12 +137,32 @@ export default function OverlayWindow(props) {
         }
 
         // Multiple choice related functions
-        function addMcOption(e, keyCounter = mcCounter, initialText = "", newestOptions = mcOptions) {
+        // For controlled input of textarea in OverlayWindowMcOption
+        function onMcTextChange(keyCounter) {
+            console.log(keyCounter);
+            // updateMcText(mcText.keyCounter = textChange)
+        }
+
+        function addToMcText(iKey, iValue) {
+            // let mcTextCopy = Object.assign({}, mcText);
+            console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
+            // New object 
+            updateMcText(prevMcText => {
+                return { ...prevMcText, [iKey.toString()]: iValue.toString() }
+            });
+            console.log(mcText);
+            return iValue.toString();
+        }
+
+        function addMcOption(e, keyCounter = mcCounter, initialText = "fff ", newestOptions = mcOptions) {
             // Updates the array to be the same array (spread) with an extra option on the end
 
-            addToMcText(mcCounter, "")
+            console.log("AAA", mcText[keyCounter], mcText, keyCounter, initialText)
+            const thisText = addToMcText(keyCounter.toString(), initialText.toString())
+            console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
 
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={() => onMcTextChange(keyCounter)} />]
+
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={initialText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={thisText} onMcTextChange={() => onMcTextChange(keyCounter)} />]
 
             updateMcOptions((prevMcOptions) => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
@@ -150,16 +170,6 @@ export default function OverlayWindow(props) {
             return newestOptions;
         }
 
-        function onMcTextChange(keyCounter) {
-            console.log(keyCounter);
-            // updateMcText(mcText.keyCounter = textChange)
-        }
-
-        function addToMcText(iKey, iValue) {
-            let mcTextCopy = mcText;
-            updateMcText(mcTextCopy[iKey] = iValue);
-            console.log(mcText);
-        }
 
         function addExistingMultipleChoiceOptions() {
             newestOptions = [];
@@ -168,7 +178,7 @@ export default function OverlayWindow(props) {
 
             // for each existing answer
             for (let i in existingAnswers) {
-                addToMcText(i, existingAnswers[i]["mca"])
+                // addToMcText(i, existingAnswers[i]["mca"])
                 newestOptions = addMcOption(null, i, existingAnswers[i]["mca"], newestOptions);
                 // console.log(newestOptions);
             }
