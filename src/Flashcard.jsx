@@ -16,6 +16,14 @@ export default function Flashcard(props) {
     const [flipClass, updateFlipClass] = useState("notFlipped");
     const [fadeIn, updateFadeIn] = useState("");
     const [guessChecked, updateGuessChecked] = useState(false);
+    const [gotCorrect, updateGotCorrect] = useState(false);
+    const [lastNum, updateLastNum] = useState(0);
+
+    // So that it doesn't show correct/wrong between cards
+    if (props.flashcardNum != lastNum){
+        updateLastNum(() => props.flashcardNum);
+        updateGotCorrect(false);
+    }
 
     // let [mcKey, updateMcKey] = useState(1);
     let answerFlip = "";
@@ -25,6 +33,10 @@ export default function Flashcard(props) {
             console.log("MC")
             if (guessChecked === flashcardContent.correctAnswer){
                 console.log("CORRECT")
+                updateGotCorrect(()=>"correct");
+            }
+            else{
+                updateGotCorrect(()=>"wrong");
             }
         }
 
@@ -35,6 +47,17 @@ export default function Flashcard(props) {
 
     function checkSide() {
         return cardSide === "front" ? flashcardContent.front : flashcardContent.back;
+    }
+
+    function getStatus(){
+        if (cardSide == "back"){
+            if(gotCorrect==="correct"){
+                return (<p className="ft-4 text-green">Correct!</p>)
+            }
+            else if (gotCorrect==="wrong"){
+                return (<p className="ft-4 text-red">Wrong</p>)
+            }
+        }
     }
 
 
@@ -69,6 +92,7 @@ export default function Flashcard(props) {
     return (
         (<div id="active-flashcard" className={`flashcard active responsive-width ${props.extraClasses} ${flipClass} ${cardSide}`}>
             <div className={`main-group ${flipClass} ${fadeIn}`}>
+                {getStatus()}
                 {/* Main text of the flashcard, front or back */}
                 <p className="text-white ft-3 flashcard-main-text">{checkSide()}</p>
 
