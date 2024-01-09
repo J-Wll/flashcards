@@ -101,7 +101,7 @@ export default function FlashcardHandler() {
             updateFlashcardNum((flashcardNum) => newNum)
         }
         else {
-            newNum = amountOfFlashcards-1;
+            newNum = amountOfFlashcards - 1;
             updateFlashcardNum((flashcardNum) => newNum);
         }
         return newNum;
@@ -144,11 +144,12 @@ export default function FlashcardHandler() {
     function deleteCard(num, childFlashcards) {
         if (amountOfFlashcards > 2) {
             // const tempArr = [...stateFlashcards]
-            childFlashcards.splice(num, 1)
+            childFlashcards.splice(num, 1);
             updateStateFlashcards((stateFlashcards) => childFlashcards);
             nextCard();
+            localStorageCardSave();
             return childFlashcards
-        } else{
+        } else {
             console.log("Can not go below 2 flashcards")
             return false
         }
@@ -240,9 +241,13 @@ export default function FlashcardHandler() {
         overlayMode = stateOverlayMode;
     }
 
+    function localStorageCardSave() {
+        localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
+    }
+
     // Autosave when stateFlashcards changes
     useEffect(() => {
-        localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
+        localStorageCardSave();
     }, [stateFlashcards]);
 
     return (
