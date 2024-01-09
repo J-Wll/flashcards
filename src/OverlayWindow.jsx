@@ -73,8 +73,15 @@ export default function OverlayWindow(props) {
                 }
                 console.log("Answer is", correctAnswer)
 
-
-                const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
+                const multipleChoiceAnswers = [];
+                for (let key in mcText){
+                    if (mcText[key].length > 0){
+                        multipleChoiceAnswers.push({"mca": mcText[key]})
+                    }
+                }
+                // const multipleChoiceAnswers = mcText.map((answer) => ({"mca" : answer}))
+                // const multipleChoiceAnswers = mcOptions.map((answer, index) => ({ "mca": answer.props.initialText }))
+                console.log(multipleChoiceAnswers);
 
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {

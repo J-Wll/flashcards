@@ -11,7 +11,7 @@ import OverlayWindow from "./OverlayWindow.jsx"
 
 const defaultFlashcards = [
     {
-        "front": "What is a runtime enviroment?",
+        "front": "What is a runtime environment?",
         "back": "The environment where a program is run",
         "multipleChoice": "false"
     },
@@ -123,22 +123,26 @@ export default function FlashcardHandler() {
     }
 
     // Create/edit functions
-    function createCards(iFront, iBack, iMultipleChoice = false) {
+    function createCards(iFront, iBack, iMultipleChoice = false, iMultipleChoiceAnswers = [], iCorrectAnswer = 1) {
         updateStateFlashcards(
             [...stateFlashcards, {
                 front: iFront,
                 back: iBack,
-                multipleChoice: iMultipleChoice
+                multipleChoice: iMultipleChoice,
+                multipleChoiceAnswers: iMultipleChoiceAnswers,
+                correctAnswer: iCorrectAnswer 
             }]
         )
     }
 
-    function editCard(iFront, iBack, iMultipleChoice = false) {
+    function editCard(iFront, iBack, iMultipleChoice = false, iMultipleChoiceAnswers = [], iCorrectAnswer = 1) {
         updateStateFlashcards(prevState => {
             const tempArr = [...prevState];
             tempArr[flashcardNum].front = iFront;
             tempArr[flashcardNum].back = iBack;
             tempArr[flashcardNum].multipleChoice = iMultipleChoice;
+            tempArr[flashcardNum].multipleChoiceAnswers = iMultipleChoiceAnswers;
+            tempArr[flashcardNum].correctAnswer = iCorrectAnswer;
             return tempArr;
         });
     }
