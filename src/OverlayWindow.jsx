@@ -50,18 +50,37 @@ export default function OverlayWindow(props) {
 
         let currentFlashcard = localFlashcards[localFlashcardNum];
 
-        useEffect(() => {
-            console.log("INSIDE TOP USE EFFECT", mcText);
-            // newestOptions = addMcOption(null, tempCounter, newestOptions);
-            // addMcOption()
-        }, [mcText]);
-
 
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
         let newestOptions = mcOptions;
         let newestText;
+
+        useEffect(() => {
+            console.log("INSIDE TOP USE EFFECT", mcText);
+        
+            // const addOptionsBasedOnMcText = () => {
+            //     // Reset options before adding new ones
+            //     resetMultipleChoice();
+        
+            //     // Iterate through mcText and add options
+            //     Object.keys(mcText).forEach((keyCounter) => {
+            //         if (!newestOptions.some((option) => option.key === keyCounter)) {
+            //             newestOptions = addMcOption(null, keyCounter, newestOptions, mcText[keyCounter]);
+            //         }
+            //     });
+            // };
+        
+            // // Call the function to add options when the number of keys in mcText changes
+            // if (Object.keys(mcText).length > 0) {
+            //     addOptionsBasedOnMcText();
+            // }
+        
+            // console.log("INSIDE NEWESTOPTIONS USE EFFECT", newestOptions);
+        
+        }, [mcText]);  // Only re-run the effect if the number of keys in mcText changes
+        
 
         // Create and edit modes
         function callCreateOrEdit() {
@@ -151,7 +170,7 @@ export default function OverlayWindow(props) {
             addToMcText(keyCounter, iValue);
         }
 
-        function addToMcText(iKey, iValue) {
+        function addToMcText(iKey, iValue = "") {
             console.log("addToMcText");
 
             // console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
@@ -167,19 +186,25 @@ export default function OverlayWindow(props) {
             // return updatedMcText;
         }
 
-        function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, argNewestText = false) {
+        function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, initialText = false) {
             console.log("addMcOption")
 
             // let textDir = mcText;
 
-            console.log("argNewestText", argNewestText);
+            // console.log("argNewestText", argNewestText);
             console.log("mcText", mcText);
+            console.log(mcText[keyCounter]);
             // console.log("textDir[keyCounter]", textDir[keyCounter]);
 
             // const textValue = textDir[keyCounter];
 
             // Updates the array to be the same array (spread) with an extra option on the end
             newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
+
+            // if (initialText) {
+            //     console.log("initialText", initialText)
+            //     onMcTextChange(initialText, keyCounter)
+            // }
 
             updateMcOptions(() => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
@@ -211,13 +236,14 @@ export default function OverlayWindow(props) {
                     for (let i in existingAnswers) {
                         console.log(tempCounter)
                         addToMcText(tempCounter, existingAnswers[i]["mca"]);
-                        newestOptions = addMcOption(null, tempCounter, newestOptions);
+                        newestOptions = addMcOption(null, tempCounter, newestOptions, existingAnswers[i]["mca"]);
                         tempCounter += 1;
                     }
+
                     updateMcCounter(() => tempCounter);
 
-                    console.log(newestOptions);
-                    return newestOptions
+                    // console.log(newestOptions);
+                    // return newestOptions
                 }
             }
         }

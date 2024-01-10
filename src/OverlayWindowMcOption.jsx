@@ -4,6 +4,7 @@ import "./css/Utility.css"
 
 
 export default function OverlayWindowMcOption(props) {
+
     function closeButton() {
         if (props.counter > 1) {
             return (
@@ -24,6 +25,9 @@ export default function OverlayWindowMcOption(props) {
     // useEffect(() => console.log(props.correctChecked), [props.correctChecked])
     // console.log(props.textValue);
     // console.log("Counter", props.counter, "TextValue", props.textValue);
+
+    // let displayedText = "FF"
+    // let displayedText = props.textValue === undefined ? 'f' : props.textValue
 
     return (
         <div className="horizontal-container ">
