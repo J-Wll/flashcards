@@ -40,7 +40,7 @@ export default function OverlayWindow(props) {
         // The multiple choice options added by the user
         const [mcOptions, updateMcOptions] = useState([]);
         // Used to track the text of all multiple choice options, provides controlled input for options
-        const [mcText, updateMcText] = useState(({}))
+        // const [mcText, updateMcText] = useState(({}))
         // The multiple choice option the user checks as correct
         const [correctChecked, updateCorrectChecked] = useState(false);
 
@@ -138,78 +138,45 @@ export default function OverlayWindow(props) {
 
         // Multiple choice related functions
         // For controlled input of textarea in OverlayWindowMcOption
-        function onMcTextChange(iValue, keyCounter) {
+        function onMcTextChange(iKey, iValue) {
             console.log("onMcTextChange");
-            addToMcText(keyCounter, iValue);
+            // Updates mcOptions, if the key matches the input key then the text is set to the input value
+            updateMcOptions((prevMcText) =>
+                prevMcText.map((input) => input.key === iKey ? { ...input, text: iValue } : input));
         }
 
-        function addToMcText(iKey, iValue = "") {
-            console.log("addToMcText");
-
-            // console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
-            console.log(iKey, iValue);
-            console.log("before", mcText);
-
-            // It doesn't look like it but this syntax will update the value of an existing property
-            updateMcText((prevMcText) => ({ ...prevMcText, [iKey]: iValue.toString() }));
-            // let updatedMcText = ({ ...mcText, [iKey]: iValue.toString() });
-            // updateMcText(() => updatedMcText);
-
-            // console.log("after", updatedMcText);
-            // return updatedMcText;
-        }
-
-        function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, initialText = false) {
+        function addMcOption(e, keyCounter = mcCounter, initialText = "Default") {
             console.log("addMcOption")
 
-            // let textDir = mcText;
-
-            // console.log("argNewestText", argNewestText);
-            console.log("mcText", mcText);
-            console.log(mcText[keyCounter]);
-            // console.log("textDir[keyCounter]", textDir[keyCounter]);
-
-            // const textValue = textDir[keyCounter];
-
-            // Updates the array to be the same array (spread) with an extra option on the end
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
-
-            // if (initialText) {
-            //     console.log("initialText", initialText)
-            //     onMcTextChange(initialText, keyCounter)
-            // }
-
-            updateMcOptions(() => newestOptions)
-            updateMcCounter((mcCounter) => mcCounter + 1);
-
-            return newestOptions;
+            updateMcOptions((prevOptions) => [...prevOptions, { key: keyCounter, text: initialText }])
+            keyCounter += 1;
+            updateMcCounter(keyCounter);
         }
 
+        // Delete an option based on index
+        function deleteMcOption(key) {
+            console.log("deleteMcOption")
+            // Remove from options if it matches key
+            updateMcOptions((prevOptions) => prevOptions.filter((input) => input.key !== key) )
+        }
 
         function addExistingMultipleChoiceOptions(editMode = createOrEdit) {
-            console.log("Func addExistingMultipleChoiceOptions")
-            console.log("condition 1", editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined)
-            console.log(editMode)
-            console.log(currentFlashcard.multipleChoice === "true");
-            console.log(currentFlashcard.multipleChoiceAnswers)
-            console.log("condition 2", mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length)
-            console.log(mcOptions, mcOptions.length, currentFlashcard.multipleChoiceAnswers.length)
-
+            console.log("addExistingMultipleChoiceOptions")
             if (editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
                 if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     console.log("Inside IF of addExistingMultipleChoiceOptions")
                     resetMultipleChoice();
                     updateMcChecked(() => true);
 
-                    newestOptions = [];
+                    // newestOptions = [];
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
                     // can't rely on state
                     let tempCounter = mcCounter;
                     for (let i in existingAnswers) {
                         console.log(tempCounter)
-                        addToMcText(tempCounter, existingAnswers[i]["mca"]);
-                        newestOptions = addMcOption(null, tempCounter, newestOptions, existingAnswers[i]["mca"]);
+                        // addToMcText(tempCounter, existingAnswers[i]["mca"]);
+                        addMcOption(null, tempCounter, existingAnswers[i]["mca"]);
                         tempCounter += 1;
                     }
 
@@ -222,24 +189,32 @@ export default function OverlayWindow(props) {
         }
 
         function resetMultipleChoice() {
+            console.log("resetMultipleChoice")
             updateMcOptions(() => []);
             updateMcCounter(() => 0);
-            updateMcText(() => ({}))
+            // updateMcText(() => ({}))
             updateMcChecked(() => false);
             updateCorrectChecked(() => false)
         }
+        // updateMcOptions([(...prevOptions) => <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} textValue={mcText[keyCounter]} />])
 
-        // Delete an option based on index
-        function deleteMcOption(location) {
-            // Remove from options
-            const optionArr = optionsRef.current.filter(item => item["key"] != location)
-            updateMcOptions(optionArr);
+        function getComponentOptions() {
+            console.log("getComponentOptions", mcOptions);
+            const displayVersion =
+                mcOptions.map((input) => {
+                    console.log(input);
+                    return <OverlayWindowMcOption
+                        key={input.key}
+                        counter={input.key}
+                        text={input.text}
+                        deleteMcOption={deleteMcOption}
+                        checkAction={() => { updateCorrectChecked(() => input.key) }}
+                        onMcTextChange={(e) => { onMcTextChange(input.key, e.target.value) }}
+                    />
+                });
+            console.log(displayVersion)
+            return ( displayVersion )
 
-            // Remove from mcText
-            const textArr = { ...mcText }
-            delete textArr.location
-            updateMcText(() => textArr);
-            // console.log("Just deleted, new object:", mcText);
         }
 
         function addMcControls() {
@@ -249,20 +224,24 @@ export default function OverlayWindow(props) {
                     addExistingMultipleChoiceOptions();
                 }
 
-                console.log(mcText);
+                // console.log(mcText);
                 // let textValue = mcText && mcText.length > 1 ? mcText[keyCounter] : ""
                 // console.log(existingAnswers.length, mcCounter, createOrEdit, mcCounter);
-                if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
+                console.log("Condition 1", existingAnswers.length < 2 && mcOptions.length < 2)
+                console.log("Condition 2", createOrEdit === "Create" && mcOptions.length < 2)
+
+                if (existingAnswers.length < 2 && mcOptions.length < 2 || createOrEdit === "Create" && mcOptions.length < 2) {
+                    console.log("mcControls if")
                     // Negative numbers to fix an issue where the latest state was not displaying. I think because the keys were the same it did not update.
-                    newestOptions = addMcOption(null, -1, newestOptions);
-                    newestOptions = addMcOption(null, -2, newestOptions);
+                    newestOptions = addMcOption(null, -3);
+                    newestOptions = addMcOption(null, -2);
                 }
 
                 return (
                     <>
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
-                        {getNewestOptions()}
+                        {getComponentOptions()}
                     </>
                 )
             }
@@ -294,9 +273,7 @@ export default function OverlayWindow(props) {
             }
         }
 
-        function getNewestOptions() {
-            return newestOptions;
-        }
+
 
         return (
             <>
