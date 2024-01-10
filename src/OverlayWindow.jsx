@@ -39,48 +39,20 @@ export default function OverlayWindow(props) {
         const [mcCounter, updateMcCounter] = useState(0);
         // The multiple choice options added by the user
         const [mcOptions, updateMcOptions] = useState([]);
-        // The multiple choice option the user checks as correct
-        const [correctChecked, updateCorrectChecked] = useState(false);
         // Used to track the text of all multiple choice options, provides controlled input for options
         const [mcText, updateMcText] = useState(({}))
+        // The multiple choice option the user checks as correct
+        const [correctChecked, updateCorrectChecked] = useState(false);
 
         let existingAnswers = [];
         let localFlashcards = props.stateFlashcards
         let localFlashcardNum = props.flashcardNum
-
         let currentFlashcard = localFlashcards[localFlashcardNum];
-
 
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
         let newestOptions = mcOptions;
-        let newestText;
-
-        useEffect(() => {
-            console.log("INSIDE TOP USE EFFECT", mcText);
-        
-            // const addOptionsBasedOnMcText = () => {
-            //     // Reset options before adding new ones
-            //     resetMultipleChoice();
-        
-            //     // Iterate through mcText and add options
-            //     Object.keys(mcText).forEach((keyCounter) => {
-            //         if (!newestOptions.some((option) => option.key === keyCounter)) {
-            //             newestOptions = addMcOption(null, keyCounter, newestOptions, mcText[keyCounter]);
-            //         }
-            //     });
-            // };
-        
-            // // Call the function to add options when the number of keys in mcText changes
-            // if (Object.keys(mcText).length > 0) {
-            //     addOptionsBasedOnMcText();
-            // }
-        
-            // console.log("INSIDE NEWESTOPTIONS USE EFFECT", newestOptions);
-        
-        }, [mcText]);  // Only re-run the effect if the number of keys in mcText changes
-        
 
         // Create and edit modes
         function callCreateOrEdit() {
@@ -119,6 +91,7 @@ export default function OverlayWindow(props) {
             else {
                 currentFlashcard = localFlashcards[0];
             }
+
             resetMultipleChoice();
             updateCreateOrEdit("Edit");
             frontRef.current.value = currentFlashcard.front;
@@ -355,8 +328,6 @@ export default function OverlayWindow(props) {
                     {addMcControls()}
 
                     <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit}</button>
-
-
                 </div>
             </>
         )
