@@ -113,8 +113,9 @@ export default function OverlayWindow(props) {
             localFlashcardNum = props.next(null, localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resetting values for next card
-            updateMcText(() => mcText);
-            updateMcOptions(() => mcOptions);
+            updateMcText(() => {});
+            updateMcOptions(() => []);
+            updateMcCounter(() => 0);
             editMode(localFlashcardNum);
 
         }
@@ -123,8 +124,9 @@ export default function OverlayWindow(props) {
             localFlashcardNum = props.prev(null, localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resetting values for next card
-            updateMcText(() => mcText);
-            updateMcOptions(() => mcOptions);
+            updateMcText(() => {});
+            updateMcOptions(() => []);
+            updateMcCounter(() => 0);
             editMode(localFlashcardNum);
         }
 
@@ -161,8 +163,10 @@ export default function OverlayWindow(props) {
             const returnedText = addToMcText(keyCounter, initialText)
             // console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
 
+            console.log(mcText);
+            let textValue = mcText && mcText.length > 1 ? mcText[keyCounter] : "" 
 
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={returnedText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={returnedText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={initialText} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
 
             updateMcOptions((prevMcOptions) => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
@@ -200,6 +204,7 @@ export default function OverlayWindow(props) {
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
                 }
 
+                console.log(existingAnswers.length, mcCounter, createOrEdit, mcCounter);
                 if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
                     // Negative numbers to fix an issue where the latest state was not displaying. I think because the keys were the same it did not update.
                     newestOptions = addMcOption(null, -1, "", newestOptions);
@@ -248,11 +253,14 @@ export default function OverlayWindow(props) {
         // Whenever the mode is edit and there are more existing multipleChoiceAnswers than are in the options, run addExistingMultipleChoiceOptions
         // Triggers when mcChecked or createOrEdit is changed
         useEffect(() => {
+            // If in edit mode, with multiple choice checked and answers available
             if (createOrEdit === "Edit" && mcChecked === true && currentFlashcard.multipleChoiceAnswers != undefined) {
-                if (mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
+                // If there are no options, or less than exist for the card data
+                if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     updateMcOptions([]);
                     updateMcCounter(0);
                     newestOptions = addExistingMultipleChoiceOptions();
+                    updateMcOptions(() => newestOptions);
                 }
             }
         }, [mcChecked, createOrEdit])

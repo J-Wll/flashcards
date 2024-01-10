@@ -23,6 +23,8 @@ export default function OverlayWindowMcOption(props) {
         firstChecked = true;
     }
 
+    console.log(props.textValue);
+
     // console.log("Counter", props.counter, "TextValue", props.textValue);
 
     return (
