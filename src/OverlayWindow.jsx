@@ -199,9 +199,10 @@ export default function OverlayWindow(props) {
             console.log(currentFlashcard.multipleChoice === "true");
             console.log(currentFlashcard.multipleChoiceAnswers)
             console.log("condition 2", mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length)
+            console.log(mcOptions, mcOptions.length, currentFlashcard.multipleChoiceAnswers.length)
 
             if (editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
-                if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
+                // if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     console.log("Inside IF of addExistingMultipleChoiceOptions")
                     resetMultipleChoice();
                     updateMcChecked(() => true);
@@ -222,7 +223,7 @@ export default function OverlayWindow(props) {
 
                     console.log(newestOptions);
                     return newestOptions
-                }
+                // }
             }
         }
 
