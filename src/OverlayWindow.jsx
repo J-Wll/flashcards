@@ -54,6 +54,7 @@ export default function OverlayWindow(props) {
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
         let newestOptions = mcOptions;
+        let newestText;
 
         // Create and edit modes
         function callCreateOrEdit() {
@@ -101,9 +102,6 @@ export default function OverlayWindow(props) {
         }
 
         function createMode() {
-            // updateMcOptions([]);
-            // updateMcCounter(0);
-            // updateMcChecked((mcChecked) => false);
             resetMultipleChoice();
             updateCreateOrEdit("Create");
             frontRef.current.value = "";
@@ -142,63 +140,55 @@ export default function OverlayWindow(props) {
         // Multiple choice related functions
         // For controlled input of textarea in OverlayWindowMcOption
         function onMcTextChange(iValue, keyCounter) {
+            console.log("onMcTextChange");
             addToMcText(keyCounter, iValue);
         }
 
         function addToMcText(iKey, iValue) {
+            console.log("addToMcText");
+
             // console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
             console.log(iKey, iValue);
             console.log("before", mcText);
 
-            let updatedMcText;
+            // It doesn't look like it but this syntax will update the value of an existingproperty
+            let updatedMcText = { ...mcText, [iKey]: iValue.toString() };
+            updateMcText(() => updatedMcText);
 
-            // It doesn't look like it but this syntax will update the value of a property
-            updateMcText((prevMcText) => {
-                updatedMcText = { ...prevMcText, [iKey]: iValue.toString() };
-                console.log("after", updatedMcText);
-                return updatedMcText;
-            });
-
+            console.log("after", updatedMcText);
             return updatedMcText;
         }
-        
+
+        useEffect(() => {
+            console.log("INSIDE USE EFFECT")
+            updateMcText(() => newestText)
+        }, [newestText])
         console.log(mcText)
 
-        function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, newestText = false) {
-            // Updates the array to be the same array (spread) with an extra option on the end
-            // console.log("AAA", mcText[keyCounter], mcText, keyCounter, initialText)
-            // const returnedText = addToMcText(keyCounter, initialText)
-            // console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
-            // console.log(mcText);
-            // addToMcText(mcCounter, initialText);
+        function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, argNewestText = false) {
+            console.log("addMcOption")
 
-            // Use either newest text prop or mcText state
-            let textDir = newestText ? newestText : mcText
-
-            // if (mcText === undefined || !Object.hasOwn(mcText, mcCounter)) {
-            //     console.log("mcText === undefined || !Object.hasOwn(mcText, mcCounter");
+            // Use either newestText arg or mcText state
+            let textDir = mcText;
+            // if (argNewestText) {
+            //     console.log("Newest text if")
+            //     textDir = argNewestText;
             // }
+            // let textDir = newestText ? newestText : mcText
 
-            console.log(textDir[keyCounter]);
+            console.log("argNewestText", argNewestText);
+            console.log("mcText", mcText);
+            console.log("textDir[keyCounter]", textDir[keyCounter]);
 
-            // const textValue = initialText = "AAA"[keyCounter];
-            // const textValue = mcText !== undefined ? mcText[keyCounter] : initialText
             const textValue = textDir[keyCounter];
 
+            // Updates the array to be the same array (spread) with an extra option on the end
             newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={textValue} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
 
-            updateMcOptions((prevMcOptions) => newestOptions)
+            updateMcOptions(() => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
 
             return newestOptions;
-        }
-
-        function resetMultipleChoice() {
-            updateMcOptions(() => []);
-            updateMcCounter(() => 0);
-            updateMcText(() => ({}))
-            updateMcChecked(() => false);
-            updateCorrectChecked(() => false)
         }
 
 
@@ -223,7 +213,8 @@ export default function OverlayWindow(props) {
                     let tempCounter = mcCounter;
                     for (let i in existingAnswers) {
                         console.log(tempCounter)
-                        const newestText = addToMcText(tempCounter, existingAnswers[i]["mca"]);
+                        newestText = addToMcText(tempCounter, existingAnswers[i]["mca"]);
+                        console.log("newestText addExistingMultipleChoiceOptions", newestText);
                         newestOptions = addMcOption(null, tempCounter, newestOptions, newestText);
                         tempCounter += 1;
                     }
@@ -233,6 +224,14 @@ export default function OverlayWindow(props) {
                     return newestOptions
                 }
             }
+        }
+
+        function resetMultipleChoice() {
+            updateMcOptions(() => []);
+            updateMcCounter(() => 0);
+            updateMcText(() => ({}))
+            updateMcChecked(() => false);
+            updateCorrectChecked(() => false)
         }
 
         // Delete an option based on index
