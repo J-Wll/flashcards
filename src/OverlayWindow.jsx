@@ -97,7 +97,7 @@ export default function OverlayWindow(props) {
             frontRef.current.value = currentFlashcard.front;
             backRef.current.value = currentFlashcard.back;
             updateMcChecked(() => currentFlashcard.multipleChoice === "true");
-            addExistingMultipleChoiceOptions();
+            addExistingMultipleChoiceOptions("Edit");
         }
 
         function createMode() {
@@ -175,9 +175,9 @@ export default function OverlayWindow(props) {
             // Use either newest text prop or mcText state
             let textDir = newestText ? newestText : mcText
 
-            if (mcText === undefined || !Object.hasOwn(mcText, mcCounter)) {
-                console.log("mcText === undefined || !Object.hasOwn(mcText, mcCounter");
-            }
+            // if (mcText === undefined || !Object.hasOwn(mcText, mcCounter)) {
+            //     console.log("mcText === undefined || !Object.hasOwn(mcText, mcCounter");
+            // }
 
             console.log(textDir[keyCounter]);
 
@@ -202,15 +202,15 @@ export default function OverlayWindow(props) {
         }
 
 
-        function addExistingMultipleChoiceOptions() {
+        function addExistingMultipleChoiceOptions(editMode = createOrEdit) {
             console.log("Func addExistingMultipleChoiceOptions")
-            console.log("condition 1", createOrEdit === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined)
-            console.log(createOrEdit)
-            console.log(mcChecked)
+            console.log("condition 1", editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined)
+            console.log(editMode)
+            console.log(currentFlashcard.multipleChoice === "true");
             console.log(currentFlashcard.multipleChoiceAnswers)
             console.log("condition 2", mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length)
 
-            if (createOrEdit === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
+            if (editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
                 if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     console.log("Inside IF of addExistingMultipleChoiceOptions")
                     resetMultipleChoice();
