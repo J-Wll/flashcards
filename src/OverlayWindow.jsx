@@ -42,7 +42,7 @@ export default function OverlayWindow(props) {
         // The multiple choice option the user checks as correct
         const [correctChecked, updateCorrectChecked] = useState(false);
         // Used to track the text of all multiple choice options, provides controlled input for options
-        const [mcText, updateMcText] = useState({})
+        const [mcText, updateMcText] = useState(({}))
 
         let existingAnswers = [];
         let localFlashcards = props.stateFlashcards
@@ -92,7 +92,8 @@ export default function OverlayWindow(props) {
             else {
                 currentFlashcard = localFlashcards[0];
             }
-            updateMcChecked((mcChecked) => false);
+            // updateMcChecked((mcChecked) => false);
+            resetMultipleChoice();
             updateCreateOrEdit("Edit");
             frontRef.current.value = currentFlashcard.front;
             backRef.current.value = currentFlashcard.back;
@@ -100,9 +101,10 @@ export default function OverlayWindow(props) {
         }
 
         function createMode() {
-            updateMcOptions([]);
-            updateMcCounter(0);
-            updateMcChecked(false)
+            // updateMcOptions([]);
+            // updateMcCounter(0);
+            // updateMcChecked((mcChecked) => false);
+            resetMultipleChoice();
             updateCreateOrEdit("Create");
             frontRef.current.value = "";
             backRef.current.value = "";
@@ -113,9 +115,10 @@ export default function OverlayWindow(props) {
             localFlashcardNum = props.next(null, localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resetting values for next card
-            updateMcText(() => {});
-            updateMcOptions(() => []);
-            updateMcCounter(() => 0);
+            // updateMcText(() => ({ }));
+            // updateMcOptions(() => []);
+            // updateMcCounter(() => 0);
+            resetMultipleChoice();
             editMode(localFlashcardNum);
 
         }
@@ -124,9 +127,10 @@ export default function OverlayWindow(props) {
             localFlashcardNum = props.prev(null, localFlashcardNum);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resetting values for next card
-            updateMcText(() => {});
-            updateMcOptions(() => []);
-            updateMcCounter(() => 0);
+            // updateMcText(() => ({ }));
+            // updateMcOptions(() => []);
+            // updateMcCounter(() => 0);
+            resetMultipleChoice();
             editMode(localFlashcardNum);
         }
 
@@ -149,29 +153,50 @@ export default function OverlayWindow(props) {
 
         function addToMcText(iKey, iValue) {
             // console.log("key", iKey, "type", typeof (iKey), "value", iValue, "type", typeof (iValue))
-            // New object 
+            // It doesn't look like it but this syntax will update the value of a property
+            console.log(iKey, iValue);
+            console.log("before", mcText);
+            let mcTextCopy = { ...mcText };
+            console.log({ ...mcTextCopy, [iKey]: iValue.toString() })
             updateMcText(prevMcText => {
-                return { ...prevMcText, [Number(iKey)]: iValue }
+                return { ...prevMcText, [iKey]: iValue.toString() }
             });
+            console.log("after", mcText);
             return iValue;
         }
 
+        console.log(mcText)
+
         function addMcOption(e, keyCounter = mcCounter, initialText = "", newestOptions = mcOptions) {
             // Updates the array to be the same array (spread) with an extra option on the end
-
             // console.log("AAA", mcText[keyCounter], mcText, keyCounter, initialText)
-            const returnedText = addToMcText(keyCounter, initialText)
+            // const returnedText = addToMcText(keyCounter, initialText)
             // console.log("BBB", mcText[keyCounter], mcText, keyCounter, initialText)
+            // console.log(mcText);
+            // addToMcText(mcCounter, initialText);
 
-            console.log(mcText);
-            let textValue = mcText && mcText.length > 1 ? mcText[keyCounter] : "" 
+            if (mcText === undefined || !Object.hasOwn(mcText, mcCounter)) {
+                console.log("a");
+                addToMcText(mcCounter, initialText);
+            }
 
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} initialText={returnedText} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={initialText} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
+            const textValue = mcText[keyCounter];
+            // const textValue = mcText !== undefined ? mcText[keyCounter] : initialText
+
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={textValue} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
 
             updateMcOptions((prevMcOptions) => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
 
             return newestOptions;
+        }
+
+        function resetMultipleChoice(){
+            updateMcOptions(() => []);
+            updateMcCounter(() => 0);
+            updateMcText(() => ({}))
+            updateMcChecked(() => false);
+            updateCorrectChecked(() => false)
         }
 
 
@@ -180,21 +205,30 @@ export default function OverlayWindow(props) {
             updateMcCounter(0);
             existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
-            // for each existing answer
+            // can't rely on state
+            let tempCounter = mcCounter;
             for (let i in existingAnswers) {
-                newestOptions = addMcOption(null, i, existingAnswers[i]["mca"], newestOptions);
+                console.log(tempCounter)
+                addToMcText(tempCounter, existingAnswers[i]["mca"]);
+                newestOptions = addMcOption(null, tempCounter, "", newestOptions);
+                tempCounter += 1;
             }
+            updateMcCounter(() => tempCounter);
 
+            console.log(newestOptions);
             return newestOptions
         }
 
         // Delete an option based on index
         function deleteMcOption(location) {
+            // Remove from options
             const optionArr = optionsRef.current.filter(item => item["key"] != location)
             updateMcOptions(optionArr);
+
+            // Remove from mcText
             const textArr = { ...mcText }
             delete textArr.location
-            updateMcText((prev) => textArr);
+            updateMcText(() => textArr);
             // console.log("Just deleted, new object:", mcText);
         }
 
@@ -204,7 +238,9 @@ export default function OverlayWindow(props) {
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
                 }
 
-                console.log(existingAnswers.length, mcCounter, createOrEdit, mcCounter);
+                console.log(mcText);
+                let textValue = mcText && mcText.length > 1 ? mcText[keyCounter] : ""
+                // console.log(existingAnswers.length, mcCounter, createOrEdit, mcCounter);
                 if (existingAnswers.length < 2 && mcCounter < 1 || createOrEdit === "Create" && mcCounter < 1) {
                     // Negative numbers to fix an issue where the latest state was not displaying. I think because the keys were the same it did not update.
                     newestOptions = addMcOption(null, -1, "", newestOptions);

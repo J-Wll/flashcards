@@ -16,15 +16,13 @@ export default function OverlayWindowMcOption(props) {
         props.checkAction()
     }
 
-    // useEffect(() => console.log(props.correctChecked), [props.correctChecked])
-
     let firstChecked = false;
     if (props.counter == 0) {
         firstChecked = true;
     }
 
-    console.log(props.textValue);
-
+    // useEffect(() => console.log(props.correctChecked), [props.correctChecked])
+    // console.log(props.textValue);
     // console.log("Counter", props.counter, "TextValue", props.textValue);
 
     return (
