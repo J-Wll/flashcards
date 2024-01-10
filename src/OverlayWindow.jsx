@@ -50,6 +50,13 @@ export default function OverlayWindow(props) {
 
         let currentFlashcard = localFlashcards[localFlashcardNum];
 
+        useEffect(() => {
+            console.log("INSIDE TOP USE EFFECT", mcText);
+            // newestOptions = addMcOption(null, tempCounter, newestOptions);
+            // addMcOption()
+        }, [mcText]);
+
+
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
@@ -151,39 +158,28 @@ export default function OverlayWindow(props) {
             console.log(iKey, iValue);
             console.log("before", mcText);
 
-            // It doesn't look like it but this syntax will update the value of an existingproperty
-            let updatedMcText = { ...mcText, [iKey]: iValue.toString() };
-            updateMcText(() => updatedMcText);
+            // It doesn't look like it but this syntax will update the value of an existing property
+            updateMcText((prevMcText) => ({ ...prevMcText, [iKey]: iValue.toString() }));
+            // let updatedMcText = ({ ...mcText, [iKey]: iValue.toString() });
+            // updateMcText(() => updatedMcText);
 
-            console.log("after", updatedMcText);
-            return updatedMcText;
+            // console.log("after", updatedMcText);
+            // return updatedMcText;
         }
-
-        useEffect(() => {
-            console.log("INSIDE USE EFFECT")
-            updateMcText(() => newestText)
-        }, [newestText])
-        console.log(mcText)
 
         function addMcOption(e, keyCounter = mcCounter, newestOptions = mcOptions, argNewestText = false) {
             console.log("addMcOption")
 
-            // Use either newestText arg or mcText state
-            let textDir = mcText;
-            // if (argNewestText) {
-            //     console.log("Newest text if")
-            //     textDir = argNewestText;
-            // }
-            // let textDir = newestText ? newestText : mcText
+            // let textDir = mcText;
 
             console.log("argNewestText", argNewestText);
             console.log("mcText", mcText);
-            console.log("textDir[keyCounter]", textDir[keyCounter]);
+            // console.log("textDir[keyCounter]", textDir[keyCounter]);
 
-            const textValue = textDir[keyCounter];
+            // const textValue = textDir[keyCounter];
 
             // Updates the array to be the same array (spread) with an extra option on the end
-            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={textValue} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
+            newestOptions = [...newestOptions, <OverlayWindowMcOption key={keyCounter} counter={keyCounter} deleteMcOption={deleteMcOption} checkAction={() => updateCorrectChecked(() => keyCounter)} textValue={mcText[keyCounter]} onMcTextChange={(e) => { onMcTextChange(e.target.value, keyCounter) }} />]
 
             updateMcOptions(() => newestOptions)
             updateMcCounter((mcCounter) => mcCounter + 1);
@@ -202,7 +198,7 @@ export default function OverlayWindow(props) {
             console.log(mcOptions, mcOptions.length, currentFlashcard.multipleChoiceAnswers.length)
 
             if (editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
-                // if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
+                if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
                     console.log("Inside IF of addExistingMultipleChoiceOptions")
                     resetMultipleChoice();
                     updateMcChecked(() => true);
@@ -214,16 +210,15 @@ export default function OverlayWindow(props) {
                     let tempCounter = mcCounter;
                     for (let i in existingAnswers) {
                         console.log(tempCounter)
-                        newestText = addToMcText(tempCounter, existingAnswers[i]["mca"]);
-                        console.log("newestText addExistingMultipleChoiceOptions", newestText);
-                        newestOptions = addMcOption(null, tempCounter, newestOptions, newestText);
+                        addToMcText(tempCounter, existingAnswers[i]["mca"]);
+                        newestOptions = addMcOption(null, tempCounter, newestOptions);
                         tempCounter += 1;
                     }
                     updateMcCounter(() => tempCounter);
 
                     console.log(newestOptions);
                     return newestOptions
-                // }
+                }
             }
         }
 
@@ -252,6 +247,7 @@ export default function OverlayWindow(props) {
             if (mcChecked) {
                 if (currentFlashcard.multipleChoiceAnswers != undefined) {
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
+                    addExistingMultipleChoiceOptions();
                 }
 
                 console.log(mcText);
