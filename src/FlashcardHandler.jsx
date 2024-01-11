@@ -139,9 +139,10 @@ export default function FlashcardHandler() {
             const tempArr = [...prevState];
             tempArr[flashcardNum].front = iFront;
             tempArr[flashcardNum].back = iBack;
+            if (iMultipleChoice){
             tempArr[flashcardNum].multipleChoice = iMultipleChoice;
             tempArr[flashcardNum].multipleChoiceAnswers = iMultipleChoiceAnswers;
-            tempArr[flashcardNum].correctAnswer = iCorrectAnswer;
+            tempArr[flashcardNum].correctAnswer = iCorrectAnswer;}
             return tempArr;
         });
     }
