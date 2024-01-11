@@ -10,18 +10,17 @@ const defaultFlashcards = [
     {
         "front": "What is a runtime environment?",
         "back": "The environment where a program is run",
-        "multipleChoice": "false"
     },
     {
         "front": "What is JSON used as?",
         "back": "JSON is a data format based on JavaScript object syntax",
         "multipleChoice": "true",
         "multipleChoiceAnswers": [
-            { "mca": "A data format" },
             { "mca": "A website styling language" },
+            { "mca": "A data format" },
             { "mca": "A video playback API" }
         ],
-        "correctAnswer": "1"
+        "correctAnswer": "2"
     },
     {
         "front": "What is an IDE?",
