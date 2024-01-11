@@ -322,6 +322,42 @@ export default function OverlayWindow(props) {
         )
     }
 
+    function loadWindow() {
+        return (
+            <>
+                <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty Set</button>
+                <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Example Set</button>
+                {props.loadFileControls()}
+            </>
+
+        )
+    }
+
+    // From the stats button
+    function statsWindow() {
+
+        function getStat(stat) {
+            console.log(stat);
+            if (localStorage.getItem(stat) === null) {
+                console.log("undefined")
+                localStorage.setItem(stat, 0);
+            }
+            return localStorage.getItem(stat);
+        }
+
+        return (
+            <>
+                <p className="text-white ft-2">Stats</p>
+                <p className="text-white ft-2">Cards viewed: {getStat("viewed")}</p>
+                <p className="text-white ft-2">Cards created: {getStat("created")}</p>
+                <p className="text-white ft-2">Cards edited: {getStat("edited")}</p>
+                <p className="text-white ft-2">Correct answers: {getStat("correctAnswers")}</p>
+                <p className="text-white ft-2">Wrong answers: {getStat("wrongAnswers")}</p>
+            </>
+        )
+    }
+
+
     // About button
     function aboutWindow() {
         return (
@@ -334,16 +370,6 @@ export default function OverlayWindow(props) {
         )
     }
 
-    function loadWindow() {
-        return (
-            <>
-                <button className="ft-2 overlay-load-button" onClick={props.emptyCards}>Load Empty Set</button>
-                <button className="ft-2 overlay-load-button" onClick={props.defaultCards}>Load Example Set</button>
-                {props.loadFileControls()}
-            </>
-
-        )
-    }
 
     // No close button during splash screen, a set has to be loaded to close it
     function displayCloseButton() {
@@ -362,6 +388,8 @@ export default function OverlayWindow(props) {
                 return createEditCardWindow();
             case "load":
                 return loadWindow();
+            case "stats":
+                return statsWindow();
             case "about":
                 return aboutWindow();
             default:

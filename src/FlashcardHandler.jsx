@@ -59,7 +59,7 @@ const emptyFlashcards = [
 export default function FlashcardHandler() {
     const [flashcardNum, updateFlashcardNum] = useState(0);
     const errorMsgRef = useRef(null);
-    // can be none, splash, create, save, load, about
+    // can be none, splash, create, save, load, stats, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
     let overlayMode = "";
 
@@ -93,7 +93,7 @@ export default function FlashcardHandler() {
     // Function for updating stats
     // Stats are created, edited, viewed, correctAnswers
     function statUpdate(stat, change = 1) {
-        if (localStorage.getItem(stat) === undefined) {
+        if (localStorage.getItem(stat) === null) {
             localStorage.setItem(stat, change);
         }
         else {
@@ -298,6 +298,7 @@ export default function FlashcardHandler() {
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("create")}>Create/Edit</button>
                 <button className="control-button ft-3" onClick={saveCards}>Save</button>
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("load")}>Load</button>
+                <button className="control-button ft-3" onClick={() => updateOverlayMode("stats")}>Stats</button>
                 <button className="control-button ft-3" onClick={() => updateOverlayMode("about")}>About</button>
             </div>
         </>
