@@ -90,8 +90,22 @@ export default function FlashcardHandler() {
         overlayMode = stateOverlayMode;
     }
 
+    // Function for updating stats
+    // Stats are created, edited, viewed, correctAnswers
+    function statUpdate(stat, change = 1) {
+        if (localStorage.getItem(stat) === undefined) {
+            localStorage.setItem(stat, change);
+        }
+        else {
+            localStorage.setItem(stat, Number(localStorage.getItem(stat)) + change)
+        }
+    }
+
     // Navigation functions
-    function prevCard(e, iNum = flashcardNum) {
+    function prevCard(e, iNum = flashcardNum, editMode = false) {
+        if (!editMode) {
+            statUpdate("viewed")
+        }
         amountOfFlashcards = stateFlashcards.length;
         if (iNum > 0) {
             iNum -= 1;
@@ -103,7 +117,10 @@ export default function FlashcardHandler() {
         return iNum;
     }
 
-    function nextCard(e, iNum = flashcardNum) {
+    function nextCard(e, iNum = flashcardNum, editMode = false) {
+        if (!editMode) {
+            statUpdate("viewed")
+        }
         amountOfFlashcards = stateFlashcards.length;
         if (iNum < amountOfFlashcards - 1) {
             iNum += 1;
@@ -117,6 +134,7 @@ export default function FlashcardHandler() {
 
     // Create/edit functions
     function createCards(iFront, iBack, iMultipleChoice = false, iMultipleChoiceAnswers = [], iCorrectAnswer = 1) {
+        statUpdate("created")
         let extraArgs = {};
         if (iMultipleChoice) {
             extraArgs = {
@@ -135,14 +153,16 @@ export default function FlashcardHandler() {
     }
 
     function editCard(iFront, iBack, iMultipleChoice = false, iMultipleChoiceAnswers = [], iCorrectAnswer = 1) {
+        statUpdate("edited")
         updateStateFlashcards(prevState => {
             const tempArr = [...prevState];
             tempArr[flashcardNum].front = iFront;
             tempArr[flashcardNum].back = iBack;
-            if (iMultipleChoice){
-            tempArr[flashcardNum].multipleChoice = iMultipleChoice;
-            tempArr[flashcardNum].multipleChoiceAnswers = iMultipleChoiceAnswers;
-            tempArr[flashcardNum].correctAnswer = iCorrectAnswer;}
+            if (iMultipleChoice) {
+                tempArr[flashcardNum].multipleChoice = iMultipleChoice;
+                tempArr[flashcardNum].multipleChoiceAnswers = iMultipleChoiceAnswers;
+                tempArr[flashcardNum].correctAnswer = iCorrectAnswer;
+            }
             return tempArr;
         });
     }
@@ -270,7 +290,7 @@ export default function FlashcardHandler() {
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} />
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} />
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}

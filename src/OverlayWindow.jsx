@@ -115,7 +115,7 @@ export default function OverlayWindow(props) {
         // Navigation
         function localNextCard() {
             console.log("OverlayNextCard")
-            localFlashcardNum = props.next(null, localFlashcardNum);
+            localFlashcardNum = props.next(null, localFlashcardNum, true);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resets values for next card
             resetMultipleChoice();
@@ -124,7 +124,7 @@ export default function OverlayWindow(props) {
 
         function localPrevCard() {
             console.log("OverlayPrevCard")
-            localFlashcardNum = props.prev(null, localFlashcardNum);
+            localFlashcardNum = props.prev(null, localFlashcardNum, true);
             currentFlashcard = localFlashcards[localFlashcardNum]
             // Resets values for next card
             resetMultipleChoice();

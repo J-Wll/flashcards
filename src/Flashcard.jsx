@@ -31,9 +31,11 @@ export default function Flashcard(props) {
         if (cardSide == "front" && flashcardContent.multipleChoice === "true") {
             console.log(guessChecked, flashcardContent.correctAnswer)
             if (guessChecked == flashcardContent.correctAnswer) {
+                props.statUpdate("correctAnswers")
                 updateGotCorrect(() => "correct");
             }
             else {
+                props.statUpdate("wrongAnswers")
                 updateGotCorrect(() => "wrong");
             }
         }
