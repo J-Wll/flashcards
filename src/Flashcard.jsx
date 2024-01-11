@@ -15,7 +15,7 @@ export default function Flashcard(props) {
     const [cardSide, updateCardSide] = useState("front");
     const [flipClass, updateFlipClass] = useState("notFlipped");
     const [fadeIn, updateFadeIn] = useState("");
-    const [guessChecked, updateGuessChecked] = useState(false);
+    const [guessChecked, updateGuessChecked] = useState(1);
     const [gotCorrect, updateGotCorrect] = useState(false);
     const [lastNum, updateLastNum] = useState(0);
 
@@ -33,10 +33,12 @@ export default function Flashcard(props) {
             if (guessChecked == flashcardContent.correctAnswer) {
                 props.statUpdate("correctAnswers")
                 updateGotCorrect(() => "correct");
+                updateGuessChecked(() => 1)
             }
             else {
                 props.statUpdate("wrongAnswers")
                 updateGotCorrect(() => "wrong");
+                updateGuessChecked(() => 1)
             }
         }
 
@@ -88,6 +90,16 @@ export default function Flashcard(props) {
 
     }
 
+    function localPrevCard() {
+        props.prev();
+        updateGuessChecked(() => 1)
+    }
+
+    function localNextCard() {
+        props.next()
+        updateGuessChecked(() => 1)
+    }
+
     return (
         (<div id="active-flashcard" className={`flashcard active responsive-width ${props.extraClasses} ${flipClass} ${cardSide}`}>
             <div className={`main-group ${flipClass} ${fadeIn}`}>
@@ -104,8 +116,8 @@ export default function Flashcard(props) {
             <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
                 <div className="horizontal-container">
-                    <button className="ft-3" onClick={props.prev}>{"<"}</button>
-                    <button className="ft-3" onClick={props.next}>{">"}</button>
+                    <button className="ft-3" onClick={localPrevCard}>{"<"}</button>
+                    <button className="ft-3" onClick={localNextCard}>{">"}</button>
                 </div>
 
                 {/* make this button disabled if multiple choice and choice not made */}
