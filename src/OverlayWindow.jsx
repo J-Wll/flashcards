@@ -52,7 +52,6 @@ export default function OverlayWindow(props) {
         // This is used when deleting options as a means of acessing the current version of state, previously the callback was using outdated state
         const optionsRef = useRef();
         optionsRef.current = mcOptions;
-        let newestOptions = mcOptions;
 
         // Create and edit modes
         function callCreateOrEdit() {
@@ -157,33 +156,28 @@ export default function OverlayWindow(props) {
         function deleteMcOption(key) {
             console.log("deleteMcOption")
             // Remove from options if it matches key
-            updateMcOptions((prevOptions) => prevOptions.filter((input) => input.key !== key) )
+            updateMcOptions((prevOptions) => prevOptions.filter((input) => input.key !== key))
         }
 
         function addExistingMultipleChoiceOptions(editMode = createOrEdit) {
-            console.log("addExistingMultipleChoiceOptions")
             if (editMode === "Edit" && currentFlashcard.multipleChoice === "true" && currentFlashcard.multipleChoiceAnswers != undefined) {
+                console.log("addExistingMultipleChoiceOptions If 1");
                 if (mcOptions === undefined || mcOptions.length < currentFlashcard.multipleChoiceAnswers.length) {
+                    console.log("addExistingMultipleChoiceOptions If 2");
                     console.log("Inside IF of addExistingMultipleChoiceOptions")
                     resetMultipleChoice();
                     updateMcChecked(() => true);
 
-                    // newestOptions = [];
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
 
                     // can't rely on state
                     let tempCounter = mcCounter;
                     for (let i in existingAnswers) {
                         console.log(tempCounter)
-                        // addToMcText(tempCounter, existingAnswers[i]["mca"]);
                         addMcOption(null, tempCounter, existingAnswers[i]["mca"]);
                         tempCounter += 1;
                     }
-
                     updateMcCounter(() => tempCounter);
-
-                    // console.log(newestOptions);
-                    // return newestOptions
                 }
             }
         }
@@ -213,7 +207,7 @@ export default function OverlayWindow(props) {
                     />
                 });
             console.log(displayVersion)
-            return ( displayVersion )
+            return (displayVersion)
 
         }
 
@@ -221,20 +215,21 @@ export default function OverlayWindow(props) {
             if (mcChecked) {
                 if (currentFlashcard.multipleChoiceAnswers != undefined) {
                     existingAnswers = currentFlashcard.multipleChoiceAnswers;
-                    addExistingMultipleChoiceOptions();
+                    // addExistingMultipleChoiceOptions();
                 }
 
                 // console.log(mcText);
                 // let textValue = mcText && mcText.length > 1 ? mcText[keyCounter] : ""
                 // console.log(existingAnswers.length, mcCounter, createOrEdit, mcCounter);
-                console.log("Condition 1", existingAnswers.length < 2 && mcOptions.length < 2)
-                console.log("Condition 2", createOrEdit === "Create" && mcOptions.length < 2)
+                console.log("Condition 1", existingAnswers.length < 2 && mcOptions.length < 2);
+                console.log("Condition 2", createOrEdit === "Create" && mcOptions.length < 2);
+                console.log(existingAnswers.length < 2 && mcOptions.length < 2 || createOrEdit === "Create" && mcOptions.length < 2);
 
                 if (existingAnswers.length < 2 && mcOptions.length < 2 || createOrEdit === "Create" && mcOptions.length < 2) {
-                    console.log("mcControls if")
+                    console.log("mcControls if");
                     // Negative numbers to fix an issue where the latest state was not displaying. I think because the keys were the same it did not update.
-                    newestOptions = addMcOption(null, -3);
-                    newestOptions = addMcOption(null, -2);
+                    addMcOption(null, -3);
+                    addMcOption(null, -2);
                 }
 
                 return (
