@@ -56,8 +56,12 @@ export default function OverlayWindow(props) {
         // Create and edit modes
         function callCreateOrEdit() {
             let args = []
+            // If mcChecked then more data is sent as an arg
+            console.log(mcChecked);
+            console.log(args);
             if (mcChecked) {
                 // Assigning correctAnswer to the index matching correctChecked, if there is no match assign it to 1 to prevent errors
+                console.log("Inside if");
 
                 let correctAnswer = 1;
                 for (let i in mcOptions) {
@@ -71,24 +75,16 @@ export default function OverlayWindow(props) {
                 console.log("mcOptions", mcOptions)
 
                 const multipleChoiceAnswers = [];
-                // let mcTextArr = Object.entries(mcText);
-                // console.log(mcTextArr)
-
                 for (let i in mcOptions) {
                     console.log("mcOptions[i]", mcOptions[i]);
                     multipleChoiceAnswers.push({ "mca": mcOptions[i].text });
                 }
 
-                // for (let key in mcText) {
-                //     if (mcText[key].length > 0) {
-                //         multipleChoiceAnswers.push({ "mca": mcText[key] })
-                //     }
-                // }
-
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
-                args = [frontRef.current.value, backRef.current.value, mcChecked.toString()]
+                args = [frontRef.current.value, backRef.current.value]
             }
+            console.log(args);
             createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
         }
 

@@ -117,13 +117,19 @@ export default function FlashcardHandler() {
 
     // Create/edit functions
     function createCards(iFront, iBack, iMultipleChoice = false, iMultipleChoiceAnswers = [], iCorrectAnswer = 1) {
+        let extraArgs = {};
+        if (iMultipleChoice) {
+            extraArgs = {
+                multipleChoice: iMultipleChoice,
+                multipleChoiceAnswers: iMultipleChoiceAnswers,
+                correctAnswer: iCorrectAnswer
+            }
+        }
         updateStateFlashcards(
             [...stateFlashcards, {
                 front: iFront,
                 back: iBack,
-                multipleChoice: iMultipleChoice,
-                multipleChoiceAnswers: iMultipleChoiceAnswers,
-                correctAnswer: iCorrectAnswer
+                ...extraArgs
             }]
         )
     }
