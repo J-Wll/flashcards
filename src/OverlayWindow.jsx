@@ -58,6 +58,7 @@ export default function OverlayWindow(props) {
             let args = []
             if (mcChecked) {
                 // Assigning correctAnswer to the index matching correctChecked, if there is no match assign it to 1 to prevent errors
+
                 let correctAnswer = 1;
                 for (let i in mcOptions) {
                     if (mcOptions[i].key == correctChecked) {
@@ -66,14 +67,23 @@ export default function OverlayWindow(props) {
                     }
                 }
 
+                console.log("Inside callCreateOrEdit correctAnswer", correctAnswer)
+                console.log("mcOptions", mcOptions)
+
                 const multipleChoiceAnswers = [];
-                let mcTextArr = Object.entries(mcText);
-                console.log(mcTextArr)
-                for (let key in mcText) {
-                    if (mcText[key].length > 0) {
-                        multipleChoiceAnswers.push({ "mca": mcText[key] })
-                    }
+                // let mcTextArr = Object.entries(mcText);
+                // console.log(mcTextArr)
+
+                for (let i in mcOptions) {
+                    console.log("mcOptions[i]", mcOptions[i]);
+                    multipleChoiceAnswers.push({ "mca": mcOptions[i].text });
                 }
+
+                // for (let key in mcText) {
+                //     if (mcText[key].length > 0) {
+                //         multipleChoiceAnswers.push({ "mca": mcText[key] })
+                //     }
+                // }
 
                 args = [frontRef.current.value, backRef.current.value, mcChecked.toString(), multipleChoiceAnswers, correctAnswer]
             } else {
@@ -151,7 +161,7 @@ export default function OverlayWindow(props) {
 
             updateMcOptions((prevOptions) => [...prevOptions, { key: keyCounter, text: initialText }])
 
-            updateMcCounter(keyCounter+1);
+            updateMcCounter(keyCounter + 1);
         }
 
         // Delete an option based on index
@@ -199,7 +209,7 @@ export default function OverlayWindow(props) {
             updateMcChecked(() => false);
             updateCorrectChecked(() => false)
 
-            return([]);
+            return ([]);
         }
 
         function getComponentOptions() {
