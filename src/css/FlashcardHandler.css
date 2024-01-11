@@ -19,7 +19,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     min-width: 300px;
     max-width: 1500px;

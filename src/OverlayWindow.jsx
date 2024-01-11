@@ -151,7 +151,7 @@ export default function OverlayWindow(props) {
                 prevMcText.map((input) => input.key === iKey ? { ...input, text: iValue } : input));
         }
 
-        function addMcOption(e, keyCounter = mcCounter, initialText = "Default") {
+        function addMcOption(e, keyCounter = mcCounter, initialText = "") {
             console.log("addMcOption", "counter", keyCounter, "initialText", initialText);
             console.log(mcCounter);
 

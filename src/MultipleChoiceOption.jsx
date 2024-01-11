@@ -12,7 +12,7 @@ export default function (props) {
     }
 
     return (
-        <div className="horizontal-container">
+        <div className="horizontal-container-njs">
             <input className="mc-answer-option self-center " defaultChecked={startChecked} onClick={() => radioChecked(props.counter)} type="radio" name="mc-option-radio"></input>
             <p>{props.iText}</p>
         </div>

@@ -99,7 +99,12 @@
     justify-content: center;
 }
 
-.horizontal-container * {
+.horizontal-container-njs {
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontal-container *, .horizontal-container-njs * {
     margin: 10px;
 }
 
