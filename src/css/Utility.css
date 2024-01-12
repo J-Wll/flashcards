@@ -43,7 +43,7 @@
 /* font sizes */
 .ft-5 {
     text-align: center;
-    font-size: calc(3rem + var(--var-standard-scaling-factor));
+    font-size: calc(2.5rem + var(--var-standard-scaling-factor));
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -124,8 +124,13 @@
 
 /* width and height with the same scaling as the font */
 .wh-1 {
-    width: calc(1rem + 0.35dvw);
-    height: calc(1rem + 0.35dvw);
+    width: calc(1rem + var(--var-standard-scaling-factor));
+    height: calc(1rem + var(--var-standard-scaling-factor));
+} 
+
+.wh-4 {
+    width: calc(1.6rem + var(--var-standard-scaling-factor));
+    height: calc(1.6rem + var(--var-standard-scaling-factor));
 }
 
 .horizontal-container {
@@ -153,9 +158,9 @@
     width: 50% !important;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1300px) {
     .responsive-width {
-        width: 75% !important;
+        width: 70% !important;
     }
 }
 

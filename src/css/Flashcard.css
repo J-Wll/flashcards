@@ -2,7 +2,8 @@
     min-width: var(--var-min-width);
     width: 50%;
     max-width: var(--var-max-width);
-    min-height: 375px;
+    /* min-height: 375px; */
+    min-height: 55dvh;
     box-sizing: border-box;
 
     background-color: rgb(22, 22, 22);
@@ -33,7 +34,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    min-height: 200px;
+    min-height: 40dvh;
     height: 100%;
 }
 
@@ -58,6 +59,8 @@
 
 .button-group {
     width: 100%;
+    min-height: 15dvh;
+
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -101,11 +104,6 @@
     transition-property: transform;
     transition-duration: 0.75s;
     transform: rotateY(0deg);
-}
-
-.mc-answer-option {
-    width: 20px;
-    height: 20px;
 }
 
 /* 2 fade in classes and keyframes, otherwise the effect wont apply. Prefixes used for browser compatibility */

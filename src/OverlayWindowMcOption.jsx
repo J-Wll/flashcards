@@ -31,7 +31,7 @@ export default function OverlayWindowMcOption(props) {
 
     return (
         <div className="horizontal-container ">
-            <input className="mcoption-radio" type="radio" name="mc-option-radio" onClick={radioChecked} defaultChecked={firstChecked}></input>
+            <input className="mcoption-radio wh-4" type="radio" name="mc-option-radio" onClick={radioChecked} defaultChecked={firstChecked}></input>
             <textarea className="ft-3 overlay-textarea mcoption-textarea" onChange={(e) => { props.onMcTextChange(e) }} value={props.text}></textarea>
             {closeButton()}
         </div>

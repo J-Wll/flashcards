@@ -7,7 +7,8 @@
     width: 50%;
     min-width: var(--var-min-width);
     max-width: var(--var-max-width);
-    min-height: 400px;
+    /* min-height: 400px; */
+    min-height: 65dvh;
     max-height: 80dvh;
 
     background-color: rgb(22, 22, 22);
@@ -71,13 +72,6 @@
 .mcoption-close {
     margin: 0;
     margin-bottom: 20px;
-}
-
-.mcoption-radio {
-    height: 50px;
-    width: 50px;
-    align-self: center;
-    justify-self: center;
 }
 
 .overlay-load-button {
