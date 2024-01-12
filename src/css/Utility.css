@@ -1,4 +1,10 @@
 /* For use in any file, alternative to bootstrap since it was used very little */
+:root {
+    --var-max-width: 2000px;
+    --var-min-width: 250px;
+    --var-standard-scaling-factor: 0.35dvw;
+    --var-large-scaling-factor: 1dvw;
+}
 
 * {
     font-family: Arial, Helvetica, sans-serif;
@@ -37,33 +43,62 @@
 /* font sizes */
 .ft-5 {
     text-align: center;
-    font-size: calc(3rem + 0.35dvw);
+    font-size: calc(3rem + var(--var-standard-scaling-factor));
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .ft-4 {
     text-align: center;
-    font-size: calc(1.6rem + 0.35dvw);
+    font-size: calc(1.6rem + var(--var-standard-scaling-factor));
 }
 
 
 .ft-3 {
     text-align: center;
-    font-size: calc(1.4rem + 0.35dvw);
+    font-size: calc(1.4rem + var(--var-standard-scaling-factor));
 }
 
 .ft-2 {
     text-align: center;
-    font-size: calc(1.2rem + 0.35dvw);
+    font-size: calc(1.2rem + var(--var-standard-scaling-factor));
 }
 
 .ft-1 {
     text-align: center;
-    font-size: calc(1rem + 0.35dvw);
+    font-size: calc(1rem + var(--var-standard-scaling-factor));
 }
 
-@media (max-width: 1000px) {
+/* Extra large font for 1440p/4k, extra padding so the large text is not almost touching */
+@media (min-width: 2800px) {
+    .ft-5 {
+        font-size: calc(3rem + var(--var-large-scaling-factor));
+        padding: 10px;
+    }
+
+    .ft-4 {
+        font-size: calc(1.6rem + var(--var-large-scaling-factor));
+        padding: 10px;
+    }
+
+    .ft-3 {
+        font-size: calc(1.4rem + var(--var-large-scaling-factor));
+        padding: 10px;
+    }
+
+    .ft-2 {
+        font-size: calc(1.2rem + var(--var-large-scaling-factor));
+        padding: 10px;
+    }
+
+    .ft-1 {
+        font-size: calc(1rem + var(--var-large-scaling-factor));
+        padding: 10px;
+    }
+}
+
+/* Small font, no scailing, for phones */
+@media (max-width: 800px) {
     .ft-5 {
         font-size: 3rem;
         margin-top: 5px;
@@ -104,7 +139,8 @@
     flex-direction: row;
 }
 
-.horizontal-container *, .horizontal-container-njs * {
+.horizontal-container *,
+.horizontal-container-njs * {
     margin: 10px;
 }
 

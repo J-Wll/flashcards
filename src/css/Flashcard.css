@@ -1,9 +1,8 @@
 .flashcard {
-    min-width: 300px;
+    min-width: var(--var-min-width);
     width: 50%;
-    max-width: 1500px;
-    height: 95%;
-    min-height: 475px;
+    max-width: var(--var-max-width);
+    min-height: 375px;
     box-sizing: border-box;
 
     background-color: rgb(22, 22, 22);
@@ -20,17 +19,6 @@
     overflow-wrap: anywhere;
 }
 
-.inactive {
-    min-width: 10px;
-    width: 25%;
-    height: 70%;
-    /* background-color: black; */
-    border: 1px solid black;
-    filter: blur(2px);
-    cursor: pointer;
-    margin: 0px 5px 0px 5px;
-}
-
 .active {
     display: flex;
     flex-direction: column;
@@ -45,13 +33,8 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    min-height: 300px;
+    min-height: 200px;
     height: 100%;
-}
-
-.active ol {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .divider-line {
@@ -76,7 +59,6 @@
 .button-group {
     width: 100%;
     box-sizing: border-box;
-    /* margin-top: auto; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,15 +95,12 @@
     transition-property: transform;
     transition-duration: 0.75s;
     transform: rotateY(180deg);
-    /* transform-style: preserve-3d; */
 }
 
 .notFlipped {
-
     transition-property: transform;
     transition-duration: 0.75s;
     transform: rotateY(0deg);
-    /* transform-style: preserve-3d;  */
 }
 
 .mc-answer-option {
