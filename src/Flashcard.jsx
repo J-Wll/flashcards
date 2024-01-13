@@ -5,13 +5,8 @@ import MultipleChoiceOption from "./MultipleChoiceOption.jsx";
 import "./css/Flashcard.css"
 import "./css/Utility.css"
 
-
-
 export default function Flashcard(props) {
     const flashcardContent = props.flashcardContent;
-    if (props.inactive) {
-        return (<button onClick={props.onClick} className={`flashcard inactive`}></button>)
-    }
     const [cardSide, updateCardSide] = useState("front");
     const [flipClass, updateFlipClass] = useState("notFlipped");
     const [fadeIn, updateFadeIn] = useState("");
@@ -47,12 +42,12 @@ export default function Flashcard(props) {
         fadeIn === "" || fadeIn === "fadeIn" ? updateFadeIn("fadeIn2") : updateFadeIn("fadeIn")
     }
 
-    function checkSide() {
+    function getContent() {
         return cardSide === "front" ? flashcardContent.front : flashcardContent.back;
     }
 
     // Returns correct or incorrect based on state
-    function getStatus() {
+    function MultipleChoiceStatus() {
         if (cardSide == "back") {
             if (gotCorrect === "correct") {
                 return (<p className="ft-4 text-green">Correct!</p>)
@@ -64,7 +59,7 @@ export default function Flashcard(props) {
     }
 
     // Coniditional return if multiple choice
-    function ifMultipleChoice() {
+    function multipleChoiceForm() {
         if (cardSide != "front") { return }
         let choices = [];
 
@@ -87,7 +82,6 @@ export default function Flashcard(props) {
                     </form>
                 </>)
         }
-
     }
 
     function localPrevCard() {
@@ -103,16 +97,19 @@ export default function Flashcard(props) {
     return (
         (<div id="active-flashcard" className={`flashcard active responsive-width ${props.extraClasses} ${flipClass} ${cardSide}`}>
             <div className={`main-group ${flipClass} ${fadeIn}`}>
-                {getStatus()}
-                {/* Main text of the flashcard, front or back */}
-                <p className="text-white ft-3 flashcard-main-text">{checkSide()}</p>
+                {/* Multiple choice status text (Correct/Wrong) */}
+                <MultipleChoiceStatus />
 
-                {/* Multiple choices conditionally render based on property within the flashcard */}
-                {ifMultipleChoice()}
+                {/* Main text of the flashcard, front or back*/}
+                <p className="text-white ft-3 flashcard-main-text">{getContent()}</p>
+
+                {/* Multiple choices conditionally render based on property within the flashcard, not a component because that caused refresh issues */}
+                {multipleChoiceForm()}
 
                 <p className="text-white ft-1 card-indicator">{`< ${props.flashcardNum + 1} / ${props.amountOfFlashcards} >`}</p>
             </div>
 
+            {/* Flashcard controls */}
             <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
                 <div className="horizontal-container">
@@ -120,8 +117,7 @@ export default function Flashcard(props) {
                     <button className="ft-3" aria-label="Next card" tabIndex={props.overlayTabIndex} onClick={localNextCard}>{">"}</button>
                 </div>
 
-                {/* make this button disabled if multiple choice and choice not made */}
-                {/* Flip card reveals the answer on the other side, if it's a flashcard with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
+                {/* Flip card reveals the answer on the other side */}
                 <button onClick={flipCard} tabIndex={props.overlayTabIndex} className={`ft-3`}> {`Flip card${answerFlip}`}</button>
             </div>
         </div>)

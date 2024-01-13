@@ -6,10 +6,8 @@ export default function (props) {
         props.checkAction(counter)
     }
 
-    let startChecked = false;
-    if(props.counter===1){
-        startChecked = true;
-    }
+    // So that one option always appears checked, default answer in the logic is 1
+    let startChecked = props.counter === 1 ? true : false
 
     return (
         <div className="horizontal-container-njs">
