@@ -116,13 +116,13 @@ export default function Flashcard(props) {
             <div className={`button-group ${flipClass}`}>
                 <span className="divider-line"></span>
                 <div className="horizontal-container">
-                    <button className="ft-3" onClick={localPrevCard}>{"<"}</button>
-                    <button className="ft-3" onClick={localNextCard}>{">"}</button>
+                    <button className="ft-3" aria-label="Previous card" tabIndex={props.overlayTabIndex} onClick={localPrevCard}>{"<"}</button>
+                    <button className="ft-3" aria-label="Next card" tabIndex={props.overlayTabIndex} onClick={localNextCard}>{">"}</button>
                 </div>
 
                 {/* make this button disabled if multiple choice and choice not made */}
                 {/* Flip card reveals the answer on the other side, if it's a flashcard with multiple choice it highlights if you got it correct first, green around a correct answer, red around incorrect and green around the correct */}
-                <button onClick={flipCard} className={`ft-3`}> {`Flip card${answerFlip}`}</button>
+                <button onClick={flipCard} tabIndex={props.overlayTabIndex} className={`ft-3`}> {`Flip card${answerFlip}`}</button>
             </div>
         </div>)
 

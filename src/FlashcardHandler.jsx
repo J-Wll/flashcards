@@ -61,6 +61,8 @@ export default function FlashcardHandler() {
     // can be none, splash, create, save, load, stats, about
     const [stateOverlayMode, updateOverlayMode] = useState("none");
     let overlayMode = "";
+    // 0 by default (Sequential navigation, changes when overlay is opened)
+    let overlayTabIndex = 0;
 
     function initialFlashcards() {
         let validFlashcards = true;
@@ -259,7 +261,7 @@ export default function FlashcardHandler() {
         return (
             <>
                 <form name="load-file-form" className="load-file-form" onSubmit={loadFromFile}>
-                    <input className="ft-2 text-white load-file-form-element" id="fileInput" name="fileInput" type="file" accept=".json"></input>
+                    <input className="ft-2 text-white load-file-form-element" aria-label="Choose file" id="fileInput" name="fileInput" type="file" accept=".json"></input>
                     <button className="ft-2 overlay-load-button load-file-form-element" type="submit">Load From File</button>
                 </form>
                 <p className="ft-2" ref={errorMsgRef}></p>
@@ -276,6 +278,18 @@ export default function FlashcardHandler() {
         localStorage.setItem("flashcards", JSON.stringify(stateFlashcards));
     }
 
+    function renderOverlay() {
+        // if overlay mode is not none, return the overlayWindow component, else return empty fragment
+        if (overlayMode != "none") {
+            overlayTabIndex = -1;
+            return (
+                <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} deleteCard={deleteCard} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} stateFlashcards={stateFlashcards} flashcardNum={flashcardNum} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} />
+            )
+        }
+        overlayTabIndex = 0;
+    }
+
+
     // Autosave when stateFlashcards changes
     useEffect(() => {
         localStorageCardSave();
@@ -283,22 +297,20 @@ export default function FlashcardHandler() {
 
     return (
         <>
-            {/* if overlay mode is not none, return the overlayWindow component, else return empty fragment */}
-            {overlayMode != "none" ? <OverlayWindow overlayMode={overlayMode} updateOverlayMode={updateOverlayMode} deleteCard={deleteCard} resetOverlay={resetOverlay} flashcardContent={stateFlashcards[flashcardNum]} stateFlashcards={stateFlashcards} flashcardNum={flashcardNum} editCard={editCard} createCards={createCards} defaultCards={defaultCards} emptyCards={emptyCards} loadFileControls={loadFileControls} prev={prevCard} next={nextCard} /> : <></>}
-
+            {renderOverlay()}
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} />
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} overlayTabIndex={overlayTabIndex}/>
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
             <div className="control-bar responsive-width">
-                <button className="control-button ft-3" onClick={() => updateOverlayMode("create")}>Create/Edit</button>
-                <button className="control-button ft-3" onClick={saveCards}>Save</button>
-                <button className="control-button ft-3" onClick={() => updateOverlayMode("load")}>Load</button>
-                <button className="control-button ft-3" onClick={() => updateOverlayMode("stats")}>Stats</button>
-                <button className="control-button ft-3" onClick={() => updateOverlayMode("about")}>About</button>
+                <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("create")}>Create/Edit</button>
+                <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={saveCards}>Save</button>
+                <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("load")}>Load</button>
+                <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("stats")}>Stats</button>
+                <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("about")}>About</button>
             </div>
         </>
     )

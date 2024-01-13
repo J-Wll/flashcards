@@ -135,8 +135,8 @@ export default function OverlayWindow(props) {
             if (createOrEdit === "Edit") {
                 return (
                     <div className="horizontal-container">
-                        <button className="ft-3" onClick={localPrevCard}>{"<"}</button>
-                        <button className="ft-3" onClick={localNextCard}>{">"}</button>
+                        <button className="ft-3" aria-label="Previous card" onClick={localPrevCard}>{"<"}</button>
+                        <button className="ft-3" aria-label="Next card" onClick={localNextCard}>{">"}</button>
                     </div>
                 )
             }
@@ -290,17 +290,17 @@ export default function OverlayWindow(props) {
         return (
             <>
                 <div className="horizontal-container">
-                    <button className="ft-3" onClick={createMode}>Create</button>
+                    <button className="ft-3" aria-label="Create mode" onClick={createMode}>Create</button>
                     <span className="text-white ft-3"> | </span>
-                    <button className="ft-3" onClick={() => editMode(localFlashcardNum)}>Edit</button>
+                    <button className="ft-3" aria-label="Edit mode" onClick={() => editMode(localFlashcardNum)}>Edit</button>
                 </div>
 
                 <div className="overlay-input-section">
                     <label className="text-white ft-3">Front</label>
-                    <textarea className="ft-3 overlay-textarea" id="create-front-input" ref={frontRef}></textarea>
+                    <textarea className="ft-3 overlay-textarea" aria-label="Card front input" id="create-front-input" ref={frontRef}></textarea>
 
                     <label className="text-white ft-3">Back</label>
-                    <textarea className="ft-3 overlay-textarea" id="create-back-input" ref={backRef}></textarea>
+                    <textarea className="ft-3 overlay-textarea" aria-label="Card back input" id="create-back-input" ref={backRef}></textarea>
 
                     {/* adds navigation for when in edit mode */}
                     {editNavigation()}
@@ -375,7 +375,7 @@ export default function OverlayWindow(props) {
     function displayCloseButton() {
         if (props.overlayMode != "splash") {
             return (
-                <button className="overlay-close ft-3" onClick={props.resetOverlay}>X</button>
+                <button className="overlay-close ft-3" aria-label="Close window" onClick={props.resetOverlay}>X</button>
             )
         }
     }
