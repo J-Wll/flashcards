@@ -1,13 +1,10 @@
 .overlay-window {
     z-index: 2;
     position: absolute;
-
     top:10dvh;
 
-    width: 50%;
     min-width: var(--var-min-width);
     max-width: var(--var-max-width);
-    /* min-height: 400px; */
     min-height: 65dvh;
     max-height: 80dvh;
 
@@ -36,9 +33,8 @@
 }
 
 .overlay-close {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    align-self: flex-end;
     margin: 10px;
 }
 
