@@ -24,7 +24,6 @@ export default function Flashcard(props) {
 
     function flipCard() {
         if (cardSide == "front" && flashcardContent.multipleChoice === "true") {
-            console.log(guessChecked, flashcardContent.correctAnswer)
             if (guessChecked == flashcardContent.correctAnswer) {
                 props.statUpdate("correctAnswers")
                 updateGotCorrect(() => "correct");

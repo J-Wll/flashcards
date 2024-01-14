@@ -301,7 +301,7 @@ export default function FlashcardHandler() {
 
             {/* functions for program control are passed into the component */}
             <div className="flashcard-handler">
-                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} overlayTabIndex={overlayTabIndex}/>
+                <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} overlayTabIndex={overlayTabIndex} />
             </div>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
