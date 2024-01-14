@@ -81,6 +81,8 @@
 
 .mutliple-choice {
     text-align: start;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .card-indicator {
