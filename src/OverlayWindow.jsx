@@ -222,9 +222,7 @@ export default function OverlayWindow(props) {
                         onMcTextChange={(e) => { onMcTextChange(input.key, e.target.value) }}
                     />
                 });
-            console.log(displayVersion)
             return (displayVersion)
-
         }
 
         function addMcControls() {
