@@ -68,7 +68,7 @@ export default function Flashcard(props) {
             let tempKey = 1;
             for (let i in props.flashcardContent.multipleChoiceAnswers) {
                 choices.push(
-                    <MultipleChoiceOption checkAction={(guess) => updateGuessChecked(() => guess)} counter={tempKey} key={tempKey} iText={flashcardContent.multipleChoiceAnswers[i]["mca"]} />
+                    <MultipleChoiceOption tabIndex={props.overlayTabIndex} checkAction={(guess) => updateGuessChecked(() => guess)} counter={tempKey} key={tempKey} iText={flashcardContent.multipleChoiceAnswers[i]["mca"]} />
                 )
                 tempKey += 1;
             }

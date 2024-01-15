@@ -11,7 +11,7 @@ export default function (props) {
 
     return (
         <div className="horizontal-container-njs">
-            <input className="wh-1 self-center " aria-label="Check if correct" defaultChecked={startChecked} onClick={() => radioChecked(props.counter)} type="radio" name="mc-option-radio"></input>
+            <input className="wh-1 self-center " tabIndex={props.tabIndex} aria-label="Check if correct" defaultChecked={startChecked} onClick={() => radioChecked(props.counter)} type="radio" name="mc-option-radio"></input>
             <p>{props.iText}</p>
         </div>
     )
