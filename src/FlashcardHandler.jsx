@@ -296,22 +296,22 @@ export default function FlashcardHandler() {
     }, [stateFlashcards]);
 
     return (
-        <>
+        <main>
             {renderOverlay()}
 
             {/* functions for program control are passed into the component */}
-            <div className="flashcard-handler">
+            <section className="flashcard-handler">
                 <Flashcard extraClasses={``} prev={prevCard} next={nextCard} flashcardContent={stateFlashcards[flashcardNum]} flashcardNum={flashcardNum} amountOfFlashcards={amountOfFlashcards} statUpdate={statUpdate} overlayTabIndex={overlayTabIndex} />
-            </div>
+            </section>
 
             {/* these buttons should have labels going upwards and open a centered large closable window over the rest of the content */}
-            <div className="control-bar responsive-width">
+            <section className="control-bar responsive-width">
                 <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("create")}>Create/Edit</button>
                 <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={saveCards}>Save</button>
                 <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("load")}>Load</button>
                 <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("stats")}>Stats</button>
                 <button className="control-button ft-3" tabIndex={overlayTabIndex} onClick={() => updateOverlayMode("about")}>About</button>
-            </div>
-        </>
+            </section>
+        </main>
     )
 }

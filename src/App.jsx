@@ -7,7 +7,9 @@ function App() {
 
   return (
     <>
-      <h1 className='text-white ft-5 app-title'>Flashcards</h1>
+      <header>
+        <h1 className='text-white ft-5 app-title'>Flashcards</h1>
+      </header>
       <FlashcardHandler />
     </>
   )
