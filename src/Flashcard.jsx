@@ -76,9 +76,10 @@ export default function Flashcard(props) {
             return (
                 <>
                     <span className="divider-line"></span>
-                    <form className="text-white ft-3 mutliple-choice">
+                    <fieldset className="text-white ft-3 mutliple-choice">
+                        <legend className="ft-1 my-1">Tick the correct answer</legend>
                         {choices}
-                    </form>
+                    </fieldset>
                 </>)
         }
     }

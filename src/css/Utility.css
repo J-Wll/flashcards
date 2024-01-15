@@ -22,6 +22,10 @@ button {
     min-height: 35px;
 }
 
+fieldset {
+    border:none;
+}
+
 .text-white {
     color: white;
 }
@@ -41,6 +45,10 @@ button {
 
 .mb-0 {
     margin-bottom: 0;
+}
+
+.mb-1 {
+    margin-bottom: 5px;
 }
 
 .my-1 {

@@ -205,8 +205,11 @@ export default function OverlayWindow(props) {
 
                 return (
                     <>
-                        <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
-                        {getComponentOptions()}
+                        <fieldset>
+                            <legend className="text-white ft-1 allign-left" >Check the button of the correct answer</legend>
+                            {getComponentOptions()}
+                        </fieldset>
+
                         <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
                     </>
                 )
