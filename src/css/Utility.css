@@ -17,6 +17,9 @@ button {
     color: black;
     padding-left: 5px;
     padding-right: 5px;
+
+    /* tap target */
+    min-height: 35px;
 }
 
 .text-white {
