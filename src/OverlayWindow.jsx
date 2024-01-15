@@ -206,8 +206,8 @@ export default function OverlayWindow(props) {
                 return (
                     <>
                         <p className="text-white ft-1 allign-left" >Check the button of the correct answer</p>
-                        <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
                         {getComponentOptions()}
+                        <button className="ft-3 overlay-button responsive-width self-center" onClick={addMcOption}>Add option</button>
                     </>
                 )
             }
@@ -243,9 +243,9 @@ export default function OverlayWindow(props) {
         return (
             <>
                 <div className="horizontal-container">
-                    <button className="ft-3" aria-label="Create mode" onClick={createMode}>Create</button>
-                    <span className="text-white ft-3"> | </span>
-                    <button className="ft-3" aria-label="Edit mode" onClick={() => editMode(localFlashcardNum)}>Edit</button>
+                    <button className="ft-2" aria-label="Create mode" onClick={createMode}>Create mode</button>
+                    <span className="text-white ft-2"> | </span>
+                    <button className="ft-2" aria-label="Edit mode" onClick={() => editMode(localFlashcardNum)}>Edit mode</button>
                 </div>
 
                 <div className="overlay-input-section">
@@ -269,7 +269,7 @@ export default function OverlayWindow(props) {
                     {/* adds controls for adding multiple choice questions */}
                     {addMcControls()}
 
-                    <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit}</button>
+                    <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit} card</button>
                 </div>
             </>
         )
