@@ -86,11 +86,13 @@ export default function Flashcard(props) {
 
     function localPrevCard() {
         props.prev();
+        cardSide === "back" ? flipCard() : null
         updateGuessChecked(() => 1)
     }
 
     function localNextCard() {
         props.next()
+        cardSide === "back" ? flipCard() : null
         updateGuessChecked(() => 1)
     }
 
