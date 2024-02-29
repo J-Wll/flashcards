@@ -11,3 +11,5 @@ To run locally:
 -"npm install" in the directory
 
 -"npm run dev" to start it with vite
+
+-"npm run build" to create a production version (With just a html, css and js file)
