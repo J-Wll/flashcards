@@ -30,6 +30,8 @@ export default function OverlayWindow(props) {
     function createEditCardWindow() {
         // Create or edit mode
         const [createOrEdit, updateCreateOrEdit] = useState("Create")
+        // Feedback after change
+        const [doneText, updateDoneText] = useState("");
         // References for front and back
         const frontRef = useRef(null);
         const backRef = useRef(null);
@@ -75,7 +77,14 @@ export default function OverlayWindow(props) {
             } else {
                 args = [frontRef.current.value, backRef.current.value]
             }
-            createOrEdit === "Create" ? props.createCards(...args) : props.editCard(...args)
+            if (createOrEdit === "Create") {
+                props.createCards(...args);
+                updateDoneText("Card Created");
+            }
+            else {
+                props.editCard(...args);
+                updateDoneText("Card Edited");
+            }
         }
 
         function editMode(localFlashcardNum) {
@@ -273,6 +282,7 @@ export default function OverlayWindow(props) {
                     {addMcControls()}
 
                     <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit} card</button>
+                    <p className="text-white ft-3">{doneText}</p>
                 </div>
             </>
         )
