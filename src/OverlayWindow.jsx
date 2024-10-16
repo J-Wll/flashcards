@@ -282,7 +282,7 @@ export default function OverlayWindow(props) {
                     {addMcControls()}
 
                     <button className="ft-3 overlay-button responsive-width self-center" onClick={callCreateOrEdit}>{createOrEdit} card</button>
-                    <p className="text-white ft-3">{doneText}</p>
+                    <p className="text-green ft-3">{doneText}</p>
                 </div>
             </>
         )
