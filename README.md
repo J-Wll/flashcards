@@ -1,4 +1,4 @@
-Flashcard website, made in React. Hosted at: https://j-wll.github.io/flashcards-pages/
+Flashcard website, made in React. Hosted at: https://j-wll.github.io/flashcards/
 
 To run locally:
 
